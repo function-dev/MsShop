@@ -1,0 +1,194 @@
+// vars
+
+@black: #1A1A1A;
+@blue: #1EBFFF;
+
+@title: 30px;
+@subtitle: 22px;
+@regular: 14px;
+@little: 12px;
+
+// /vars
+
+// fonts
+
+@font-face {
+    src: url("../fonts/Inter-Regular.ttf");
+
+    font-family: "inter", sans-serif;
+    font-weight: 400;
+}
+
+@font-face {
+    src: url("../fonts/Inter-SemiBold.ttf");
+
+    font-family: "inter", sans-serif;
+    font-weight: 700;
+}
+
+@font-face {
+    src: url("../fonts/Inter-Thin.ttf");
+
+    font-family: "inter", sans-serif;
+    font-weight: 100;
+}
+
+// /fonts
+
+// reset css
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+ul[class],
+ol[class] {
+    padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+}
+
+ul[class],
+ol[class] {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+article > * + * {
+    margin-top: 1em;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+// /reset css
+
+// option
+
+.container {
+    padding: 0 15px;
+}
+
+@media (min-width: 576px){
+    .container {
+        max-width: 540px;
+        margin: auto;
+        padding: 0;
+    }
+}
+
+@media (min-width: 768px){
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px){
+    .container {
+        max-width: 1140px;
+    }
+}
+
+*{
+    font-family: "inter", sans-serif;
+}
+
+h1,h2,h3{
+    font-weight: 700;
+}
+
+h1{
+    font-size: @title;
+}
+
+h2{
+    font-size: @title;
+}
+
+h3{
+    font-size: @subtitle;
+}
+
+.light{
+    font-size: @little;
+    font-weight: 100;
+}
+
+// /option
+
+// header
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+}
+
+.header__nav{
+    display: flex;
+    align-items: center;
+}
+
+.header__nav-item{
+    margin-left: 24px;
+    font-size: @subtitle;
+    color: @black;
+}
+
+.header__nav-item:first-child{
+    margin-left: 0;
+}
+
+// /header
