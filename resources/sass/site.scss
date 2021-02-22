@@ -1,37 +1,18 @@
 // vars
 
-@black: #1A1A1A;
-@blue: #1EBFFF;
+$black: #1A1A1A;
+$blue: #1EBFFF;
 
-@title: 30px;
-@subtitle: 22px;
-@regular: 14px;
-@little: 12px;
+$title: 30px;
+$subtitle: 22px;
+$regular: 14px;
+$little: 12px;
 
 // /vars
 
 // fonts
 
-@font-face {
-    src: url("../fonts/Inter-Regular.ttf");
-
-    font-family: "inter", sans-serif;
-    font-weight: 400;
-}
-
-@font-face {
-    src: url("../fonts/Inter-SemiBold.ttf");
-
-    font-family: "inter", sans-serif;
-    font-weight: 700;
-}
-
-@font-face {
-    src: url("../fonts/Inter-Thin.ttf");
-
-    font-family: "inter", sans-serif;
-    font-weight: 100;
-}
+@import "fonts.scss";
 
 // /fonts
 
@@ -149,19 +130,19 @@ h1,h2,h3{
 }
 
 h1{
-    font-size: @title;
+    font-size: $title;
 }
 
 h2{
-    font-size: @title;
+    font-size: $title;
 }
 
 h3{
-    font-size: @subtitle;
+    font-size: $subtitle;
 }
 
 .light{
-    font-size: @little;
+    font-size: $little;
     font-weight: 100;
 }
 
@@ -174,21 +155,21 @@ h3{
     justify-content: space-between;
     align-items: center;
     height: 60px;
-}
 
-.header__nav{
-    display: flex;
-    align-items: center;
-}
+    .header__nav{
+        display: flex;
+        align-items: center;
 
-.header__nav-item{
-    margin-left: 24px;
-    font-size: @subtitle;
-    color: @black;
-}
+        .header__nav-item{
+            margin-left: 24px;
+            font-size: $subtitle;
+            color: $black;
 
-.header__nav-item:first-child{
-    margin-left: 0;
+            .header__nav-item:first-child{
+                margin-left: 0;
+            }
+        }
+    }
 }
 
 // /header

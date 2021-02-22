@@ -1,0 +1,168 @@
+@font-face {
+  src: url(/fonts/Inter-Regular.ttf?515cae74eee4925d56e6ac70c25fc0f6);
+  font-family: "inter", sans-serif;
+  font-weight: 400;
+}
+
+@font-face {
+  src: url(/fonts/Inter-SemiBold.ttf?ec60b23f3405050f546f4765a9e90fec);
+  font-family: "inter", sans-serif;
+  font-weight: 700;
+}
+
+@font-face {
+  src: url(/fonts/Inter-Thin.ttf?35b7cf4cc47ac526b745c7c29d885f60);
+  font-family: "inter", sans-serif;
+  font-weight: 100;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+article > * + * {
+  margin-top: 1em;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    -webkit-animation-duration: 0.01ms !important;
+            animation-duration: 0.01ms !important;
+    -webkit-animation-iteration-count: 1 !important;
+            animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.container {
+  padding: 0 15px;
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+    margin: auto;
+    padding: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+* {
+  font-family: "inter", sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 30px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+h3 {
+  font-size: 22px;
+}
+
+.light {
+  font-size: 12px;
+  font-weight: 100;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+}
+
+.header .header__nav {
+  display: flex;
+  align-items: center;
+}
+
+.header .header__nav .header__nav-item {
+  margin-left: 24px;
+  font-size: 22px;
+  color: #1A1A1A;
+}
+
+.header .header__nav .header__nav-item .header__nav-item:first-child {
+  margin-left: 0;
+}
+
