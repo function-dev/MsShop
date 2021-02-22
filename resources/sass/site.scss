@@ -2,6 +2,7 @@
 
 $black: #1A1A1A;
 $blue: #1EBFFF;
+$white: #FFFFFF;
 
 $title: 30px;
 $subtitle: 22px;
@@ -155,6 +156,11 @@ h3{
     justify-content: space-between;
     align-items: center;
     height: 60px;
+    border-bottom: 1px solid #BDBDBD;
+
+    .header-title{
+        color: $black;
+    }
 
     .header__nav{
         display: flex;
@@ -164,12 +170,119 @@ h3{
             margin-left: 24px;
             font-size: $subtitle;
             color: $black;
+            transition: color 0.3s ease;
 
-            .header__nav-item:first-child{
+            &:first-child{
                 margin-left: 0;
+            }
+
+            &:hover{
+                color: $blue;
+                transition: color 0.3s ease;
+            }
+
+            .header__nav-link{
+                color: inherit;
+                font-weight: 700;
+            }
+        }
+    }
+
+    .header__nav-mobile{
+        display: none;
+    }
+}
+
+.blur-bg{
+    display: none;
+}
+
+@media (max-width: 992px) {
+    .header {
+        .header__nav {
+            display: none;
+        }
+
+        .header__nav-mobile{
+            display: unset;
+        }
+    }
+
+    .blur-bg{
+        top: 0;
+        display: unset;
+        position: fixed;
+        height: 100vh;
+        width: 100%;
+        backdrop-filter: blur(5px);
+        z-index: 100;
+    }
+
+    .mobile-menu{
+        height: 100vh;
+        width: 50%;
+        position: fixed;
+        background: $black;
+        right: 0;
+        top: 0;
+        z-index: 110;
+        padding: 20px;
+        color: $white;
+
+        .mobile-header{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mobile__nav{
+            margin-top: 32px;
+
+            .mobile__nav-item{
+                margin-bottom: 8px;
+
+                .mobile__nav-link{
+                    font-size: 22px;
+                    color: $white;
+                }
             }
         }
     }
 }
 
+@media (max-width: 600px) {
+    .mobile-menu {
+        width: 80%;
+    }
+}
+
 // /header
+
+// banner
+
+.banner-min{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width: 100%;
+
+    .banner-img{
+        width: inherit;
+        object-fit: cover;
+        height: 100px;
+    }
+
+    .banner-title{
+        position: absolute;
+        margin-top: 30px;
+        margin-left: 20px;
+        color: $white;
+    }
+}
+
+// / banner
+
+// catalog
+
+
+
+// /catalog
