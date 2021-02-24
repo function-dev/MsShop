@@ -1,3 +1,18 @@
+// import
+
+@import "vue-select/src/scss/vue-select.scss";
+@import "fonts.scss";
+
+// /import
+
+// function
+
+@function grid($n) {
+    @return 'display: grid; grid-template-rows: repeat(' $n ', auto);' ;
+}
+
+// /function
+
 // vars
 
 $black: #1A1A1A;
@@ -10,12 +25,6 @@ $regular: 14px;
 $little: 12px;
 
 // /vars
-
-// fonts
-
-@import "fonts.scss";
-
-// /fonts
 
 // reset css
 
@@ -36,8 +45,6 @@ h2,
 h3,
 h4,
 p,
-ul[class],
-ol[class],
 li,
 figure,
 figcaption,
@@ -147,6 +154,23 @@ h3{
     font-weight: 100;
 }
 
+.btn-black{
+    background: $black;
+    color: $white;
+    padding: 4px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    border-radius: 2px;
+    transition: background .3s ease;
+
+    &:hover{
+        background: $blue;
+        transition: background .3s ease;
+    }
+}
+
 // /option
 
 // header
@@ -194,7 +218,18 @@ h3{
 }
 
 .blur-bg{
-    display: none;
+    top: 0;
+    right: 0;
+    display: unset;
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    backdrop-filter: blur(5px);
+    z-index: 100;
+}
+
+.close-menu{
+    cursor: pointer;
 }
 
 @media (max-width: 992px) {
@@ -206,16 +241,6 @@ h3{
         .header__nav-mobile{
             display: unset;
         }
-    }
-
-    .blur-bg{
-        top: 0;
-        display: unset;
-        position: fixed;
-        height: 100vh;
-        width: 100%;
-        backdrop-filter: blur(5px);
-        z-index: 100;
     }
 
     .mobile-menu{
@@ -262,7 +287,6 @@ h3{
 
 .banner-min{
     margin-top: 50px;
-    margin-bottom: 50px;
     width: 100%;
 
     .banner-img{
@@ -282,6 +306,106 @@ h3{
 // / banner
 
 // catalog
+
+.block{
+    margin-top: 50px;
+}
+
+.block-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #BDBDBD;
+}
+
+.block-header-sort{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.block-title{
+    color: $black;
+}
+
+.block-dd{
+    width: 200px;
+    margin-left: 32px;
+
+    .v-select{
+        width: inherit;
+
+        .vs__dropdown-toggle{
+            width: inherit;
+            border: 1px solid $black;
+            color: $black;
+            font-size: 14px;
+            border-radius: 2px;
+        }
+    }
+}
+
+.catalog-menu{
+    height: 100vh;
+    width: 50%;
+    position: fixed;
+    background: $black;
+    right: 0;
+    top: 0;
+    z-index: 110;
+    padding: 20px;
+    color: $white;
+}
+
+.catalog-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .catalog-options{
+        font-size: $subtitle;
+        margin-top: 32px;
+        padding: 0 16px;
+        cursor: pointer;
+        user-select: none;
+    }
+}
+
+.catalog__list{
+    margin-top: 24px;
+}
+
+.catalog__list-item{
+    margin-bottom: 16px;
+}
+
+@media (max-width: 580px) {
+    .block {
+        margin-top: 50px;
+    }
+    .block-header {
+        flex-wrap: wrap;
+
+        .block-header-sort{
+            width: 100%;
+        }
+    }
+
+    .block-dd{
+        width: 157px;
+        margin-left: 0;
+        font-size: 12px;
+
+        .vs__selected{
+            font-size: 12px;
+        }
+    }
+
+    .block-btn{
+        width: 100%;
+    }
+}
 
 
 

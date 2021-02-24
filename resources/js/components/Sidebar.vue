@@ -17,7 +17,7 @@
                         <a href="#" class="header__nav-link">Таблица размеров</a>
                     </li>
                 </ul>
-                <img src="img/menu.svg" alt="menu" class="header__nav-mobile" v-on:click="openMenu()">
+                <img src="img/menu.svg" alt="menu" class="header__nav-mobile" v-on:click="openMenu">
             </header>
         </div>
 
@@ -34,22 +34,25 @@ export default {
     data() {
         return {
             menu: 0,
+            outside: 0,
         }
     },
     methods: {
         openMenu(){
             this.menu = 1;
         },
+
         closeMenu(){
             this.menu = 0;
-        }
+            this.outside = 0
+        },
     }
 }
 </script>
 
 <style>
 .slide-enter-active, .slide-leave-active {
-    transition: opacity .2s;
+    transition: opacity .1s;
 }
 .slide-enter, .slide-leave-to /* .fade-leave-active до версии 2.1.8 */ {
     opacity: 0;

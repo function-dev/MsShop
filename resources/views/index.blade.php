@@ -7,6 +7,8 @@
             <h2 class="banner-title">MultiSport Shop</h2>
             <img src="{{ asset('img/Banner 1.png') }}" alt="banner img" class="banner-img">
         </div>
+
+        <catalog-component></catalog-component>
     </div>
 
 @endsection
