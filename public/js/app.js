@@ -1994,6 +1994,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CatalogComponent",
   data: function data() {
@@ -2012,10 +2015,13 @@ __webpack_require__.r(__webpack_exports__);
       this.catalog = 1;
     },
     closeCatalog: function closeCatalog() {
+      this.catalogArr = [];
       this.catalog = 0;
       this.outside = 0;
     },
     outsideClose: function outsideClose() {
+      this.catalogArr = [];
+
       if (this.outside == 0) {
         this.outside = 1;
       } else if (this.outside == 1) {
@@ -38629,6 +38635,8 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
+                      _c("span", { staticClass: "catalog__list-indicator" }),
+                      _vm._v(" "),
                       _c(
                         "label",
                         {
@@ -38654,6 +38662,8 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
+                      _c("span", { staticClass: "catalog__list-indicator" }),
+                      _vm._v(" "),
                       _c(
                         "label",
                         {
@@ -38665,7 +38675,11 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("p", [_vm._v(_vm._s(_vm.catalogArr))])
+                  _c("p", [_vm._v(_vm._s(_vm.catalogArr))]),
+                  _vm._v(" "),
+                  _c("button", { staticClass: "catalog-btn btn-white" }, [
+                    _vm._v("Показать")
+                  ])
                 ]
               )
             ])

@@ -171,6 +171,24 @@ h3{
     }
 }
 
+.btn-white{
+    background: $white;
+    color: $black;
+    padding: 4px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    border-radius: 2px;
+    transition: background .3s ease, color .3s ease;
+
+    &:hover{
+        background: $blue;
+        color: $white;
+        transition: background .3s ease, color .3s ease;
+    }
+}
+
 // /option
 
 // header
@@ -348,7 +366,7 @@ h3{
 
 .catalog-menu{
     height: 100vh;
-    width: 50%;
+    width: 30%;
     position: fixed;
     background: $black;
     right: 0;
@@ -378,18 +396,81 @@ h3{
 
 .catalog__list-item{
     margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+}
+
+.catalog__list-indicator{
+    content: ' ';
+    display: block;
+    width: 22px;
+    height: 22px;
+    border: 1px solid $white;
+    border-radius: 2px;
+    margin-right: 16px;
+}
+
+.catalog__list-checkbox{
+    display: none;
+
+    &:checked ~ .catalog__list-indicator{
+        content: url("../img/check.svg");
+        display: block;
+        width: 22px;
+        height: 22px;
+        border: 1px solid $white;
+        border-radius: 2px;
+        margin-right: 16px;
+    }
+}
+
+.catalog__list-label{
+    font-size: $subtitle;
+}
+
+.catalog-btn{
+    margin-top: 32px;
+    width: 300px;
+}
+
+@media (max-width: 1200px) {
+    .catalog-menu{
+        width: 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    .catalog-menu{
+        width: 80%;
+    }
 }
 
 @media (max-width: 580px) {
     .block {
         margin-top: 50px;
     }
+
     .block-header {
         flex-wrap: wrap;
 
         .block-header-sort{
             width: 100%;
         }
+    }
+
+    .catalog-menu{
+        width: 100%;
+    }
+
+    .catalog-header{
+
+        .catalog-options{
+            padding: 0;
+        }
+    }
+
+    .catalog-btn{
+        width: 260px;
     }
 
     .block-dd{

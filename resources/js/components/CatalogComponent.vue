@@ -23,14 +23,17 @@
                     <ul class="catalog__list">
                         <li class="catalog__list-item">
                             <input type="checkbox" id="catalog-1" class="catalog__list-checkbox" value="123" v-on:change="catalogList('123')">
+                            <span class="catalog__list-indicator"></span>
                             <label for="catalog-1" class="catalog__list-label">123</label>
                         </li>
                         <li class="catalog__list-item">
                             <input type="checkbox" id="catalog-2" class="catalog__list-checkbox" value="456" v-on:change="catalogList('456')">
+                            <span class="catalog__list-indicator"></span>
                             <label for="catalog-2" class="catalog__list-label">456</label>
                         </li>
                     </ul>
                     <p>{{catalogArr}}</p>
+                    <button class="catalog-btn btn-white">Показать</button>
                 </div>
             </div>
         </transition>
@@ -58,11 +61,13 @@ export default {
         },
 
         closeCatalog(){
+            this.catalogArr = []
             this.catalog = 0
             this.outside = 0
         },
 
         outsideClose(){
+            this.catalogArr = []
             if (this.outside == 0){
                 this.outside = 1
             } else if (this.outside == 1){
