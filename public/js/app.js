@@ -1997,6 +1997,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CatalogComponent",
   data: function data() {
@@ -38684,12 +38701,33 @@ var render = function() {
               )
             ])
           : _vm._e()
-      ])
+      ]),
+      _vm._v(" "),
+      _vm._m(0)
     ],
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "products" }, [
+      _c("div", { staticClass: "products-item" }, [
+        _c("div", { staticClass: "products__body" })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "products-item" }, [
+        _c("div", { staticClass: "products__body" })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "products-item" }, [
+        _c("div", { staticClass: "products__body" })
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -38825,18 +38863,13 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm.menu == 1 ? _c("div", { staticClass: "blur-bg" }) : _vm._e(),
+      _c("transition", { attrs: { name: "slide" } }, [
+        _vm.menu == 1 ? _c("div", { staticClass: "blur-bg" }) : _vm._e()
+      ]),
       _vm._v(" "),
-      _c(
-        "transition",
-        { attrs: { name: "slide" } },
-        [
-          _vm.menu == 1
-            ? _c("mobile-menu", { on: { "close-menu": _vm.closeMenu } })
-            : _vm._e()
-        ],
-        1
-      )
+      _vm.menu == 1
+        ? _c("mobile-menu", { on: { "close-menu": _vm.closeMenu } })
+        : _vm._e()
     ],
     1
   )

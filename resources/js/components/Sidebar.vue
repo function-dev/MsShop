@@ -21,10 +21,10 @@
             </header>
         </div>
 
-        <div class="blur-bg" v-if="menu == 1"></div>
         <transition name="slide">
-            <mobile-menu v-if="menu == 1" @close-menu="closeMenu"></mobile-menu>
+            <div class="blur-bg" v-if="menu == 1"></div>
         </transition>
+        <mobile-menu v-if="menu == 1" @close-menu="closeMenu"></mobile-menu>
     </div>
 </template>
 
@@ -49,6 +49,8 @@ export default {
     }
 }
 </script>
+
+
 
 <style>
 .slide-enter-active, .slide-leave-active {

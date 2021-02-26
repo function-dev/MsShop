@@ -37,6 +37,23 @@
                 </div>
             </div>
         </transition>
+        <div class="products">
+            <div class="products-item">
+                <div class="products__body">
+
+                </div>
+            </div>
+            <div class="products-item">
+                <div class="products__body">
+
+                </div>
+            </div>
+            <div class="products-item">
+                <div class="products__body">
+
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 

@@ -786,6 +786,27 @@ h3 {
   width: 300px;
 }
 
+.products {
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  margin-bottom: 36px;
+}
+
+.products .products-item {
+  height: 360px;
+  padding: 30px;
+  border-bottom: 1px dashed #BDBDBD;
+}
+
+.products .products-item:nth-child(2n+1) {
+  border-right: 1px dashed #BDBDBD;
+}
+
+.products .products-item .products__body {
+  background: #1A1A1A;
+  height: 100%;
+}
+
 @media (max-width: 1200px) {
   .catalog-menu {
     width: 50%;

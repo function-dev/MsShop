@@ -9,6 +9,8 @@
         </div>
 
         <catalog-component></catalog-component>
+
+
     </div>
 
 @endsection

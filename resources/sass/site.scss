@@ -8,7 +8,7 @@
 // function
 
 @function grid($n) {
-    @return 'display: grid; grid-template-rows: repeat(' $n ', auto);' ;
+    @return repeat($n, 100% / $n) ;
 }
 
 // /function
@@ -431,6 +431,27 @@ h3{
 .catalog-btn{
     margin-top: 32px;
     width: 300px;
+}
+
+.products{
+    display: grid;
+    grid-template-columns: grid(2);
+    margin-bottom: 36px;
+
+    .products-item{
+        height: 360px;
+        padding: 30px;
+        border-bottom: 1px dashed #BDBDBD;
+
+        &:nth-child(2n + 1){
+            border-right: 1px dashed #BDBDBD;
+        }
+
+        .products__body{
+            background: $black;
+            height: 100%;
+        }
+    }
 }
 
 @media (max-width: 1200px) {
