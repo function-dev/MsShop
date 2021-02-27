@@ -62,6 +62,7 @@ export default {
             outside: 0,
             catalogArr: [],
             collectionList:[],
+            hostname: location.protocol + '//' + location.hostname + ':8000',
         }
     },
     methods: {
@@ -132,7 +133,7 @@ export default {
         },
 
         getCollectionList(){
-            return axios.get('http://127.0.0.1:8000/api/collectionList').then((data)=>this.collectionList = data.data)
+            return axios.get(this.hostname + '/api/collectionList').then((data)=>this.collectionList = data.data);
         },
     },
     async  beforeMount() {

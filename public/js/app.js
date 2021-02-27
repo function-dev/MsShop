@@ -2037,7 +2037,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       catalog: 0,
       outside: 0,
       catalogArr: [],
-      collectionList: []
+      collectionList: [],
+      hostname: location.protocol + '//' + location.hostname + ':8000'
     };
   },
   methods: {
@@ -2100,7 +2101,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     getCollectionList: function getCollectionList() {
       var _this = this;
 
-      return axios.get('http://127.0.0.1:8000/api/collectionList').then(function (data) {
+      return axios.get(this.hostname + '/api/collectionList').then(function (data) {
         return _this.collectionList = data.data;
       });
     }
