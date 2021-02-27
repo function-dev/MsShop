@@ -551,6 +551,22 @@ h3 {
   transition: background 0.3s ease, color 0.3s ease;
 }
 
+.blur-bg {
+  top: 0;
+  right: 0;
+  display: unset;
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  z-index: 100;
+}
+
+.close-menu {
+  cursor: pointer;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -591,22 +607,6 @@ h3 {
 
 .header .header__nav-mobile {
   display: none;
-}
-
-.blur-bg {
-  top: 0;
-  right: 0;
-  display: unset;
-  position: fixed;
-  height: 100vh;
-  width: 100%;
-  -webkit-backdrop-filter: blur(5px);
-          backdrop-filter: blur(5px);
-  z-index: 100;
-}
-
-.close-menu {
-  cursor: pointer;
 }
 
 @media (max-width: 992px) {
@@ -653,6 +653,52 @@ h3 {
 @media (max-width: 600px) {
   .mobile-menu {
     width: 80%;
+  }
+}
+
+.footer__pay {
+  border-top: 1px solid #BDBDBD;
+  padding-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 48px;
+}
+
+.footer__pay-block {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.footer__bottom {
+  margin-top: 48px;
+  background-color: #1a1a1a;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+}
+
+.footer__bottom-text {
+  color: #fff;
+  font-size: 12px;
+  margin-right: 8px;
+}
+
+@media (max-width: 567px) {
+  .footer__pay {
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .footer__pay-text {
+    margin-bottom: 16px;
+    text-align: center;
+  }
+
+  .footer__pay-block {
+    justify-content: center;
   }
 }
 
@@ -813,9 +859,37 @@ h3 {
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 991px) {
+  .products {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    margin-bottom: 36px;
+  }
+
+  .products .products-item {
+    height: 550px;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 767px) {
   .catalog-menu {
     width: 80%;
+  }
+
+  .products {
+    display: grid;
+    grid-template-columns: repeat(1, 100%);
+    margin-bottom: 36px;
+  }
+
+  .products .products-item {
+    height: 500px;
+    padding: 15px 0;
+  }
+
+  .products .products-item:nth-child(2n+1) {
+    border-right: none;
   }
 }
 
