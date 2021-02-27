@@ -21,15 +21,10 @@
                         <p class="catalog-options" @click="hideAll">Убрать все</p>
                     </div>
                     <ul class="catalog__list">
-                        <li class="catalog__list-item">
-                            <input type="checkbox" id="catalog-1" class="catalog__list-checkbox" value="123" v-on:change="catalogList('123')">
+                        <li class="catalog__list-item" v-for="item in collectionList">
+                            <input type="checkbox" :id="'catalog-' + item.id" class="catalog__list-checkbox" :value="item.name" v-on:change="catalogList(item.name)">
                             <span class="catalog__list-indicator"></span>
-                            <label for="catalog-1" class="catalog__list-label">123</label>
-                        </li>
-                        <li class="catalog__list-item">
-                            <input type="checkbox" id="catalog-2" class="catalog__list-checkbox" value="456" v-on:change="catalogList('456')">
-                            <span class="catalog__list-indicator"></span>
-                            <label for="catalog-2" class="catalog__list-label">456</label>
+                            <label :for="'catalog-' + item.id" class="catalog__list-label">{{item.name}}</label>
                         </li>
                     </ul>
                     <p>{{catalogArr}}</p>
@@ -66,6 +61,7 @@ export default {
             catalog: 0,
             outside: 0,
             catalogArr: [],
+            collectionList:[],
         }
     },
     methods: {
@@ -134,7 +130,14 @@ export default {
                 }
             }
         },
-    }
+
+        getCollectionList(){
+            return axios.get('http://127.0.0.1:8000/api/collectionList').then((data)=>this.collectionList = data.data)
+        },
+    },
+    async  beforeMount() {
+        await this.getCollectionList()
+    },
 }
 </script>
 
