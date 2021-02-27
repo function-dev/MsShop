@@ -2029,22 +2029,86 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CatalogComponent",
   data: function data() {
     return {
-      selected: 'По умолчанию',
       catalog: 0,
       outside: 0,
       catalogArr: [],
       collectionList: [],
-      hostname: location.protocol + '//' + location.hostname + ':8000'
+      hostname: location.protocol + '//' + location.hostname + ':8000',
+      size: ['123']
     };
   },
   methods: {
-    setSelected: function setSelected(value) {
-      this.selected = value;
-    },
     openCatalog: function openCatalog() {
       this.catalog = 1;
     },
@@ -2098,12 +2162,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       }
     },
+    checkbox: function checkbox(id, value) {
+      var checkbox = document.getElementById('catalog-' + id);
+      this.catalogList(value);
+
+      if (checkbox.checked == false) {
+        checkbox.checked = true;
+      } else {
+        checkbox.checked = false;
+      }
+    },
     getCollectionList: function getCollectionList() {
       var _this = this;
 
       return axios.get(this.hostname + '/api/collectionList').then(function (data) {
         return _this.collectionList = data.data;
       });
+    },
+    switchSize: function switchSize(value, i) {
+      Vue.set(this.size, i, value);
     }
   },
   beforeMount: function beforeMount() {
@@ -6760,7 +6837,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.slide-enter-active, .slide-leave-active {\r\n    transition: opacity .1s;\n}\n.slide-enter, .slide-leave-to /* .fade-leave-active до версии 2.1.8 */ {\r\n    opacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.slide-enter-active, .slide-leave-active {\n    transition: opacity .1s;\n}\n.slide-enter, .slide-leave-to /* .fade-leave-active до версии 2.1.8 */ {\n    opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -39397,24 +39474,7 @@ var render = function() {
     { staticClass: "block" },
     [
       _c("div", { staticClass: "block-header" }, [
-        _c("div", { staticClass: "block-header-sort" }, [
-          _c("h2", { staticClass: "block-title" }, [_vm._v("Каталог")]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "block-dd" },
-            [
-              _c("v-select", {
-                attrs: {
-                  value: _vm.selected,
-                  options: ["По умолчанию", "Большая цена", "Меньшая цена"]
-                },
-                on: { input: _vm.setSelected }
-              })
-            ],
-            1
-          )
-        ]),
+        _vm._m(0),
         _vm._v(" "),
         _c(
           "button",
@@ -39489,7 +39549,14 @@ var render = function() {
                           }
                         }),
                         _vm._v(" "),
-                        _c("span", { staticClass: "catalog__list-indicator" }),
+                        _c("span", {
+                          staticClass: "catalog__list-indicator",
+                          on: {
+                            click: function($event) {
+                              return _vm.checkbox(item.id, item.name)
+                            }
+                          }
+                        }),
                         _vm._v(" "),
                         _c(
                           "label",
@@ -39504,8 +39571,6 @@ var render = function() {
                     0
                   ),
                   _vm._v(" "),
-                  _c("p", [_vm._v(_vm._s(_vm.catalogArr))]),
-                  _vm._v(" "),
                   _c("button", { staticClass: "catalog-btn btn-white" }, [
                     _vm._v("Показать")
                   ])
@@ -39515,7 +39580,313 @@ var render = function() {
           : _vm._e()
       ]),
       _vm._v(" "),
-      _vm._m(0)
+      _c("div", { staticClass: "products" }, [
+        _c("div", { staticClass: "products-item" }, [
+          _c("div", { staticClass: "products-body" }, [
+            _c("div", { staticClass: "products-body-info" }, [
+              _c("h3", { staticClass: "products-title" }, [
+                _vm._v('Футболка "lorem"')
+              ]),
+              _vm._v(" "),
+              _vm._m(1),
+              _vm._v(" "),
+              _c("p", { staticClass: "products-desc" }, [
+                _vm._v(
+                  "\n                        Чёрная брендированая футблока “lorem” для всех размеров\n                    "
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "products__size" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "products__size-item",
+                    class: { active: _vm.size[0] == "XXS" },
+                    on: {
+                      click: function($event) {
+                        return _vm.switchSize("XXS", 0)
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { staticClass: "products__size-value" }, [
+                      _vm._v("XXS")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "products__size-item",
+                    class: { active: _vm.size[0] == "XS" },
+                    on: {
+                      click: function($event) {
+                        return _vm.switchSize("XS", 0)
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { staticClass: "products__size-value" }, [
+                      _vm._v("XS")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "products__size-item",
+                    class: { active: _vm.size[0] == "S" },
+                    on: {
+                      click: function($event) {
+                        return _vm.switchSize("S", 0)
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { staticClass: "products__size-value" }, [
+                      _vm._v("S")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "products__size-item",
+                    class: { active: _vm.size[0] == "M" },
+                    on: {
+                      click: function($event) {
+                        return _vm.switchSize("M", 0)
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { staticClass: "products__size-value" }, [
+                      _vm._v("M")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "products__size-item",
+                    class: { active: _vm.size[0] == "L" },
+                    on: {
+                      click: function($event) {
+                        return _vm.switchSize("L", 0)
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { staticClass: "products__size-value" }, [
+                      _vm._v("L")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "products__size-item",
+                    class: { active: _vm.size[0] == "XL" },
+                    on: {
+                      click: function($event) {
+                        return _vm.switchSize("XL", 0)
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { staticClass: "products__size-value" }, [
+                      _vm._v("XL")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "products__size-item",
+                    class: { active: _vm.size[0] == "XXL" },
+                    on: {
+                      click: function($event) {
+                        return _vm.switchSize("XXL", 0)
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { staticClass: "products__size-value" }, [
+                      _vm._v("XXL")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _vm._m(2)
+            ]),
+            _vm._v(" "),
+            _c("img", {
+              staticClass: "products-body-img",
+              attrs: { src: "img/products/test.png" }
+            })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "products-item" }, [
+          _c("div", { staticClass: "products-body" }, [
+            _c("div", { staticClass: "products-body-info" }, [
+              _c("h3", { staticClass: "products-title" }, [
+                _vm._v('Футболка "lorem"')
+              ]),
+              _vm._v(" "),
+              _vm._m(3),
+              _vm._v(" "),
+              _c("p", { staticClass: "products-desc" }, [
+                _vm._v(
+                  "\n                        Чёрная брендированая футблока “lorem” для всех размеров\n                    "
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "products__size" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "products__size-item",
+                    class: { active: _vm.size[1] == "XXS" },
+                    on: {
+                      click: function($event) {
+                        return _vm.switchSize("XXS", 1)
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { staticClass: "products__size-value" }, [
+                      _vm._v("XXS")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "products__size-item",
+                    class: { active: _vm.size[1] == "XS" },
+                    on: {
+                      click: function($event) {
+                        return _vm.switchSize("XS", 1)
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { staticClass: "products__size-value" }, [
+                      _vm._v("XS")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "products__size-item",
+                    class: { active: _vm.size[1] == "S" },
+                    on: {
+                      click: function($event) {
+                        return _vm.switchSize("S", 1)
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { staticClass: "products__size-value" }, [
+                      _vm._v("S")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "products__size-item",
+                    class: { active: _vm.size[1] == "M" },
+                    on: {
+                      click: function($event) {
+                        return _vm.switchSize("M", 1)
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { staticClass: "products__size-value" }, [
+                      _vm._v("M")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "products__size-item",
+                    class: { active: _vm.size[1] == "L" },
+                    on: {
+                      click: function($event) {
+                        return _vm.switchSize("L", 1)
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { staticClass: "products__size-value" }, [
+                      _vm._v("L")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "products__size-item",
+                    class: { active: _vm.size[1] == "XL" },
+                    on: {
+                      click: function($event) {
+                        return _vm.switchSize("XL", 1)
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { staticClass: "products__size-value" }, [
+                      _vm._v("XL")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "products__size-item",
+                    class: { active: _vm.size[1] == "XXL" },
+                    on: {
+                      click: function($event) {
+                        return _vm.switchSize("XXL", 1)
+                      }
+                    }
+                  },
+                  [
+                    _c("span", { staticClass: "products__size-value" }, [
+                      _vm._v("XXL")
+                    ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _vm._m(4)
+            ]),
+            _vm._v(" "),
+            _c("img", {
+              staticClass: "products-body-img",
+              attrs: { src: "img/products/test.png" }
+            })
+          ])
+        ])
+      ])
     ],
     1
   )
@@ -39525,18 +39896,64 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "products" }, [
-      _c("div", { staticClass: "products-item" }, [
-        _c("div", { staticClass: "products__body" })
+    return _c("div", { staticClass: "block-header-sort" }, [
+      _c("h2", { staticClass: "block-title" }, [_vm._v("Каталог")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "products__attribute" }, [
+      _c("p", { staticClass: "products__attribute-item" }, [
+        _vm._v("80% хлопок")
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "products-item" }, [
-        _c("div", { staticClass: "products__body" })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "products-item" }, [
-        _c("div", { staticClass: "products__body" })
+      _c("p", { staticClass: "products__attribute-item" }, [
+        _vm._v("20% полиэстер")
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "products__info" }, [
+      _c("p", { staticClass: "products__info-quantity" }, [
+        _vm._v("В наличии: 100+ шт.")
+      ]),
+      _vm._v(" "),
+      _c("h3", { staticClass: "products__info-price" }, [_vm._v("1330 ₽")]),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn-black" }, [_vm._v("Купить")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "products__attribute" }, [
+      _c("p", { staticClass: "products__attribute-item" }, [
+        _vm._v("80% хлопок")
+      ]),
+      _vm._v(" "),
+      _c("p", { staticClass: "products__attribute-item" }, [
+        _vm._v("20% полиэстер")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "products__info" }, [
+      _c("p", { staticClass: "products__info-quantity" }, [
+        _vm._v("В наличии: 100+ шт.")
+      ]),
+      _vm._v(" "),
+      _c("h3", { staticClass: "products__info-price" }, [_vm._v("1330 ₽")]),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn-black" }, [_vm._v("Купить")])
     ])
   }
 ]
@@ -52482,8 +52899,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\OpenServer\domains\msshop\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\OpenServer\domains\msshop\resources\sass\site.scss */"./resources/sass/site.scss");
+__webpack_require__(/*! F:\MsShop2\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! F:\MsShop2\resources\sass\site.scss */"./resources/sass/site.scss");
 
 
 /***/ })

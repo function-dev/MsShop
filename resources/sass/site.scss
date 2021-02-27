@@ -18,6 +18,7 @@
 $black: #1A1A1A;
 $blue: #1EBFFF;
 $white: #FFFFFF;
+$gray: #BDBDBD;
 
 $title: 30px;
 $subtitle: 22px;
@@ -213,7 +214,7 @@ h3{
     justify-content: space-between;
     align-items: center;
     height: 60px;
-    border-bottom: 1px solid #BDBDBD;
+    border-bottom: 1px solid $gray;
 
     .header-title{
         color: $black;
@@ -304,7 +305,7 @@ h3{
 // footer
 
 .footer__pay{
-    border-top: 1px solid #BDBDBD;
+    border-top: 1px solid $gray;
     padding-top: 32px;
     display: flex;
     justify-content: space-between;
@@ -320,7 +321,7 @@ h3{
 
 .footer__bottom{
     margin-top: 48px;
-    background-color: #1a1a1a;
+    background-color: $black;
     width: 100%;
     display: flex;
     align-items: center;
@@ -384,7 +385,7 @@ h3{
     justify-content: space-between;
     align-items: center;
     padding-bottom: 12px;
-    border-bottom: 1px solid #BDBDBD;
+    border-bottom: 1px solid $gray;
 }
 
 .block-header-sort{
@@ -395,23 +396,6 @@ h3{
 
 .block-title{
     color: $black;
-}
-
-.block-dd{
-    width: 200px;
-    margin-left: 32px;
-
-    .v-select{
-        width: inherit;
-
-        .vs__dropdown-toggle{
-            width: inherit;
-            border: 1px solid $black;
-            color: $black;
-            font-size: 14px;
-            border-radius: 2px;
-        }
-    }
 }
 
 .catalog-menu{
@@ -448,6 +432,7 @@ h3{
     margin-bottom: 16px;
     display: flex;
     align-items: center;
+    user-select: none;
 }
 
 .catalog__list-indicator{
@@ -458,6 +443,7 @@ h3{
     border: 1px solid $white;
     border-radius: 2px;
     margin-right: 16px;
+    cursor: pointer;
 }
 
 .catalog__list-checkbox{
@@ -476,6 +462,7 @@ h3{
 
 .catalog__list-label{
     font-size: $subtitle;
+    cursor: pointer;
 }
 
 .catalog-btn{
@@ -487,26 +474,102 @@ h3{
     display: grid;
     grid-template-columns: grid(2);
     margin-bottom: 36px;
+}
 
-    .products-item{
-        height: 360px;
-        padding: 30px;
-        border-bottom: 1px dashed #BDBDBD;
+.products-item{
+    padding: 30px;
+    border-bottom: 1px dashed $gray;
 
-        &:nth-child(2n + 1){
-            border-right: 1px dashed #BDBDBD;
-        }
-
-        .products__body{
-            background: $black;
-            height: 100%;
-        }
+    &:nth-child(2n + 1){
+        border-right: 1px dashed $gray;
     }
+}
+
+.products-body{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    height: 100%;
+}
+
+.products-body-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: inherit;
+}
+
+.products-title{
+    margin-bottom: 8px;
+}
+
+.products__attribute-item{
+    font-size: 12px;
+    margin-bottom: 8px;
+    color: $gray;
+    font-style: italic;
+}
+
+.products-desc{
+    font-size: 14px;
+}
+
+.products__size{
+    display: grid;
+    grid-template-columns: grid(5);
+}
+
+.products__size-item{
+    background: $black;
+    padding: 4px;
+    width: 32px;
+    text-align: center;
+    font-size: 12px;
+    color: $white;
+    margin-bottom: 4px;
+    font-weight: 700;
+    border-radius: 2px;
+    cursor: pointer;
+    user-select: none;
+    transition: background .3s ease;
+
+    &.active{
+        background: $blue!important;
+    }
+
+    &:hover{
+        background: $blue;
+        transition: background .3s ease;
+    }
+}
+
+.products__info{
+    display: grid;
+    grid-template-columns: grid(2);
+}
+
+.products__info-quantity{
+    grid-column: 2/3;
+    font-size: 12px;
+    margin-bottom: 4px;
+}
+
+.products-body-img{
+    border: 1px solid $black;
+    height: 274px;
+    width: 274px;
+    object-fit: cover;
+    margin-left: 8px;
 }
 
 @media (max-width: 1200px) {
     .catalog-menu{
         width: 50%;
+    }
+
+    .products-body-img{
+        height: 220px;
+        width: 220px;
     }
 }
 
@@ -521,6 +584,25 @@ h3{
             padding: 15px;
         }
     }
+
+    .products-body{
+        justify-content: center;
+        align-items: center;
+        flex-direction: column-reverse;
+    }
+
+    .products__size{
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .products__size-item{
+        margin-right: 4px;
+    }
+
+    .products-body-img{
+        margin-bottom: 8px;
+    }
 }
 
 @media (max-width: 767px) {
@@ -534,7 +616,6 @@ h3{
         margin-bottom: 36px;
 
         .products-item{
-            height: 500px;
             padding: 15px 0;
 
             &:nth-child(2n + 1){
@@ -570,16 +651,6 @@ h3{
 
     .catalog-btn{
         width: 260px;
-    }
-
-    .block-dd{
-        width: 157px;
-        margin-left: 0;
-        font-size: 12px;
-
-        .vs__selected{
-            font-size: 12px;
-        }
     }
 
     .block-btn{
