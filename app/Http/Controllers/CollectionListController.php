@@ -15,7 +15,7 @@ class CollectionListController extends Controller
      */
     public function index(CollectionRepository $collectionRepository)
     {
-        return $collectionRepository->getAllCollection();
+        return $collectionRepository->getAllLine();
     }
 
     /**

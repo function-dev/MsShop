@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Repositories;
-use App\collection_list as Model;
+use App\products as Model;
 use Illuminate\Database\Eloquent\Collection;
 
-class CollectionRepository extends CoreRepository
+class ProductRepository extends CoreRepository
 {
     protected function getModelClass()
     {
@@ -19,5 +19,10 @@ class CollectionRepository extends CoreRepository
 //    Получить все записи из бд
     public function getAllLine(){
         return $this->startConditions()->all();
+    }
+//    ЗАКОНЧИИ ЭТУ ХУЕТУ ПЛЗ <3
+    public function getAttr(){
+        $jdf = $this->startConditions()->find(1);
+        return $this->startConditions()->find(1)->attrs[0]->id;
     }
 }
