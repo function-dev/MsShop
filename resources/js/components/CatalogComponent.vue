@@ -40,30 +40,12 @@
                             {{product.desc}}
                         </p>
                         <div class="products__size">
-                            <div v-for="size in product.quantities" class="products__size-item" :class="{active: size[size.product_id] == size.size}" @click="switchSize(size.size, size.id)">
+                            <div v-for="size in product.quantities" :class="{active: sizeSelect.size == size.size && sizeSelect.product == product.id}" class="products__size-item" @click="switchSize(product.id, size.size, size.id, size.quantity)">
                                 <span class="products__size-value">{{size.size}}</span>
                             </div>
-<!--                            <div class="products__size-item" :class="{active: size[1] == 'XS'}" @click="switchSize('XS', 1)">-->
-<!--                                <span class="products__size-value">XS</span>-->
-<!--                            </div>-->
-<!--                            <div class="products__size-item" :class="{active: size[1] == 'S'}" @click="switchSize('S', 1)">-->
-<!--                                <span class="products__size-value">S</span>-->
-<!--                            </div>-->
-<!--                            <div class="products__size-item" :class="{active: size[1] == 'M'}" @click="switchSize('M', 1)">-->
-<!--                                <span class="products__size-value">M</span>-->
-<!--                            </div>-->
-<!--                            <div class="products__size-item" :class="{active: size[1] == 'L'}" @click="switchSize('L', 1)">-->
-<!--                                <span class="products__size-value">L</span>-->
-<!--                            </div>-->
-<!--                            <div class="products__size-item" :class="{active: size[1] == 'XL'}" @click="switchSize('XL', 1)">-->
-<!--                                <span class="products__size-value">XL</span>-->
-<!--                            </div>-->
-<!--                            <div class="products__size-item" :class="{active: size[1] == 'XXL'}" @click="switchSize('XXL', 1)">-->
-<!--                                <span class="products__size-value">XXL</span>-->
-<!--                            </div>-->
                         </div>
                         <div class="products__info">
-                            <p class="products__info-quantity">В наличии: 100+ шт.</p>
+                            <p class="products__info-quantity" v-if="quant != 0 && sizeSelect.product == product.id">В наличии: {{ quant }} шт.</p>
                             <h3 class="products__info-price">{{ product.price }} ₽</h3>
                             <button class="btn-black">Купить</button>
                         </div>
@@ -85,8 +67,13 @@ export default {
             catalogArr: [],
             collectionList:[],
             hostname: location.protocol + '//' + location.hostname + ':8000',
-            size: ['123'],
+            sizeSelect: {
+                product: -1,
+                size: -1,
+                id: -1,
+            },
             allProducts:{},
+            quant: 0,
         }
     },
     methods: {
@@ -162,7 +149,6 @@ export default {
             } else {
                 checkbox.checked = false
             }
-
         },
 
         getCollectionList(){
@@ -173,9 +159,13 @@ export default {
             return axios.get(this.hostname + '/api/products').then((data)=>this.allProducts = data.data);
         },
 
-        switchSize(value, i){
-            Vue.set(this.size, i, value)
-        }
+        switchSize(id, value, sizeId, quant){
+            this.sizeSelect.product = id
+            this.sizeSelect.size = value
+            this.sizeSelect.id = sizeId
+
+            this.quant = quant
+        },
     },
     async  beforeMount() {
         await this.getCollectionList()
@@ -188,7 +178,7 @@ export default {
 .slide-enter-active, .slide-leave-active {
     transition: opacity .1s;
 }
-.slide-enter, .slide-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+.slide-enter, .slide-leave-to {
     opacity: 0;
 }
 </style>

@@ -516,11 +516,13 @@ h3{
 
 .products-desc{
     font-size: 14px;
+    margin-bottom: 16px;
 }
 
 .products__size{
     display: grid;
     grid-template-columns: grid(5);
+    margin-bottom: 8px;
 }
 
 .products__size-item{
@@ -550,12 +552,21 @@ h3{
 .products__info{
     display: grid;
     grid-template-columns: grid(2);
+    grid-template-rows: 20px 32px;
+
+    button{
+        grid-row: 2/3;
+    }
 }
 
 .products__info-quantity{
     grid-column: 2/3;
     font-size: 12px;
     margin-bottom: 4px;
+}
+
+.products__info-price{
+    grid-row: 2/3;
 }
 
 .products-body-img{

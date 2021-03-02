@@ -131,7 +131,7 @@
 /* Dropdown Toggle States */
 
 .vs--searchable .vs__dropdown-toggle {
-  cursor: text;
+  cursor: pointer;
 }
 
 .vs--unsearchable .vs__dropdown-toggle {
@@ -226,7 +226,7 @@
 }
 
 .vs__dropdown-option--disabled:hover {
-  cursor: inherit;
+  cursor: pointer;
 }
 
 /* Selected Tags */
@@ -806,7 +806,7 @@ h3 {
 }
 
 .catalog__list-checkbox:checked ~ .catalog__list-indicator {
-  content: url(/images/check.svg?ca22aa48e264d69dcc8251145001ff7c);
+  content: url(/images/check.svg?3223cd9e1adc9ab8caee743aa53926d2);
   display: block;
   width: 22px;
   height: 22px;
@@ -867,11 +867,13 @@ h3 {
 
 .products-desc {
   font-size: 14px;
+  margin-bottom: 16px;
 }
 
 .products__size {
   display: grid;
   grid-template-columns: repeat(5, 20%);
+  margin-bottom: 8px;
 }
 
 .products__size-item {
@@ -904,12 +906,21 @@ h3 {
 .products__info {
   display: grid;
   grid-template-columns: repeat(2, 50%);
+  grid-template-rows: 20px 32px;
+}
+
+.products__info button {
+  grid-row: 2/3;
 }
 
 .products__info-quantity {
   grid-column: 2/3;
   font-size: 12px;
   margin-bottom: 4px;
+}
+
+.products__info-price {
+  grid-row: 2/3;
 }
 
 .products-body-img {

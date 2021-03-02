@@ -10,6 +10,8 @@
 
         <catalog-component></catalog-component>
 
+        <cart-component></cart-component>
+
         <div class="block">
             <div class="block-header">
                 <h2 class="block-title">Информация</h2>

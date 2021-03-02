@@ -29,6 +29,7 @@ Vue.component('mobile-menu', require('./components/MobileMenu.vue').default);
 Vue.component('catalog-component', require('./components/CatalogComponent.vue').default);
 Vue.component('footer-component', require('./components/FooterComponent.vue').default);
 Vue.component('table-size-component', require('./components/TableSizeComponent.vue').default);
+Vue.component('cart-component', require('./components/CartComponent.vue').default);
 
 Vue.directive('click-outside', {
     bind(el, binding) {
