@@ -45,9 +45,9 @@
                             </div>
                         </div>
                         <div class="products__info">
-                            <p class="products__info-quantity" v-if="quant != 0 && sizeSelect.product == product.id">В наличии: {{ quant }} шт.</p>
+                            <p class="products__info-quantity" v-if="quant.quantity != 0 && sizeSelect.product == product.id">В наличии: {{ quant.quantity }} шт.</p>
                             <h3 class="products__info-price">{{ product.price }} ₽</h3>
-                            <button class="btn-black">Купить</button>
+                            <button class="btn-black" @click="() => {$emit('add-cart', product = Object.assign(product, sizeSelect, quant))}">Купить</button>
                         </div>
                     </div>
                     <img :src="product.img" class="products-body-img">
@@ -73,7 +73,8 @@ export default {
                 id: -1,
             },
             allProducts:{},
-            quant: 0,
+            quant: {quantity: 0},
+            cartAdd: {},
         }
     },
     methods: {
@@ -164,7 +165,7 @@ export default {
             this.sizeSelect.size = value
             this.sizeSelect.id = sizeId
 
-            this.quant = quant
+            this.quant.quantity = quant
         },
     },
     async  beforeMount() {

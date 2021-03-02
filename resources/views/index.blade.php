@@ -8,9 +8,7 @@
             <img src="{{ asset('img/Banner 1.png') }}" alt="banner img" class="banner-img">
         </div>
 
-        <catalog-component></catalog-component>
-
-        <cart-component></cart-component>
+        <shop-component></shop-component>
 
         <div class="block">
             <div class="block-header">
