@@ -29,90 +29,46 @@
             </div>
         </transition>
         <div class="products">
-            <div class="products-item">
+            <div class="products-item" v-for="product in allProducts">
                 <div class="products-body">
                     <div class="products-body-info">
-                        <h3 class="products-title">Футболка "lorem"</h3>
+                        <h3 class="products-title">{{product.name}}</h3>
                         <div class="products__attribute">
-                            <p class="products__attribute-item">80% хлопок</p>
-                            <p class="products__attribute-item">20% полиэстер</p>
+                            <p class="products__attribute-item" v-for="attr in product.attrs">{{attr.value}}% {{attr.name}}</p>
                         </div>
                         <p class="products-desc">
-                            Чёрная брендированая футблока “lorem” для всех размеров
+                            {{product.desc}}
                         </p>
                         <div class="products__size">
-                            <div class="products__size-item" :class="{active: size[0] == 'XXS'}" @click="switchSize('XXS', 0)">
-                                <span class="products__size-value">XXS</span>
+                            <div v-for="size in product.quantities" class="products__size-item" :class="{active: size[size.product_id] == size.size}" @click="switchSize(size.size, size.id)">
+                                <span class="products__size-value">{{size.size}}</span>
                             </div>
-                            <div class="products__size-item" :class="{active: size[0] == 'XS'}" @click="switchSize('XS', 0)">
-                                <span class="products__size-value">XS</span>
-                            </div>
-                            <div class="products__size-item" :class="{active: size[0] == 'S'}" @click="switchSize('S', 0)">
-                                <span class="products__size-value">S</span>
-                            </div>
-                            <div class="products__size-item" :class="{active: size[0] == 'M'}" @click="switchSize('M', 0)">
-                                <span class="products__size-value">M</span>
-                            </div>
-                            <div class="products__size-item" :class="{active: size[0] == 'L'}" @click="switchSize('L', 0)">
-                                <span class="products__size-value">L</span>
-                            </div>
-                            <div class="products__size-item" :class="{active: size[0] == 'XL'}" @click="switchSize('XL', 0)">
-                                <span class="products__size-value">XL</span>
-                            </div>
-                            <div class="products__size-item" :class="{active: size[0] == 'XXL'}" @click="switchSize('XXL', 0)">
-                                <span class="products__size-value">XXL</span>
-                            </div>
+<!--                            <div class="products__size-item" :class="{active: size[1] == 'XS'}" @click="switchSize('XS', 1)">-->
+<!--                                <span class="products__size-value">XS</span>-->
+<!--                            </div>-->
+<!--                            <div class="products__size-item" :class="{active: size[1] == 'S'}" @click="switchSize('S', 1)">-->
+<!--                                <span class="products__size-value">S</span>-->
+<!--                            </div>-->
+<!--                            <div class="products__size-item" :class="{active: size[1] == 'M'}" @click="switchSize('M', 1)">-->
+<!--                                <span class="products__size-value">M</span>-->
+<!--                            </div>-->
+<!--                            <div class="products__size-item" :class="{active: size[1] == 'L'}" @click="switchSize('L', 1)">-->
+<!--                                <span class="products__size-value">L</span>-->
+<!--                            </div>-->
+<!--                            <div class="products__size-item" :class="{active: size[1] == 'XL'}" @click="switchSize('XL', 1)">-->
+<!--                                <span class="products__size-value">XL</span>-->
+<!--                            </div>-->
+<!--                            <div class="products__size-item" :class="{active: size[1] == 'XXL'}" @click="switchSize('XXL', 1)">-->
+<!--                                <span class="products__size-value">XXL</span>-->
+<!--                            </div>-->
                         </div>
                         <div class="products__info">
                             <p class="products__info-quantity">В наличии: 100+ шт.</p>
-                            <h3 class="products__info-price">1330 ₽</h3>
+                            <h3 class="products__info-price">{{ product.price }} ₽</h3>
                             <button class="btn-black">Купить</button>
                         </div>
                     </div>
-                    <img src="img/products/test.png" class="products-body-img">
-                </div>
-            </div>
-            <div class="products-item">
-                <div class="products-body">
-                    <div class="products-body-info">
-                        <h3 class="products-title">Футболка "lorem"</h3>
-                        <div class="products__attribute">
-                            <p class="products__attribute-item">80% хлопок</p>
-                            <p class="products__attribute-item">20% полиэстер</p>
-                        </div>
-                        <p class="products-desc">
-                            Чёрная брендированая футблока “lorem” для всех размеров
-                        </p>
-                        <div class="products__size">
-                            <div class="products__size-item" :class="{active: size[1] == 'XXS'}" @click="switchSize('XXS', 1)">
-                                <span class="products__size-value">XXS</span>
-                            </div>
-                            <div class="products__size-item" :class="{active: size[1] == 'XS'}" @click="switchSize('XS', 1)">
-                                <span class="products__size-value">XS</span>
-                            </div>
-                            <div class="products__size-item" :class="{active: size[1] == 'S'}" @click="switchSize('S', 1)">
-                                <span class="products__size-value">S</span>
-                            </div>
-                            <div class="products__size-item" :class="{active: size[1] == 'M'}" @click="switchSize('M', 1)">
-                                <span class="products__size-value">M</span>
-                            </div>
-                            <div class="products__size-item" :class="{active: size[1] == 'L'}" @click="switchSize('L', 1)">
-                                <span class="products__size-value">L</span>
-                            </div>
-                            <div class="products__size-item" :class="{active: size[1] == 'XL'}" @click="switchSize('XL', 1)">
-                                <span class="products__size-value">XL</span>
-                            </div>
-                            <div class="products__size-item" :class="{active: size[1] == 'XXL'}" @click="switchSize('XXL', 1)">
-                                <span class="products__size-value">XXL</span>
-                            </div>
-                        </div>
-                        <div class="products__info">
-                            <p class="products__info-quantity">В наличии: 100+ шт.</p>
-                            <h3 class="products__info-price">1330 ₽</h3>
-                            <button class="btn-black">Купить</button>
-                        </div>
-                    </div>
-                    <img src="img/products/test.png" class="products-body-img">
+                    <img :src="product.img" class="products-body-img">
                 </div>
             </div>
         </div>
@@ -130,6 +86,7 @@ export default {
             collectionList:[],
             hostname: location.protocol + '//' + location.hostname + ':8000',
             size: ['123'],
+            allProducts:{},
         }
     },
     methods: {
@@ -212,12 +169,17 @@ export default {
             return axios.get(this.hostname + '/api/collectionList').then((data)=>this.collectionList = data.data);
         },
 
+        getAllProducts(){
+            return axios.get(this.hostname + '/api/products').then((data)=>this.allProducts = data.data);
+        },
+
         switchSize(value, i){
             Vue.set(this.size, i, value)
         }
     },
     async  beforeMount() {
         await this.getCollectionList()
+        await this.getAllProducts()
     },
 }
 </script>

@@ -12,7 +12,7 @@ class products extends Model
     }
     public function quantities()
     {
-        return $this->hasMany('App\quantity', 'product_id ');
+        return $this->hasMany('App\quantity', 'product_id');
     }
     public function collectionList()
     {

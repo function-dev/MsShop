@@ -15,7 +15,7 @@ class ProductsController extends Controller
      */
     public function index(ProductRepository $productRepository)
     {
-        return $productRepository->getAttr();
+        return $productRepository->getAllInfo();
     }
 
     /**

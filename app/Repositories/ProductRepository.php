@@ -20,9 +20,23 @@ class ProductRepository extends CoreRepository
     public function getAllLine(){
         return $this->startConditions()->all();
     }
-//    ЗАКОНЧИИ ЭТУ ХУЕТУ ПЛЗ <3
-    public function getAttr(){
-        $jdf = $this->startConditions()->find(1);
-        return $this->startConditions()->find(1)->attrs[0]->id;
+//    Получить всю информацию о всех продуктах
+    public function getAllInfo()
+    {
+
+          $allInfo = [];
+          $allProducts = $this->startConditions()->all();
+
+          foreach ($allProducts as $product)
+          {
+
+              array_push($allInfo, $product );
+              array_push($allInfo, $product->attrs );
+              array_push($allInfo, $product->quantities );
+
+          }
+
+          return $allProducts;
+
     }
 }
