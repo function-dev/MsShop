@@ -8,7 +8,7 @@
         </div>
 
         <div class="cart">
-            <cart-item-component v-for="item in cart" :cart="item"></cart-item-component>
+            <cart-item-component v-for="item in cart" :cart="item" @del-product="delProduct"></cart-item-component>
         </div>
         <div class="order">
             <h3 class="order-text">Сумма заказа: 27 000 ₽</h3>
@@ -31,7 +31,16 @@ export default {
     ],
 
     methods: {
+        delProduct(id){
+            let i = 0
 
+            this.$props.cart.forEach((e) => {
+                if (id == e.product){
+                    this.$props.cart.splice(i, 1)
+                }
+                i++
+            })
+        }
     }
 }
 </script>

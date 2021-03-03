@@ -9,11 +9,10 @@
         </div>
         <h3 class="cart__item-price">{{ cart.price }} ₽</h3>
         <div class="cart__item-quant">
-            <input type="number" min="1" :max="cart.quantity" :value="1" class="cart__item-input">
+            <input type="number" min="1" :max="cart.quantity" :value="cart.thisQuant" class="cart__item-input">
             <p class="cart__item-text">шт.</p>
         </div>
-        <p class="cart__item-del">Убрать товар</p>
-        <p>{{ cart.product }}</p>
+        <p class="cart__item-del" @click="() => {$emit('del-product', cart.product)}">Убрать товар</p>
     </div>
 </template>
 
@@ -22,7 +21,8 @@ export default {
     name: "CartItemComponent",
     data() {
         return {
-
+            productQuantity: [],
+            allPrice: [],
         }
     },
 

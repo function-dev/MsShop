@@ -1992,7 +1992,20 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   props: ['cart'],
-  methods: {}
+  methods: {
+    delProduct: function delProduct(id) {
+      var _this = this;
+
+      var i = 0;
+      this.$props.cart.forEach(function (e) {
+        if (id == e.product) {
+          _this.$props.cart.splice(i, 1);
+        }
+
+        i++;
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -2024,11 +2037,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CartItemComponent",
   data: function data() {
-    return {};
+    return {
+      productQuantity: [],
+      allPrice: []
+    };
   },
   props: ['cart'],
   methods: {}
@@ -2130,7 +2145,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       quant: {
         quantity: 0
       },
-      cartAdd: {}
+      cartAdd: {},
+      thisQuant: {
+        thisQuant: 1
+      }
     };
   },
   methods: {
@@ -39576,7 +39594,10 @@ var render = function() {
       "div",
       { staticClass: "cart" },
       _vm._l(_vm.cart, function(item) {
-        return _c("cart-item-component", { attrs: { cart: item } })
+        return _c("cart-item-component", {
+          attrs: { cart: item },
+          on: { "del-product": _vm.delProduct }
+        })
       }),
       1
     ),
@@ -39657,15 +39678,24 @@ var render = function() {
       _c("input", {
         staticClass: "cart__item-input",
         attrs: { type: "number", min: "1", max: _vm.cart.quantity },
-        domProps: { value: 1 }
+        domProps: { value: _vm.cart.thisQuant }
       }),
       _vm._v(" "),
       _c("p", { staticClass: "cart__item-text" }, [_vm._v("шт.")])
     ]),
     _vm._v(" "),
-    _c("p", { staticClass: "cart__item-del" }, [_vm._v("Убрать товар")]),
-    _vm._v(" "),
-    _c("p", [_vm._v(_vm._s(_vm.cart.product))])
+    _c(
+      "p",
+      {
+        staticClass: "cart__item-del",
+        on: {
+          click: function() {
+            _vm.$emit("del-product", _vm.cart.product)
+          }
+        }
+      },
+      [_vm._v("Убрать товар")]
+    )
   ])
 }
 var staticRenderFns = []
@@ -39892,7 +39922,8 @@ var render = function() {
                             (product = Object.assign(
                               product,
                               _vm.sizeSelect,
-                              _vm.quant
+                              _vm.quant,
+                              _vm.thisQuant
                             ))
                           )
                         }
