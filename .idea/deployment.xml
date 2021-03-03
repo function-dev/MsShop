@@ -2,7 +2,28 @@
 <project version="4">
   <component name="PublishConfigData" serverName="amteo" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
-      <paths name="amteo">
+      <paths name="BalticMan">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="FunctionDev">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="golden dog">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="gremashop">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />

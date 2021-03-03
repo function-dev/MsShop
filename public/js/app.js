@@ -1978,6 +1978,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CartComponent",
   data: function data() {
@@ -6819,7 +6840,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.slide-enter-active, .slide-leave-active {\n    transition: opacity .1s;\n}\n.slide-enter, .slide-leave-to {\n    opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.slide-enter-active, .slide-leave-active {\r\n    transition: opacity .1s;\n}\n.slide-enter, .slide-leave-to {\r\n    opacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -39481,7 +39502,49 @@ var staticRenderFns = [
       _c("div", { staticClass: "block-header" }, [
         _c("div", { staticClass: "block-header-sort" }, [
           _c("h2", { staticClass: "block-title" }, [_vm._v("Корзина")])
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "block-info" }, [_vm._v("2 товара")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "cart" }, [
+        _c("div", { staticClass: "cart__item" }, [
+          _c("div", { staticClass: "cart__item-info" }, [
+            _c("img", {
+              staticClass: "cart__item-img",
+              attrs: { src: "img/products/test.png", alt: "product img" }
+            }),
+            _vm._v(" "),
+            _c("p", { staticClass: "cart__item-title" }, [
+              _vm._v('Футболка "lorem"')
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "cart__item-size" }, [
+              _c("span", { staticClass: "products__size-value" }, [_vm._v("M")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("h3", { staticClass: "cart__item-price" }, [_vm._v("1330 ₽")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "cart__item-quant" }, [
+            _c("input", {
+              staticClass: "cart__item-input",
+              attrs: { type: "number", min: "1", max: "3", value: "1" }
+            }),
+            _vm._v(" "),
+            _c("p", { staticClass: "cart__item-text" }, [_vm._v("шт.")])
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "cart__item-del" }, [_vm._v("Убрать товар")])
         ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "order" }, [
+        _c("h3", { staticClass: "order-text" }, [
+          _vm._v("Сумма заказа: 27 000 ₽")
+        ]),
+        _vm._v(" "),
+        _c("button", { staticClass: "btn-black" }, [_vm._v("Оформить")])
       ])
     ])
   }
