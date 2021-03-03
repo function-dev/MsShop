@@ -1989,7 +1989,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CartComponent",
   data: function data() {
-    return {};
+    return {
+      thisQuant: ''
+    };
   },
   props: ['cart'],
   methods: {
@@ -2007,6 +2009,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     changeQuantity: function changeQuantity(val) {
       console.log(val);
+      this.thisQuant = val;
     }
   }
 });
@@ -2046,7 +2049,10 @@ __webpack_require__.r(__webpack_exports__);
     return {
       productQuantity: [],
       allPrice: [],
-      thisQuant: 1
+      thisQuant: {
+        thisQuant: 1,
+        productId: this.$props.cart.product
+      }
     };
   },
   props: ['cart'],
@@ -6940,7 +6946,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.slide-enter-active, .slide-leave-active {\n    transition: opacity .1s;\n}\n.slide-enter, .slide-leave-to {\n    opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.slide-enter-active, .slide-leave-active {\r\n    transition: opacity .1s;\n}\n.slide-enter, .slide-leave-to {\r\n    opacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -6959,7 +6965,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.slide-enter-active, .slide-leave-active {\n    transition: opacity .1s;\n}\n.slide-enter, .slide-leave-to /* .fade-leave-active до версии 2.1.8 */ {\n    opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.slide-enter-active, .slide-leave-active {\r\n    transition: opacity .1s;\n}\n.slide-enter, .slide-leave-to /* .fade-leave-active до версии 2.1.8 */ {\r\n    opacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -39687,13 +39693,13 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.thisQuant,
-            expression: "thisQuant"
+            value: _vm.thisQuant.thisQuant,
+            expression: "thisQuant.thisQuant"
           }
         ],
         staticClass: "cart__item-input",
         attrs: { type: "number", min: "1", max: _vm.cart.quantity },
-        domProps: { value: _vm.thisQuant },
+        domProps: { value: _vm.thisQuant.thisQuant },
         on: {
           change: function() {
             _vm.$emit("change-quantity", _vm.thisQuant)
@@ -39702,7 +39708,7 @@ var render = function() {
             if ($event.target.composing) {
               return
             }
-            _vm.thisQuant = $event.target.value
+            _vm.$set(_vm.thisQuant, "thisQuant", $event.target.value)
           }
         }
       }),
@@ -53222,8 +53228,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! F:\MsShop2\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! F:\MsShop2\resources\sass\site.scss */"./resources/sass/site.scss");
+__webpack_require__(/*! D:\OpenServer\domains\msshop\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\OpenServer\domains\msshop\resources\sass\site.scss */"./resources/sass/site.scss");
 
 
 /***/ })

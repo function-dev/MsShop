@@ -22,7 +22,7 @@ export default {
     name: "CartComponent",
     data() {
         return {
-
+            thisQuant:'',
         }
     },
 
@@ -44,6 +44,7 @@ export default {
 
         changeQuantity(val){
             console.log(val)
+            this.thisQuant = val;
         }
     }
 }
