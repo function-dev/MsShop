@@ -20,3 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResource('collectionList', 'CollectionListController');
 Route::apiResource('products', 'ProductsController');
+
+
+Route::group(['middleware' => ['web']], function () {
+    Route::get('cookie/add','CookieController@addCookie');
+    Route::get('cookie/get','CookieController@getCookie');
+});
