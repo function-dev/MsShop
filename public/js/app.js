@@ -2004,6 +2004,9 @@ __webpack_require__.r(__webpack_exports__);
 
         i++;
       });
+    },
+    changeQuantity: function changeQuantity(val) {
+      console.log(val);
     }
   }
 });
@@ -2042,7 +2045,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       productQuantity: [],
-      allPrice: []
+      allPrice: [],
+      thisQuant: 1
     };
   },
   props: ['cart'],
@@ -39596,7 +39600,10 @@ var render = function() {
       _vm._l(_vm.cart, function(item) {
         return _c("cart-item-component", {
           attrs: { cart: item },
-          on: { "del-product": _vm.delProduct }
+          on: {
+            "del-product": _vm.delProduct,
+            "change-quantity": _vm.changeQuantity
+          }
         })
       }),
       1
@@ -39676,9 +39683,28 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "cart__item-quant" }, [
       _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.thisQuant,
+            expression: "thisQuant"
+          }
+        ],
         staticClass: "cart__item-input",
         attrs: { type: "number", min: "1", max: _vm.cart.quantity },
-        domProps: { value: _vm.cart.thisQuant }
+        domProps: { value: _vm.thisQuant },
+        on: {
+          change: function() {
+            _vm.$emit("change-quantity", _vm.thisQuant)
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.thisQuant = $event.target.value
+          }
+        }
       }),
       _vm._v(" "),
       _c("p", { staticClass: "cart__item-text" }, [_vm._v("шт.")])

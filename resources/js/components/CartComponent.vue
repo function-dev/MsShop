@@ -8,7 +8,7 @@
         </div>
 
         <div class="cart">
-            <cart-item-component v-for="item in cart" :cart="item" @del-product="delProduct"></cart-item-component>
+            <cart-item-component v-for="item in cart" :cart="item" @del-product="delProduct" @change-quantity="changeQuantity"></cart-item-component>
         </div>
         <div class="order">
             <h3 class="order-text">Сумма заказа: 27 000 ₽</h3>
@@ -40,6 +40,10 @@ export default {
                 }
                 i++
             })
+        },
+
+        changeQuantity(val){
+            console.log(val)
         }
     }
 }

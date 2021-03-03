@@ -9,7 +9,7 @@
         </div>
         <h3 class="cart__item-price">{{ cart.price }} ₽</h3>
         <div class="cart__item-quant">
-            <input type="number" min="1" :max="cart.quantity" :value="cart.thisQuant" class="cart__item-input">
+            <input type="number" min="1" :max="cart.quantity" v-model="thisQuant" class="cart__item-input" @change="() => {$emit('change-quantity', thisQuant)}">
             <p class="cart__item-text">шт.</p>
         </div>
         <p class="cart__item-del" @click="() => {$emit('del-product', cart.product)}">Убрать товар</p>
@@ -23,6 +23,7 @@ export default {
         return {
             productQuantity: [],
             allPrice: [],
+            thisQuant: 1,
         }
     },
 
