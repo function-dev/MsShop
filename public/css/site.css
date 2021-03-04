@@ -854,8 +854,10 @@ h3 {
   height: inherit;
 }
 
-.products-title {
+.products-collection {
   margin-bottom: 8px;
+  font-size: 12px;
+  color: #1A1A1A;
 }
 
 .products__attribute-item {

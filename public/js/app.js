@@ -2094,6 +2094,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CatalogComponent",
   data: function data() {
@@ -39835,6 +39836,10 @@ var render = function() {
                   _c("div", { staticClass: "products-body-info" }, [
                     _c("h3", { staticClass: "products-title" }, [
                       _vm._v(_vm._s(product.name))
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "products-collection" }, [
+                      _vm._v("Название коллекции")
                     ]),
                     _vm._v(" "),
                     _c(

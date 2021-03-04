@@ -34,6 +34,7 @@
                     <div class="products-body">
                         <div class="products-body-info">
                             <h3 class="products-title">{{product.name}}</h3>
+                            <p class="products-collection">Название коллекции</p>
                             <div class="products__attribute">
                                 <p class="products__attribute-item" v-for="attr in product.attrs">{{attr.value}}% {{attr.name}}</p>
                             </div>
