@@ -2095,10 +2095,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CatalogComponent",
   data: function data() {
     return {
+      sortedProduct: [],
+      sorting: 0,
       catalog: 0,
       outside: 0,
       catalogArr: [],
@@ -2173,7 +2176,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     checkbox: function checkbox(id, value) {
       var checkbox = document.getElementById('catalog-' + id);
-      this.catalogList(value);
+      this.catalogList(id);
 
       if (checkbox.checked == false) {
         checkbox.checked = true;
@@ -2194,6 +2197,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return axios.get(this.hostname + '/api/products').then(function (data) {
         return _this2.allProducts = data.data;
       });
+    },
+    getSortProducts: function getSortProducts() {
+      return this.sortedProduct = this.allProducts;
     },
     switchSize: function switchSize(id, value, sizeId, quant) {
       this.sizeSelect.product = id;
@@ -2280,10 +2286,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
       this.cart.splice(a, 1);
       this.price();
+    },
+    getCollectionName: function getCollectionName(id) {
+      var name;
+      this.collectionList.forEach(function (e) {
+        if (e.id == id) {
+          name = e.name;
+        }
+      });
+      return name;
+    },
+    sort: function sort() {
+      var _this3 = this;
+
+      this.sortedProduct = [];
+      this.sorting = this.catalogArr;
+      this.catalog = 0;
+      this.sorting.forEach(function (e) {
+        _this3.sortedProduct.push(_this3.allProducts.filter(function (product) {
+          return product.collection_id == e;
+        }));
+      });
+      this.sortedProduct = this.sortedProduct.flat();
     }
   },
   beforeMount: function beforeMount() {
-    var _this3 = this;
+    var _this4 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -2291,13 +2319,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _this3.getCollectionList();
+              return _this4.getCollectionList();
 
             case 2:
               _context.next = 4;
-              return _this3.getAllProducts();
+              return _this4.getAllProducts();
 
             case 4:
+              _context.next = 6;
+              return _this4.getSortProducts();
+
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -6953,7 +6985,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.slide-enter-active, .slide-leave-active {\n    transition: opacity .1s;\n}\n.slide-enter, .slide-leave-to /* .fade-leave-active до версии 2.1.8 */ {\n    opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.slide-enter-active, .slide-leave-active {\r\n    transition: opacity .1s;\n}\n.slide-enter, .slide-leave-to /* .fade-leave-active до версии 2.1.8 */ {\r\n    opacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -39776,51 +39808,63 @@ var render = function() {
                       _c(
                         "ul",
                         { staticClass: "catalog__list" },
-                        _vm._l(_vm.collectionList, function(item) {
-                          return _c(
-                            "li",
-                            { staticClass: "catalog__list-item" },
-                            [
-                              _c("input", {
-                                staticClass: "catalog__list-checkbox",
-                                attrs: {
-                                  type: "checkbox",
-                                  id: "catalog-" + item.id
-                                },
-                                domProps: { value: item.name },
-                                on: {
-                                  change: function($event) {
-                                    return _vm.catalogList(item.name)
+                        [
+                          _vm._l(_vm.collectionList, function(item) {
+                            return _c(
+                              "li",
+                              { staticClass: "catalog__list-item" },
+                              [
+                                _c("input", {
+                                  staticClass: "catalog__list-checkbox",
+                                  attrs: {
+                                    type: "checkbox",
+                                    id: "catalog-" + item.id
+                                  },
+                                  domProps: { value: item.name },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.catalogList(item.id)
+                                    }
                                   }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("span", {
-                                staticClass: "catalog__list-indicator",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.checkbox(item.id, item.name)
+                                }),
+                                _vm._v(" "),
+                                _c("span", {
+                                  staticClass: "catalog__list-indicator",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.checkbox(item.id, item.name)
+                                    }
                                   }
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c(
-                                "label",
-                                {
-                                  staticClass: "catalog__list-label",
-                                  attrs: { for: "catalog-" + item.id }
-                                },
-                                [_vm._v(_vm._s(item.name))]
-                              )
-                            ]
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "label",
+                                  {
+                                    staticClass: "catalog__list-label",
+                                    attrs: { for: "catalog-" + item.id }
+                                  },
+                                  [_vm._v(_vm._s(item.name))]
+                                )
+                              ]
+                            )
+                          }),
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(_vm.catalogArr) +
+                              "\n                    "
                           )
-                        }),
-                        0
+                        ],
+                        2
                       ),
                       _vm._v(" "),
-                      _c("button", { staticClass: "catalog-btn btn-white" }, [
-                        _vm._v("Показать")
-                      ])
+                      _c(
+                        "button",
+                        {
+                          staticClass: "catalog-btn btn-white",
+                          on: { click: _vm.sort }
+                        },
+                        [_vm._v("Показать")]
+                      )
                     ]
                   )
                 ])
@@ -39830,7 +39874,7 @@ var render = function() {
           _c(
             "div",
             { staticClass: "products" },
-            _vm._l(_vm.allProducts, function(product) {
+            _vm._l(_vm.sortedProduct, function(product) {
               return _c("div", { staticClass: "products-item" }, [
                 _c("div", { staticClass: "products-body" }, [
                   _c("div", { staticClass: "products-body-info" }, [
@@ -39839,7 +39883,9 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("p", { staticClass: "products-collection" }, [
-                      _vm._v("Название коллекции")
+                      _vm._v(
+                        _vm._s(_vm.getCollectionName(product.collection_id))
+                      )
                     ]),
                     _vm._v(" "),
                     _c(
@@ -53031,8 +53077,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! F:\MsShop2\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! F:\MsShop2\resources\sass\site.scss */"./resources/sass/site.scss");
+__webpack_require__(/*! D:\OpenServer\domains\msshop\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\OpenServer\domains\msshop\resources\sass\site.scss */"./resources/sass/site.scss");
 
 
 /***/ })

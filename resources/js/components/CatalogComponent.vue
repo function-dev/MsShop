@@ -20,21 +20,22 @@
                         </div>
                         <ul class="catalog__list">
                             <li class="catalog__list-item" v-for="item in collectionList">
-                                <input type="checkbox" :id="'catalog-' + item.id" class="catalog__list-checkbox" :value="item.name" v-on:change="catalogList(item.name)">
+                                <input type="checkbox" :id="'catalog-' + item.id" class="catalog__list-checkbox" :value="item.name" v-on:change="catalogList(item.id)">
                                 <span class="catalog__list-indicator" @click="checkbox(item.id, item.name)"></span>
                                 <label :for="'catalog-' + item.id" class="catalog__list-label">{{item.name}}</label>
                             </li>
+                            {{catalogArr}}
                         </ul>
-                        <button class="catalog-btn btn-white">Показать</button>
+                        <button class="catalog-btn btn-white" @click="sort">Показать</button>
                     </div>
                 </div>
             </transition>
             <div class="products">
-                <div class="products-item" v-for="product in allProducts">
+                <div class="products-item" v-for="product in sortedProduct">
                     <div class="products-body">
                         <div class="products-body-info">
                             <h3 class="products-title">{{product.name}}</h3>
-                            <p class="products-collection">Название коллекции</p>
+                            <p class="products-collection">{{getCollectionName(product.collection_id)}}</p>
                             <div class="products__attribute">
                                 <p class="products__attribute-item" v-for="attr in product.attrs">{{attr.value}}% {{attr.name}}</p>
                             </div>
@@ -67,6 +68,8 @@ export default {
     name: "CatalogComponent",
     data() {
         return {
+            sortedProduct:[],
+            sorting:0,
             catalog: 0,
             outside: 0,
             catalogArr: [],
@@ -151,7 +154,7 @@ export default {
         checkbox(id, value){
             let checkbox = document.getElementById('catalog-' + id)
 
-            this.catalogList(value)
+            this.catalogList(id)
 
             if (checkbox.checked == false){
                 checkbox.checked = true
@@ -166,6 +169,9 @@ export default {
 
         getAllProducts(){
             return axios.get(this.hostname + '/api/products').then((data)=>this.allProducts = data.data);
+        },
+        getSortProducts(){
+            return this.sortedProduct = this.allProducts;
         },
 
         switchSize(id, value, sizeId, quant){
@@ -269,11 +275,32 @@ export default {
             this.cart.splice(a, 1)
 
             this.price()
-        }
+        },
+        getCollectionName(id){
+            let name
+            this.collectionList.forEach((e)=>{
+                if (e.id == id){
+                    name = e.name
+                }
+            })
+            return name
+        },
+        sort(){
+            this.sortedProduct = []
+            this.sorting = this.catalogArr
+            this.catalog = 0
+            this.sorting.forEach((e)=>{
+                this.sortedProduct.push(this.allProducts.filter(product => product.collection_id == e));
+            })
+            this.sortedProduct = this.sortedProduct.flat()
+
+        },
+
     },
     async  beforeMount() {
         await this.getCollectionList()
         await this.getAllProducts()
+        await this.getSortProducts()
     },
 }
 </script>
