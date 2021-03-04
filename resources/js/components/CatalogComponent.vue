@@ -1,59 +1,63 @@
 <template>
-    <div class="block">
-        <div class="block-header">
-            <div class="block-header-sort">
-                <h2 class="block-title">Каталог</h2>
-            </div>
-            <button class="block-btn btn-black" @click="openCatalog">Коллекции</button>
-        </div>
-        <transition name="slide">
-            <div class="blur-bg" v-if="catalog == 1">
-                <div class="catalog-menu" v-click-outside="outsideClose">
-                    <div class="catalog-header">
-                        <h2>Каталог</h2>
-                        <img src="/img/close.svg" alt="close menu" class="close-menu" @click="closeCatalog">
-                    </div>
-                    <div class="catalog-header">
-                        <p class="catalog-options" @click="showAll">Выбрать все</p>
-                        <p class="catalog-options" @click="hideAll">Убрать все</p>
-                    </div>
-                    <ul class="catalog__list">
-                        <li class="catalog__list-item" v-for="item in collectionList">
-                            <input type="checkbox" :id="'catalog-' + item.id" class="catalog__list-checkbox" :value="item.name" v-on:change="catalogList(item.name)">
-                            <span class="catalog__list-indicator" @click="checkbox(item.id, item.name)"></span>
-                            <label :for="'catalog-' + item.id" class="catalog__list-label">{{item.name}}</label>
-                        </li>
-                    </ul>
-                    <button class="catalog-btn btn-white">Показать</button>
+    <div>
+        <div class="block">
+            <div class="block-header">
+                <div class="block-header-sort">
+                    <h2 class="block-title">Каталог</h2>
                 </div>
+                <button class="block-btn btn-black" @click="openCatalog">Коллекции</button>
             </div>
-        </transition>
-        <div class="products">
-            <div class="products-item" v-for="product in allProducts">
-                <div class="products-body">
-                    <div class="products-body-info">
-                        <h3 class="products-title">{{product.name}}</h3>
-                        <div class="products__attribute">
-                            <p class="products__attribute-item" v-for="attr in product.attrs">{{attr.value}}% {{attr.name}}</p>
+            <transition name="slide">
+                <div class="blur-bg" v-if="catalog == 1">
+                    <div class="catalog-menu" v-click-outside="outsideClose">
+                        <div class="catalog-header">
+                            <h2>Каталог</h2>
+                            <img src="/img/close.svg" alt="close menu" class="close-menu" @click="closeCatalog">
                         </div>
-                        <p class="products-desc">
-                            {{product.desc}}
-                        </p>
-                        <div class="products__size">
-                            <div v-for="size in product.quantities" :class="{active: sizeSelect.size == size.size && sizeSelect.product == product.id}" class="products__size-item" @click="switchSize(product.id, size.size, size.id, size.quantity)">
-                                <span class="products__size-value">{{size.size}}</span>
+                        <div class="catalog-header">
+                            <p class="catalog-options" @click="showAll">Выбрать все</p>
+                            <p class="catalog-options" @click="hideAll">Убрать все</p>
+                        </div>
+                        <ul class="catalog__list">
+                            <li class="catalog__list-item" v-for="item in collectionList">
+                                <input type="checkbox" :id="'catalog-' + item.id" class="catalog__list-checkbox" :value="item.name" v-on:change="catalogList(item.name)">
+                                <span class="catalog__list-indicator" @click="checkbox(item.id, item.name)"></span>
+                                <label :for="'catalog-' + item.id" class="catalog__list-label">{{item.name}}</label>
+                            </li>
+                        </ul>
+                        <button class="catalog-btn btn-white">Показать</button>
+                    </div>
+                </div>
+            </transition>
+            <div class="products">
+                <div class="products-item" v-for="product in allProducts">
+                    <div class="products-body">
+                        <div class="products-body-info">
+                            <h3 class="products-title">{{product.name}}</h3>
+                            <div class="products__attribute">
+                                <p class="products__attribute-item" v-for="attr in product.attrs">{{attr.value}}% {{attr.name}}</p>
+                            </div>
+                            <p class="products-desc">
+                                {{product.desc}}
+                            </p>
+                            <div class="products__size">
+                                <div v-for="size in product.quantities" :class="{active: sizeSelect.size == size.size && sizeSelect.product == product.id}" class="products__size-item" @click="switchSize(product.id, size.size, size.id, size.quantity)">
+                                    <span class="products__size-value">{{size.size}}</span>
+                                </div>
+                            </div>
+                            <div class="products__info">
+                                <p class="products__info-quantity" v-if="quant != 0 && sizeSelect.product == product.id">В наличии: {{ quant }} шт.</p>
+                                <h3 class="products__info-price">{{ product.price }} ₽</h3>
+                                <button class="btn-black" @click="addCart(product, sizeSelect)">Купить</button>
                             </div>
                         </div>
-                        <div class="products__info">
-                            <p class="products__info-quantity" v-if="quant != 0 && sizeSelect.product == product.id">В наличии: {{ quant }} шт.</p>
-                            <h3 class="products__info-price">{{ product.price }} ₽</h3>
-                            <button class="btn-black">Купить</button>
-                        </div>
+                        <img :src="product.img" class="products-body-img">
                     </div>
-                    <img :src="product.img" class="products-body-img">
                 </div>
             </div>
         </div>
+
+        <cart-component :cart="cart" :allPrice="allPrice" :allQuantity="allQuantity" @price="price"></cart-component>
     </div>
 </template>
 
@@ -74,6 +78,11 @@ export default {
             },
             allProducts:{},
             quant: 0,
+            cart: [],
+            cartItem: {},
+            allQuantity: 0,
+            allPrice: 0,
+            allQuantity: 0 + ' товаров',
         }
     },
     methods: {
@@ -166,6 +175,85 @@ export default {
 
             this.quant = quant
         },
+
+        addCart(product, size){
+            let max = 0
+            let check = 0
+            let i = 0
+            let a = 0
+
+            product.quantities.forEach((e) => {
+                if (size.id == e.id){
+                    max = e.quantity
+                }
+            })
+
+            this.cart.forEach((e) => {
+                if (product.id == e.id & size.size == e.size){
+                    check = 1
+                    a = i
+                }
+                i++
+            })
+
+            if (check == 0){
+                this.cartItem = {
+                    id: product.id,
+                    img: product.img,
+                    title: product.name,
+                    size: size.size,
+                    price: product.price,
+                    quantity: 1,
+                    maxQuantity: max
+                }
+
+                this.cart.push(this.cartItem)
+            }
+
+            this.price()
+        },
+
+        price(){
+            let price = 0
+
+            this.cart.forEach((e) => {
+                price += e.price * e.quantity
+            })
+
+            this.allPrice = price
+
+
+            this.quantity()
+        },
+
+        quantity(){
+            let quantity = 0
+            let last = 0
+            let word = ' товаров'
+
+
+
+            this.cart.forEach((e) => {
+                quantity += parseInt(e.quantity)
+            })
+
+            if (quantity > 19){
+                last = quantity.toString().substr(-1)
+                last = parseInt(last)
+            } else {
+                last = quantity
+            }
+
+            if (last == 1){
+                word = ' товар'
+            } else if (1 < last & last < 5){
+                word = ' товара'
+            } else{
+                word = ' товаров'
+            }
+
+            this.allQuantity = quantity + word
+        }
     },
     async  beforeMount() {
         await this.getCollectionList()
