@@ -57,7 +57,7 @@
             </div>
         </div>
 
-        <cart-component :cart="cart" :allPrice="allPrice" :allQuantity="allQuantity" @price="price"></cart-component>
+        <cart-component :cart="cart" :allPrice="allPrice" :allQuantity="allQuantity" @price="price" @del-product="delProduct"></cart-component>
     </div>
 </template>
 
@@ -80,7 +80,6 @@ export default {
             quant: 0,
             cart: [],
             cartItem: {},
-            allQuantity: 0,
             allPrice: 0,
             allQuantity: 0 + ' товаров',
         }
@@ -253,6 +252,22 @@ export default {
             }
 
             this.allQuantity = quantity + word
+        },
+
+        delProduct(item){
+            let i = 0
+            let a = 0
+
+            this.cart.forEach((e) => {
+              if (item.id == e.id && item.size == e.size){
+                  a = i
+              }
+              i++
+            })
+
+            this.cart.splice(a, 1)
+
+            this.price()
         }
     },
     async  beforeMount() {

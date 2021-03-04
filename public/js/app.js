@@ -2005,7 +2005,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       delProduct: function delProduct(item) {
-        console.log(item);
+        this.$emit('del-product', item);
       }
     };
   },
@@ -2030,8 +2030,6 @@ __webpack_require__.r(__webpack_exports__);
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 //
 //
@@ -2099,7 +2097,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CatalogComponent",
   data: function data() {
-    return _defineProperty({
+    return {
       catalog: 0,
       outside: 0,
       catalogArr: [],
@@ -2114,9 +2112,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       quant: 0,
       cart: [],
       cartItem: {},
-      allQuantity: 0,
-      allPrice: 0
-    }, "allQuantity", 0 + ' товаров');
+      allPrice: 0,
+      allQuantity: 0 + ' товаров'
+    };
   },
   methods: {
     openCatalog: function openCatalog() {
@@ -2268,6 +2266,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       this.allQuantity = quantity + word;
+    },
+    delProduct: function delProduct(item) {
+      var i = 0;
+      var a = 0;
+      this.cart.forEach(function (e) {
+        if (item.id == e.id && item.size == e.size) {
+          a = i;
+        }
+
+        i++;
+      });
+      this.cart.splice(a, 1);
+      this.price();
     }
   },
   beforeMount: function beforeMount() {
@@ -39932,7 +39943,7 @@ var render = function() {
           allPrice: _vm.allPrice,
           allQuantity: _vm.allQuantity
         },
-        on: { price: _vm.price }
+        on: { price: _vm.price, "del-product": _vm.delProduct }
       })
     ],
     1

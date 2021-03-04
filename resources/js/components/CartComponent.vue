@@ -43,7 +43,7 @@ export default {
     data() {
         return {
             delProduct(item){
-                console.log(item)
+                this.$emit('del-product', item)
             }
         }
     },
