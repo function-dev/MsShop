@@ -1999,6 +1999,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CartComponent",
   props: ['cart', 'allPrice', 'allQuantity'],
@@ -2095,7 +2099,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CatalogComponent",
   data: function data() {
@@ -2120,24 +2123,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       allQuantity: 0 + ' товаров'
     };
   },
+  mounted: function mounted() {
+    if (localStorage.cart) {
+      this.cart = JSON.parse(localStorage.cart);
+    }
+
+    if (localStorage.price) {
+      this.allPrice = localStorage.price;
+    }
+
+    if (localStorage.quantity) {
+      this.allQuantity = localStorage.quantity;
+    }
+  },
   methods: {
     openCatalog: function openCatalog() {
+      this.catalogArr = [];
       this.catalog = 1;
     },
     closeCatalog: function closeCatalog() {
       this.catalogArr = [];
       this.catalog = 0;
       this.outside = 0;
-    },
-    outsideClose: function outsideClose() {
-      this.catalogArr = [];
-
-      if (this.outside == 0) {
-        this.outside = 1;
-      } else if (this.outside == 1) {
-        this.catalog = 0;
-        this.outside = 0;
-      }
     },
     catalogList: function catalogList(value) {
       var arr = this.catalogArr;
@@ -2212,6 +2219,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var check = 0;
       var i = 0;
       var a = 0;
+
+      if (size.size == -1 || size.product != product.id) {
+        return;
+      }
+
       product.quantities.forEach(function (e) {
         if (size.id == e.id) {
           max = e.quantity;
@@ -2239,6 +2251,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         this.cart.push(this.cartItem);
       }
 
+      var parsed = JSON.stringify(this.cart);
+      localStorage.setItem('cart', parsed);
       this.price();
     },
     price: function price() {
@@ -2247,6 +2261,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         price += e.price * e.quantity;
       });
       this.allPrice = price;
+      var parsed2 = JSON.stringify(this.cart);
+      localStorage.setItem('cart', parsed2);
+      var parsed = this.allPrice;
+      localStorage.setItem('price', parsed);
       this.quantity();
     },
     quantity: function quantity() {
@@ -2273,6 +2291,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       this.allQuantity = quantity + word;
+      var parsed = this.allQuantity;
+      localStorage.setItem('quantity', parsed);
     },
     delProduct: function delProduct(item) {
       var i = 0;
@@ -2285,6 +2305,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         i++;
       });
       this.cart.splice(a, 1);
+      var parsed = JSON.stringify(this.cart);
+      localStorage.setItem('cart', parsed);
       this.price();
     },
     getCollectionName: function getCollectionName(id) {
@@ -6985,7 +7007,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.slide-enter-active, .slide-leave-active {\r\n    transition: opacity .1s;\n}\n.slide-enter, .slide-leave-to /* .fade-leave-active до версии 2.1.8 */ {\r\n    opacity: 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.slide-enter-active, .slide-leave-active {\n    transition: opacity .1s;\n}\n.slide-enter, .slide-leave-to /* .fade-leave-active до версии 2.1.8 */ {\n    opacity: 0;\n}\n", ""]);
 
 // exports
 
@@ -39626,85 +39648,101 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "cart" },
-      _vm._l(_vm.cart, function(item) {
-        return _c("div", { staticClass: "cart__item" }, [
-          _c("div", { staticClass: "cart__item-info" }, [
-            _c("img", {
-              staticClass: "cart__item-img",
-              attrs: { src: item.img, alt: "product img" }
-            }),
-            _vm._v(" "),
-            _c("p", { staticClass: "cart__item-title" }, [
-              _vm._v(_vm._s(item.title))
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "cart__item-size" }, [
-              _c("span", { staticClass: "products__size-value" }, [
-                _vm._v(_vm._s(item.size))
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("h3", { staticClass: "cart__item-price" }, [
-            _vm._v(_vm._s(item.price) + " ₽")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "cart__item-quant" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: item.quantity,
-                  expression: "item.quantity"
-                }
-              ],
-              staticClass: "cart__item-input",
-              attrs: { type: "number", min: "1", max: item.maxQuantity },
-              domProps: { value: item.quantity },
-              on: {
-                change: function() {
-                  _vm.$emit("price")
-                },
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+    _vm.cart.length != 0
+      ? _c(
+          "div",
+          { staticClass: "cart" },
+          _vm._l(_vm.cart, function(item) {
+            return _c("div", { staticClass: "cart__item" }, [
+              _c("div", { staticClass: "cart__item-info" }, [
+                _c("img", {
+                  staticClass: "cart__item-img",
+                  attrs: { src: item.img, alt: "product img" }
+                }),
+                _vm._v(" "),
+                _c("p", { staticClass: "cart__item-title" }, [
+                  _vm._v(_vm._s(item.title))
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "cart__item-size" }, [
+                  _c("span", { staticClass: "products__size-value" }, [
+                    _vm._v(_vm._s(item.size))
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("h3", { staticClass: "cart__item-price" }, [
+                _vm._v(_vm._s(item.price) + " ₽")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "cart__item-quant" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: item.quantity,
+                      expression: "item.quantity"
+                    }
+                  ],
+                  staticClass: "cart__item-input",
+                  attrs: { type: "number", min: "1", max: item.maxQuantity },
+                  domProps: { value: item.quantity },
+                  on: {
+                    change: function() {
+                      _vm.$emit("price")
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(item, "quantity", $event.target.value)
+                    }
                   }
-                  _vm.$set(item, "quantity", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c("p", { staticClass: "cart__item-text" }, [_vm._v("шт.")])
+                }),
+                _vm._v(" "),
+                _c("p", { staticClass: "cart__item-text" }, [_vm._v("шт.")])
+              ]),
+              _vm._v(" "),
+              _c(
+                "p",
+                {
+                  staticClass: "cart__item-del",
+                  on: {
+                    click: function($event) {
+                      return _vm.delProduct(item)
+                    }
+                  }
+                },
+                [_vm._v("Убрать товар")]
+              )
+            ])
+          }),
+          0
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.cart.length == 0
+      ? _c("div", { staticClass: "empty-cart" }, [
+          _c("h2", { staticClass: "empty-title" }, [
+            _vm._v("Ваша корзина пуста!")
           ]),
           _vm._v(" "),
-          _c(
-            "p",
-            {
-              staticClass: "cart__item-del",
-              on: {
-                click: function($event) {
-                  return _vm.delProduct(item)
-                }
-              }
-            },
-            [_vm._v("Убрать товар")]
-          )
+          _c("p", { staticClass: "empty-text" }, [
+            _vm._v("Добавьте товары и они появятся здесь")
+          ])
         ])
-      }),
-      0
-    ),
+      : _vm._e(),
     _vm._v(" "),
-    _c("div", { staticClass: "order" }, [
-      _c("h3", { staticClass: "order-text" }, [
-        _vm._v("Сумма заказа: " + _vm._s(_vm.$props.allPrice) + " ₽")
-      ]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn-black" }, [_vm._v("Оформить")])
-    ])
+    _vm.cart.length != 0
+      ? _c("div", { staticClass: "order" }, [
+          _c("h3", { staticClass: "order-text" }, [
+            _vm._v("Сумма заказа: " + _vm._s(_vm.$props.allPrice) + " ₽")
+          ]),
+          _vm._v(" "),
+          _c("button", { staticClass: "btn-black" }, [_vm._v("Оформить")])
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = [
@@ -39761,112 +39799,87 @@ var render = function() {
           _c("transition", { attrs: { name: "slide" } }, [
             _vm.catalog == 1
               ? _c("div", { staticClass: "blur-bg" }, [
-                  _c(
-                    "div",
-                    {
-                      directives: [
-                        {
-                          name: "click-outside",
-                          rawName: "v-click-outside",
-                          value: _vm.outsideClose,
-                          expression: "outsideClose"
-                        }
-                      ],
-                      staticClass: "catalog-menu"
-                    },
-                    [
-                      _c("div", { staticClass: "catalog-header" }, [
-                        _c("h2", [_vm._v("Каталог")]),
-                        _vm._v(" "),
-                        _c("img", {
-                          staticClass: "close-menu",
-                          attrs: { src: "/img/close.svg", alt: "close menu" },
-                          on: { click: _vm.closeCatalog }
-                        })
-                      ]),
+                  _c("div", { staticClass: "catalog-menu" }, [
+                    _c("div", { staticClass: "catalog-header" }, [
+                      _c("h2", [_vm._v("Коллекции")]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "catalog-header" }, [
-                        _c(
-                          "p",
-                          {
-                            staticClass: "catalog-options",
-                            on: { click: _vm.showAll }
-                          },
-                          [_vm._v("Выбрать все")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "p",
-                          {
-                            staticClass: "catalog-options",
-                            on: { click: _vm.hideAll }
-                          },
-                          [_vm._v("Убрать все")]
-                        )
-                      ]),
-                      _vm._v(" "),
+                      _c("img", {
+                        staticClass: "close-menu",
+                        attrs: { src: "/img/close.svg", alt: "close menu" },
+                        on: { click: _vm.closeCatalog }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "catalog-header" }, [
                       _c(
-                        "ul",
-                        { staticClass: "catalog__list" },
-                        [
-                          _vm._l(_vm.collectionList, function(item) {
-                            return _c(
-                              "li",
-                              { staticClass: "catalog__list-item" },
-                              [
-                                _c("input", {
-                                  staticClass: "catalog__list-checkbox",
-                                  attrs: {
-                                    type: "checkbox",
-                                    id: "catalog-" + item.id
-                                  },
-                                  domProps: { value: item.name },
-                                  on: {
-                                    change: function($event) {
-                                      return _vm.catalogList(item.id)
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("span", {
-                                  staticClass: "catalog__list-indicator",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.checkbox(item.id, item.name)
-                                    }
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c(
-                                  "label",
-                                  {
-                                    staticClass: "catalog__list-label",
-                                    attrs: { for: "catalog-" + item.id }
-                                  },
-                                  [_vm._v(_vm._s(item.name))]
-                                )
-                              ]
-                            )
-                          }),
-                          _vm._v(
-                            "\n                        " +
-                              _vm._s(_vm.catalogArr) +
-                              "\n                    "
-                          )
-                        ],
-                        2
+                        "p",
+                        {
+                          staticClass: "catalog-options",
+                          on: { click: _vm.showAll }
+                        },
+                        [_vm._v("Выбрать все")]
                       ),
                       _vm._v(" "),
                       _c(
-                        "button",
+                        "p",
                         {
-                          staticClass: "catalog-btn btn-white",
-                          on: { click: _vm.sort }
+                          staticClass: "catalog-options",
+                          on: { click: _vm.hideAll }
                         },
-                        [_vm._v("Показать")]
+                        [_vm._v("Убрать все")]
                       )
-                    ]
-                  )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "ul",
+                      { staticClass: "catalog__list" },
+                      _vm._l(_vm.collectionList, function(item) {
+                        return _c("li", { staticClass: "catalog__list-item" }, [
+                          _c("input", {
+                            staticClass: "catalog__list-checkbox",
+                            attrs: {
+                              type: "checkbox",
+                              id: "catalog-" + item.id
+                            },
+                            domProps: { value: item.id },
+                            on: {
+                              change: function($event) {
+                                return _vm.catalogList(item.id)
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass: "catalog__list-indicator",
+                            on: {
+                              click: function($event) {
+                                return _vm.checkbox(item.id, item.name)
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "catalog__list-label",
+                              attrs: { for: "catalog-" + item.id }
+                            },
+                            [_vm._v(_vm._s(item.name))]
+                          )
+                        ])
+                      }),
+                      0
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "catalog-btn btn-white",
+                        on: { click: _vm.sort }
+                      },
+                      [_vm._v("Показать")]
+                    )
+                  ])
                 ])
               : _vm._e()
           ]),
@@ -39964,6 +39977,9 @@ var render = function() {
                         "button",
                         {
                           staticClass: "btn-black",
+                          class: {
+                            disabled: _vm.sizeSelect.product != product.id
+                          },
                           on: {
                             click: function($event) {
                               return _vm.addCart(product, _vm.sizeSelect)
@@ -53077,8 +53093,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\OpenServer\domains\msshop\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\OpenServer\domains\msshop\resources\sass\site.scss */"./resources/sass/site.scss");
+__webpack_require__(/*! F:\MsShop2\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! F:\MsShop2\resources\sass\site.scss */"./resources/sass/site.scss");
 
 
 /***/ })

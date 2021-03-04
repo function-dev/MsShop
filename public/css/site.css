@@ -131,7 +131,7 @@
 /* Dropdown Toggle States */
 
 .vs--searchable .vs__dropdown-toggle {
-  cursor: text;
+  cursor: pointer;
 }
 
 .vs--unsearchable .vs__dropdown-toggle {
@@ -226,7 +226,7 @@
 }
 
 .vs__dropdown-option--disabled:hover {
-  cursor: inherit;
+  cursor: pointer;
 }
 
 /* Selected Tags */
@@ -571,6 +571,15 @@ h3 {
   background: #1EBFFF;
 }
 
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.disabled:hover {
+  background: #1A1A1A !important;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -806,7 +815,7 @@ h3 {
 }
 
 .catalog__list-checkbox:checked ~ .catalog__list-indicator {
-  content: url(/images/check.svg?ca22aa48e264d69dcc8251145001ff7c);
+  content: url(/images/check.svg?3223cd9e1adc9ab8caee743aa53926d2);
   display: block;
   width: 22px;
   height: 22px;
@@ -1108,6 +1117,18 @@ h3 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.empty-cart {
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.empty-text {
+  color: #BDBDBD;
 }
 
 .info {

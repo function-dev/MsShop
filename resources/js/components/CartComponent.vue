@@ -6,7 +6,7 @@
             </div>
             <p class="block-info">{{ $props.allQuantity }}</p>
         </div>
-        <div class="cart">
+        <div class="cart" v-if="cart.length != 0">
             <div class="cart__item" v-for="item in cart">
                 <div class="cart__item-info">
                     <img :src="item.img" alt="product img" class="cart__item-img">
@@ -23,7 +23,11 @@
                 <p class="cart__item-del" @click="delProduct(item)">Убрать товар</p>
             </div>
         </div>
-        <div class="order">
+        <div class="empty-cart" v-if="cart.length == 0">
+            <h2 class="empty-title">Ваша корзина пуста!</h2>
+            <p class="empty-text">Добавьте товары и они появятся здесь</p>
+        </div>
+        <div class="order"  v-if="cart.length != 0">
             <h3 class="order-text">Сумма заказа: {{ $props.allPrice }} ₽</h3>
             <button class="btn-black">Оформить</button>
         </div>

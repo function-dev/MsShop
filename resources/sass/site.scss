@@ -209,6 +209,15 @@ h3{
     background: $blue;
 }
 
+.disabled{
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    &:hover{
+        background: $black!important;
+    }
+}
+
 // /option
 
 // header
@@ -760,6 +769,18 @@ h3{
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.empty-cart{
+    margin: 16px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.empty-text{
+    color: $gray;
 }
 
 // /cart

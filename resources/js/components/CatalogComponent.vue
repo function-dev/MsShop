@@ -9,9 +9,9 @@
             </div>
             <transition name="slide">
                 <div class="blur-bg" v-if="catalog == 1">
-                    <div class="catalog-menu" v-click-outside="outsideClose">
+                    <div class="catalog-menu">
                         <div class="catalog-header">
-                            <h2>Каталог</h2>
+                            <h2>Коллекции</h2>
                             <img src="/img/close.svg" alt="close menu" class="close-menu" @click="closeCatalog">
                         </div>
                         <div class="catalog-header">
@@ -20,11 +20,10 @@
                         </div>
                         <ul class="catalog__list">
                             <li class="catalog__list-item" v-for="item in collectionList">
-                                <input type="checkbox" :id="'catalog-' + item.id" class="catalog__list-checkbox" :value="item.name" v-on:change="catalogList(item.id)">
+                                <input type="checkbox" :id="'catalog-' + item.id" class="catalog__list-checkbox" :value="item.id" v-on:change="catalogList(item.id)">
                                 <span class="catalog__list-indicator" @click="checkbox(item.id, item.name)"></span>
                                 <label :for="'catalog-' + item.id" class="catalog__list-label">{{item.name}}</label>
                             </li>
-                            {{catalogArr}}
                         </ul>
                         <button class="catalog-btn btn-white" @click="sort">Показать</button>
                     </div>
@@ -50,7 +49,7 @@
                             <div class="products__info">
                                 <p class="products__info-quantity" v-if="quant != 0 && sizeSelect.product == product.id">В наличии: {{ quant }} шт.</p>
                                 <h3 class="products__info-price">{{ product.price }} ₽</h3>
-                                <button class="btn-black" @click="addCart(product, sizeSelect)">Купить</button>
+                                <button class="btn-black" :class="{disabled: sizeSelect.product != product.id}" @click="addCart(product, sizeSelect)">Купить</button>
                             </div>
                         </div>
                         <img :src="product.img" class="products-body-img">
@@ -66,6 +65,7 @@
 <script>
 export default {
     name: "CatalogComponent",
+
     data() {
         return {
             sortedProduct:[],
@@ -88,8 +88,22 @@ export default {
             allQuantity: 0 + ' товаров',
         }
     },
+
+    mounted() {
+        if (localStorage.cart) {
+            this.cart = JSON.parse(localStorage.cart);
+        }
+        if (localStorage.price) {
+            this.allPrice = localStorage.price;
+        }
+        if (localStorage.quantity) {
+            this.allQuantity = localStorage.quantity;
+        }
+    },
+
     methods: {
         openCatalog(){
+            this.catalogArr = []
             this.catalog = 1
         },
 
@@ -97,16 +111,6 @@ export default {
             this.catalogArr = []
             this.catalog = 0
             this.outside = 0
-        },
-
-        outsideClose(){
-            this.catalogArr = []
-            if (this.outside == 0){
-                this.outside = 1
-            } else if (this.outside == 1){
-                this.catalog = 0
-                this.outside = 0
-            }
         },
 
         catalogList(value){
@@ -188,6 +192,10 @@ export default {
             let i = 0
             let a = 0
 
+            if (size.size == -1 || size.product != product.id){
+                return
+            }
+
             product.quantities.forEach((e) => {
                 if (size.id == e.id){
                     max = e.quantity
@@ -216,6 +224,9 @@ export default {
                 this.cart.push(this.cartItem)
             }
 
+            const parsed = JSON.stringify(this.cart);
+            localStorage.setItem('cart', parsed);
+
             this.price()
         },
 
@@ -228,6 +239,12 @@ export default {
 
             this.allPrice = price
 
+
+            const parsed2 = JSON.stringify(this.cart);
+            localStorage.setItem('cart', parsed2);
+
+            const parsed = this.allPrice;
+            localStorage.setItem('price', parsed);
 
             this.quantity()
         },
@@ -259,6 +276,9 @@ export default {
             }
 
             this.allQuantity = quantity + word
+
+            const parsed = this.allQuantity;
+            localStorage.setItem('quantity', parsed);
         },
 
         delProduct(item){
@@ -273,6 +293,9 @@ export default {
             })
 
             this.cart.splice(a, 1)
+
+            const parsed = JSON.stringify(this.cart);
+            localStorage.setItem('cart', parsed);
 
             this.price()
         },
@@ -295,7 +318,6 @@ export default {
             this.sortedProduct = this.sortedProduct.flat()
 
         },
-
     },
     async  beforeMount() {
         await this.getCollectionList()
