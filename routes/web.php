@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,9 @@ Auth::routes(['register' => false]);
 
 
 Route::get('/', 'HomeController@index')->name('index');
+
+Route::prefix('admin')->group(function () {
+    Route::get('/', 'Admin\AdminController@index');
+    Route::get('/catalog', 'Admin\AdminController@catalog');
+    Route::get('/collection', 'Admin\AdminController@collection');
+});
