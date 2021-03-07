@@ -5,7 +5,6 @@
             <div class="search">
                 <label class="search-label" for="search">Поиск</label>
                 <input type="text" id="search" class="search-input" v-model="search" @input="doSearch">
-                {{ search }}
             </div>
             <a :href="route" class="btn-black products-add">Добавить товар</a>
         </div>
@@ -78,11 +77,7 @@ export default {
         },
 
         doSearch() {
-            this.searchProduct = this.allProducts.filter(product => product.name == this.search)
-
-            if (this.search === ""){
-                this.searchProduct = this.allProducts
-            }
+            return axios.post(this.hostname + '/api/ApiSearch', {name: this.search}).then((data)=>this.searchProduct = data.data);
         }
     },
 

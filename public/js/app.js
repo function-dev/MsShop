@@ -2703,11 +2703,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         index: '123456',
         comment: 'Тут типа такой комментарий крутой, вот да, а ещё тут буквы чтобы проверить насколько много букав можно писать и все будет видно хорошо.',
         products: [{
-          productId: 1,
+          product_id: 1,
           quantity: 2,
           price: 1200,
           title: 'Футболка',
-          collectionId: 1
+          collection_id: 1
         }]
       }],
       showProduct: undefined,
@@ -2832,7 +2832,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ProductComponent",
   data: function data() {
@@ -2884,13 +2883,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     doSearch: function doSearch() {
       var _this4 = this;
 
-      this.searchProduct = this.allProducts.filter(function (product) {
-        return product.name == _this4.search;
+      return axios.post(this.hostname + '/api/ApiSearch', {
+        name: this.search
+      }).then(function (data) {
+        return _this4.searchProduct = data.data;
       });
-
-      if (this.search === "") {
-        this.searchProduct = this.allProducts;
-      }
     }
   },
   beforeMount: function beforeMount() {
@@ -40915,7 +40912,7 @@ var render = function() {
                     _vm._v(" "),
                     _vm._l(order.products, function(product) {
                       return _c("tr", [
-                        _c("td", [_vm._v(_vm._s(product.productId))]),
+                        _c("td", [_vm._v(_vm._s(product.product_id))]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(product.quantity) + "x")]),
                         _vm._v(" "),
@@ -40925,7 +40922,7 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [
                           _vm._v(
-                            _vm._s(_vm.getCollectionName(product.collectionId))
+                            _vm._s(_vm.getCollectionName(product.collection_id))
                           )
                         ]),
                         _vm._v(" "),
@@ -41047,8 +41044,7 @@ var render = function() {
               _vm.doSearch
             ]
           }
-        }),
-        _vm._v("\n            " + _vm._s(_vm.search) + "\n        ")
+        })
       ]),
       _vm._v(" "),
       _c(

@@ -24,11 +24,11 @@
                             <th>Всего</th>
                         </tr>
                         <tr v-for="product in order.products">
-                            <td>{{ product.productId }}</td>
+                            <td>{{ product.product_id }}</td>
                             <td>{{ product.quantity }}x</td>
                             <td>{{ product.price }} ₽</td>
                             <td>{{ product.title }}</td>
-                            <td>{{ getCollectionName(product.collectionId) }}</td>
+                            <td>{{ getCollectionName(product.collection_id) }}</td>
                             <td>{{ getProductPrice(product.quantity, product.price) }} ₽</td>
                         </tr>
                         <tr>
@@ -66,11 +66,11 @@ export default {
                     comment: 'Тут типа такой комментарий крутой, вот да, а ещё тут буквы чтобы проверить насколько много букав можно писать и все будет видно хорошо.',
                     products: [
                         {
-                            productId: 1,
+                            product_id: 1,
                             quantity: 2,
                             price: 1200,
                             title: 'Футболка',
-                            collectionId: 1,
+                            collection_id: 1,
                         }
                     ]
                 }

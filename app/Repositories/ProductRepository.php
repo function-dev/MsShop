@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 use App\products as Model;
+use http\Env\Response;
 use Illuminate\Database\Eloquent\Collection;
 
 class ProductRepository extends CoreRepository
@@ -40,10 +41,11 @@ class ProductRepository extends CoreRepository
     }
     public function getSearch($string){
         if (empty($string)){
-            return 0;
+            return $this->startConditions()->all();
         }
-        return $this->startConditions()
-            ->where('name', 'like', $string)
-            ->get();
+
+        $return = $this->startConditions()->where('name', 'like', '%'.$string.'%')->get();
+
+        return $return;
     }
 }
