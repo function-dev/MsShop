@@ -18,11 +18,18 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::apiResource('collectionList', 'CollectionListController');
-Route::apiResource('products', 'ProductsController');
+Route::apiResource('collectionList', 'CollectionListController')->only([
+    'index'
+]);
+Route::apiResource('products', 'ProductsController')->only([
+    'index'
+]);
+
+Route::apiResource('ApiProducts', 'ProductsController');
+Route::apiResource('ApiCollectionList', 'CollectionListController');
 
 
-Route::group(['middleware' => ['web']], function () {
-    Route::get('cookie/add','CookieController@addCookie');
-    Route::get('cookie/get','CookieController@getCookie');
-});
+//Route::group(['middleware' => ['web']], function () {
+//    Route::get('cookie/add','CookieController@addCookie');
+//    Route::get('cookie/get','CookieController@getCookie');
+//});
