@@ -23,7 +23,6 @@ class ProductRepository extends CoreRepository
 //    Получить всю информацию о всех продуктах
     public function getAllInfo()
     {
-
           $allInfo = [];
           $allProducts = $this->startConditions()->all();
 
@@ -38,5 +37,13 @@ class ProductRepository extends CoreRepository
 
           return $allProducts;
 
+    }
+    public function getSearch($string){
+        if (empty($string)){
+            return 0;
+        }
+        return $this->startConditions()
+            ->where('name', 'like', $string)
+            ->get();
     }
 }

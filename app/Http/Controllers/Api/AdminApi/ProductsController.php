@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\AdminApi;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Repositories\ProductRepository;
 
 class ProductsController extends Controller
 {
@@ -15,6 +16,11 @@ class ProductsController extends Controller
     public function index()
     {
         //
+    }
+
+    public function search(Request $request, ProductRepository $productRepository)
+    {
+        return $productRepository->getSearch($request->name);
     }
 
     /**

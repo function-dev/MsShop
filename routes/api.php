@@ -25,8 +25,9 @@ Route::apiResource('products', 'ProductsController')->only([
     'index'
 ]);
 
-Route::apiResource('ApiProducts', 'ProductsController');
-Route::apiResource('ApiCollectionList', 'CollectionListController');
+Route::apiResource('ApiProducts', 'Api\AdminApi\ProductsController');
+Route::apiResource('ApiCollectionList', 'Api\AdminApi\CollectionListController');
+Route::post('ApiSearch', 'Api\AdminApi\ProductsController@search');
 
 
 //Route::group(['middleware' => ['web']], function () {
