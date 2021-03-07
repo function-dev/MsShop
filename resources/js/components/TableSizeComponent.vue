@@ -1,5 +1,5 @@
 <template>
-    <div class="block">
+    <div class="block" id="table-size">
         <div class="block-header">
             <h2 class="block-title">Таблица размеров</h2>
         </div>

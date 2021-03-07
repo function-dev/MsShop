@@ -5,16 +5,16 @@
                 <h1 class="header-title">MsShop</h1>
                 <ul class="header__nav">
                     <li class="header__nav-item">
-                        <a href="#" class="header__nav-link">Каталог</a>
+                        <a href="#catalog" class="header__nav-link">Каталог</a>
                     </li>
                     <li class="header__nav-item">
-                        <a href="#" class="header__nav-link">Корзина</a>
+                        <a href="#cart" class="header__nav-link">Корзина</a>
                     </li>
                     <li class="header__nav-item">
-                        <a href="#" class="header__nav-link">Информация</a>
+                        <a href="#information" class="header__nav-link">Информация</a>
                     </li>
                     <li class="header__nav-item">
-                        <a href="#" class="header__nav-link">Таблица размеров</a>
+                        <a href="#table-size" class="header__nav-link">Таблица размеров</a>
                     </li>
                 </ul>
                 <img src="img/menu.svg" alt="menu" class="header__nav-mobile" v-on:click="openMenu">

@@ -20,7 +20,9 @@ Auth::routes(['register' => false]);
 Route::get('/', 'HomeController@index')->name('index');
 
 Route::prefix('admin')->group(function () {
-    Route::get('/', 'Admin\AdminController@index');
-    Route::get('/catalog', 'Admin\AdminController@catalog');
-    Route::get('/collection', 'Admin\AdminController@collection');
+    Route::get('/', 'Admin\AdminController@index')->name('admin');
+    Route::get('/catalog', 'Admin\AdminController@catalog')->name('admin.catalog');
+    Route::get('/catalog/add', 'Admin\AdminController@addProduct')->name('admin.add');
+    Route::get('/collection', 'Admin\AdminController@collection')->name('admin.collection');
+    Route::get('/collection/add', 'Admin\AdminController@addCollection')->name('admin.addCollection');
 });

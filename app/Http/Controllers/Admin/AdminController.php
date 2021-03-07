@@ -19,4 +19,12 @@ class AdminController extends Controller
 
         return view('admin/collection');
     }
+    public function addProduct(){
+
+        return view('admin/addProduct');
+    }
+    public function addCollection(){
+
+        return view('admin/addCollection');
+    }
 }

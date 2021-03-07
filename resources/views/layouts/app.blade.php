@@ -11,6 +11,11 @@
 </head>
 <body>
 
+<a class="back_to_top" title="Наверх">
+    <img src="img/uparrow-active.svg" alt="up" class="position-absolute">
+    <img src="img/uparrow.svg" alt="up" class="top-btn position-absolute">
+</a>
+
 <div id="app">
     <sidebar></sidebar>
 

@@ -1,5 +1,5 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
-    <p>catalog</p>
+    <admin-product-component route="{{ route('admin.add') }}"></admin-product-component>
 @endsection

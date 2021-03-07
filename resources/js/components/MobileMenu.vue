@@ -7,16 +7,16 @@
             </div>
             <ul class="mobile__nav">
                 <li class="mobile__nav-item">
-                    <a href="#" class="mobile__nav-link">Каталог</a>
+                    <a href="#catalog" class="mobile__nav-link">Каталог</a>
                 </li>
                 <li class="mobile__nav-item">
-                    <a href="#" class="mobile__nav-link">Корзина</a>
+                    <a href="#cart" class="mobile__nav-link">Корзина</a>
                 </li>
                 <li class="mobile__nav-item">
-                    <a href="#" class="mobile__nav-link">Информация</a>
+                    <a href="#information" class="mobile__nav-link">Информация</a>
                 </li>
                 <li class="mobile__nav-item">
-                    <a href="#" class="mobile__nav-link">Таблица размеров</a>
+                    <a href="#table-size" class="mobile__nav-link">Таблица размеров</a>
                 </li>
             </ul>
         </div>

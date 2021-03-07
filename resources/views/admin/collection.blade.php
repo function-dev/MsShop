@@ -1,7 +1,7 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 
-    <p>collection</p>
+    <admin-collection-component route="{{ route('admin.addCollection') }}"></admin-collection-component>
 
 @endsection

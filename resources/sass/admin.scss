@@ -1,0 +1,301 @@
+$black: #1A1A1A;
+$blue: #1EBFFF;
+$white: #FFFFFF;
+$gray: #BDBDBD;
+$light-gray: #f6f6f6;
+
+$title: 30px;
+$subtitle: 22px;
+$regular: 14px;
+$little: 12px;
+
+@import "fonts.scss";
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+ul[class],
+ol[class] {
+    padding: 0;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+    margin: 0;
+}
+
+body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+}
+
+ul[class],
+ol[class] {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+article > * + * {
+    margin-top: 1em;
+}
+
+input,
+button,
+textarea,
+select {
+    font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+*{
+    font-family: "inter", sans-serif;
+}
+
+.container {
+    padding: 0 15px;
+}
+
+@media (min-width: 576px){
+    .container {
+        max-width: 540px;
+        margin: auto;
+        padding: 0;
+    }
+}
+
+@media (min-width: 768px){
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px){
+    .container {
+        max-width: 1140px;
+    }
+}
+
+h1,h2,h3{
+    font-weight: 700;
+}
+
+h1{
+    font-size: $title;
+}
+
+h2{
+    font-size: $title;
+}
+
+h3{
+    font-size: $subtitle;
+}
+
+.light{
+    font-size: $little;
+    font-weight: 100;
+}
+
+.btn-black{
+    background: $black;
+    color: $white;
+    padding: 4px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    border-radius: 2px;
+    transition: background .3s ease;
+
+    &:hover{
+        background: $blue;
+        transition: background .3s ease;
+    }
+}
+
+.btn-white{
+    background: $white;
+    color: $black;
+    padding: 4px 20px;
+    cursor: pointer;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    border-radius: 2px;
+    transition: background .3s ease, color .3s ease;
+
+    &:hover{
+        background: $blue;
+        color: $white;
+        transition: background .3s ease, color .3s ease;
+    }
+}
+
+
+.sidebar{
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    background: $black;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.nav-item{
+    font-size: $subtitle;
+    margin-bottom: 8px;
+
+    &:first-child{
+        font-size: $title;
+        margin-bottom: 32px;
+
+        .nav-link{
+            font-weight: 700;
+        }
+    }
+}
+
+.nav-link{
+    color: $white;
+    transition: color .3s ease;
+
+    &:hover{
+        color: $blue;
+        transition: color .3s ease;
+    }
+}
+
+.admin{
+    background: $light-gray;
+    padding: 16px;
+    min-height: 100vh;
+}
+
+.page-title{
+    margin: 32px 0;
+}
+
+.products-block{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.table{
+    width: 100%;
+    margin-top: 32px;
+}
+
+th, td{
+    text-align: center;
+    min-height: 32px;
+}
+
+.product-img{
+    height: 120px;
+    margin: 8px auto;
+}
+
+.orders-list{
+    display: flex;
+    flex-direction: column;
+}
+
+.orders__item{
+    border-bottom: 1px dashed $gray;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    &:first-child{
+        border-top: 1px dashed $gray;
+    }
+}
+
+.bold{
+    font-weight: 700;
+}
+
+.orders__item-body{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, calc(100%/3));
+    grid-row-gap: 16px;
+}
+
+.orders__item-title{
+    grid-row: 1/2;
+    grid-column: 1/4;
+}
+
+.orders__item-date{
+    grid-row: 2/3;
+    grid-column: 1/2;
+}
+
+.orders__item-address{
+    grid-row: 3/4;
+    grid-column: 2/4;
+}
+
+.orders__item-comment{
+    grid-row: 4/5;
+    grid-column: 1/4;
+    margin-bottom: 16px;
+}
+
+.orders__item-products{
+    width: 100%;
+    margin-top: 16px;
+    margin-bottom: 16px;
+}
+
+.orders-table{
+    width: 100%;
+}
+
+.empty-block{
+    text-align: center;
+    width: 100%;
+    margin-top: 16px;
+}

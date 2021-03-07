@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="block">
+        <div class="block" id="catalog">
             <div class="block-header">
                 <div class="block-header-sort">
                     <h2 class="block-title">Каталог</h2>

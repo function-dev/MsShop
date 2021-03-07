@@ -10,7 +10,7 @@
 
         <catalog-component></catalog-component>
 
-        <div class="block">
+        <div class="block" id="information">
             <div class="block-header">
                 <h2 class="block-title">Информация</h2>
             </div>

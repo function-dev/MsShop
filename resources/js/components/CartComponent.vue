@@ -1,5 +1,5 @@
 <template>
-    <div class="block">
+    <div class="block" id="cart">
         <div class="block-header">
             <div class="block-header-sort">
                 <h2 class="block-title">Корзина</h2>

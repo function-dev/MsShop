@@ -24,12 +24,19 @@ import vSelect from 'vue-select'
 
 Vue.component('v-select', vSelect)
 
+
 Vue.component('sidebar', require('./components/Sidebar.vue').default);
 Vue.component('mobile-menu', require('./components/MobileMenu.vue').default);
 Vue.component('catalog-component', require('./components/CatalogComponent.vue').default);
 Vue.component('footer-component', require('./components/FooterComponent.vue').default);
 Vue.component('table-size-component', require('./components/TableSizeComponent.vue').default);
 Vue.component('cart-component', require('./components/CartComponent.vue').default);
+
+
+Vue.component('admin-product-component', require('./components/admin/ProductComponent.vue').default);
+Vue.component('admin-orders-component', require('./components/admin/OrdersComponent.vue').default);
+Vue.component('admin-collection-component', require('./components/admin/CollectionComponent.vue').default);
+
 
 Vue.directive('click-outside', {
     bind(el, binding) {
@@ -40,6 +47,33 @@ Vue.directive('click-outside', {
         document.body.removeEventListener('click', binding.value);
     }
 });
+
+var goTopBtn = document.querySelector('.back_to_top');
+
+if (goTopBtn){
+    window.addEventListener('scroll', trackScroll);
+    goTopBtn.addEventListener('click', backToTop);
+
+}
+
+function trackScroll() {
+    var scrolled = window.pageYOffset;
+    var coords = document.documentElement.clientHeight / 5;
+
+    if (scrolled > coords) {
+        goTopBtn.classList.add('back_to_top-show');
+    }
+    if (scrolled < coords) {
+        goTopBtn.classList.remove('back_to_top-show');
+    }
+}
+
+function backToTop() {
+    if (window.pageYOffset > 0) {
+        window.scrollBy(0, -80);
+        setTimeout(backToTop, 0);
+    }
+}
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
