@@ -44,7 +44,7 @@ class QuantityController extends Controller
             ]
         );
         if(!$validator->fails() ){
-            return $quantityRepository->addNewQuantity($request->product_id,$request->size, $request->quantity);
+            return $quantityRepository->addNewQuantity($request->product_id, $request->size, $request->quantity);
         }
         return response()
             ->json($validator->errors())

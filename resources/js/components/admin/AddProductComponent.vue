@@ -42,7 +42,7 @@
                 <label class="form-label" for="price">Цена</label>
                 <input class="form-input" type="number" name="price" id="price" min="0" v-model="price">
             </div>
-            <p class="btn-black form-product-btn" @click="addProduct">Следующий шаг</p>
+            <p class="btn-black form-product-btn" @click="nextStep">Следующий шаг</p>
         </form>
         <form class="attr-form" v-else-if="step === 2">
             <div class="attr-group" v-for="(item, index) in attr">
@@ -59,10 +59,10 @@
                 <span class="btn-black" @click="pushAttr">+</span>
                 <span class="btn-black" @click="removeAttr">-</span>
             </div>
-            <p class="btn-black form-attr-btn">Следующий шаг</p>
+            <p class="btn-black" @click="nextStep">Следующий шаг</p>
         </form>
         <form class="attr-form" v-else-if="step === 3">
-            <div class="quantity-group" v-for="(item, index) in quantity">
+            <div class="attr-group" v-for="(item, index) in quantity">
                 <div class="form-group">
                     <label :for="'size' + index" class="form-label">Размер</label>
                     <select :id="'size' + index" class="form-input" v-model="item.size">
@@ -84,8 +84,29 @@
                 <span class="btn-black" @click="pushQuant">+</span>
                 <span class="btn-black" @click="removeQuant">-</span>
             </div>
-            <p class="btn-black form-quant-btn">Следующий шаг</p>
+            <p class="btn-black" @click="nextStep">Следующий шаг</p>
         </form>
+        <div class="add-product" v-else-if="step === 4">
+            <ul>
+                <li><span class="bold">Название:</span>{{ name }}</li>
+                <li><span class="bold">Коллекция:</span>{{ getCollectionName(collectionId) }}</li>
+                <li><span class="bold">Описание:</span>{{ desc }}</li>
+                <li><span class="bold">Цена:</span>{{ price }}</li>
+                <li>
+                    <span class="bold">Аттрибуты:</span>
+                    <ul>
+                        <li v-for="item in attr">{{ item.name + ' - ' + item.value }}</li>
+                    </ul>
+                </li>
+                <li>
+                    <span class="bold">Размеры:</span>
+                    <ul>
+                        <li v-for="item in quantity">{{ item.size + ' - ' + item.quantity }}</li>
+                    </ul>
+                </li>
+            </ul>
+            <button class="btn-black" @click="saveProduct">Сохранить товар</button>
+        </div>
     </div>
 </template>
 
@@ -105,18 +126,10 @@ export default {
                     name: '',
                     value: 0
                 },
-                {
-                    name: '',
-                    value: 0
-                },
             ],
             quantity:[
                 {
                     size: 'XS',
-                    quantity: 1
-                },
-                {
-                    size: 'S',
                     quantity: 1
                 },
             ],
@@ -127,9 +140,8 @@ export default {
     },
 
     methods: {
-        addProduct(){
-            axios.post(this.hostname + '/api/ApiProducts', {collection_id: this.collectionId, name: this.name, desc: this.desc, img: this.img, price: parseInt(this.price)}).then((data)=>this.productId = data.data.id);
-            this.step = 2
+        nextStep(){
+            this.step += 1
         },
 
         pushAttr(){
@@ -165,6 +177,24 @@ export default {
             })
             return name
         },
+
+        saveProduct(){
+            axios.post(this.hostname + '/api/ApiProducts', {collection_id: this.collectionId, name: this.name, desc: this.desc, img: this.img, price: parseInt(this.price)}).then((data)=>this.saveAttr(data.data.id));
+        },
+
+        saveAttr(id){
+            this.attr.forEach((e) => {
+                axios.post(this.hostname + '/api/ApiAttr', {product_id: id, name: e.name, value: e.value})
+            })
+
+            this.saveQuantity(id)
+        },
+
+        saveQuantity(id){
+            this.quantity.forEach((e) => {
+                axios.post(this.hostname + '/api/ApiQuantity', {product_id: id, size: e.size, quantity: e.quantity})
+            })
+        }
     },
     async beforeMount() {
         await this.getCollectionList()

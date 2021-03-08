@@ -44,7 +44,7 @@ class AttrController extends Controller
             ]
         );
         if(!$validator->fails() ){
-            return $attrRepository->addNewAttr($request->product_id,$request->name, $request->value);
+            return $attrRepository->addNewAttr($request->product_id, $request->name, $request->value);
         }
         return response()
             ->json($validator->errors())
