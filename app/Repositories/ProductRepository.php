@@ -60,4 +60,7 @@ class ProductRepository extends CoreRepository
         ])->save();
         return $this->startConditions()->orderby('id', 'desc')->first();
     }
+    public function dellProduct($id){
+        $this->startConditions()->where('id', $id)->delete();
+    }
 }
