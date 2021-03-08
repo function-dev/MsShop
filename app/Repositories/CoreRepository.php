@@ -21,4 +21,10 @@ abstract class CoreRepository
     {
         return clone $this->model;
     }
+
+    protected function startNewModel()
+    {
+        return new $this->model;
+    }
+
 }

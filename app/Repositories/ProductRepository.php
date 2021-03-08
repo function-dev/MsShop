@@ -50,13 +50,14 @@ class ProductRepository extends CoreRepository
     }
 
     public function addNewProduct($collection_id, $name, $desc, $img, $price){
-        $this->startConditions()->create([
+
+        $this->startNewModel()->create([
             'collection_id' => $collection_id,
             'name' => $name,
             'desc' => $desc,
             'img' => $img,
             'price' => $price,
-        ]);
-        $this->startConditions()->save();
+        ])->save();
+        return $this->startConditions()->orderby('id', 'desc')->first();
     }
 }

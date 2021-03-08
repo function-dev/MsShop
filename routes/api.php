@@ -24,9 +24,9 @@ Route::apiResource('collectionList', 'CollectionListController')->only([
 Route::apiResource('products', 'ProductsController')->only([
     'index'
 ]);
-
 Route::apiResource('ApiProducts', 'Api\AdminApi\ProductsController');
 Route::apiResource('ApiCollectionList', 'Api\AdminApi\CollectionListController');
+Route::apiResource('ApiAttr', 'Api\AdminApi\AttrController');
 Route::post('ApiSearch', 'Api\AdminApi\ProductsController@search');
 
 

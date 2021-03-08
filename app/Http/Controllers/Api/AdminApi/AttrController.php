@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api\AdminApi;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Repositories\ProductRepository;
+use App\Repositories\AttrRepository;
 
-class ProductsController extends Controller
+class AttrController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +16,6 @@ class ProductsController extends Controller
     public function index()
     {
         //
-    }
-
-    public function search(Request $request, ProductRepository $productRepository)
-    {
-        return $productRepository->getSearch($request->name);
     }
 
     /**
@@ -39,24 +34,22 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, ProductRepository $productRepository)
+    public function store(Request $request, AttrRepository $attrRepository)
     {
         $validator = validator($request->all(),
             [
-                'collection_id' => 'required',
+                'product_id' => 'required',
                 'name' => 'required',
-                'desc' => 'required',
-                'img' => 'required',
-                'price'=>'required',
+                'value' => 'required',
             ]
         );
         if(!$validator->fails() ){
-            return $productRepository->addNewProduct($request->collection_id,$request->name,$request->desc,$request->img,$request->price);
+            return $attrRepository->addNewAttr($request->all());
         }
-
         return response()
             ->json($validator->errors())
             ->setStatusCode(400, 'Bad Request');
+
     }
 
     /**
