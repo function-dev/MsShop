@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api\AdminApi;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Repositories\AttrRepository;
+use App\Repositories\QuantityRepository;
 
-class AttrController extends Controller
+class QuantityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,22 +34,21 @@ class AttrController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, AttrRepository $attrRepository)
+    public function store(Request $request, QuantityRepository $quantityRepository)
     {
         $validator = validator($request->all(),
             [
                 'product_id' => 'required',
-                'name' => 'required',
-                'value' => 'required',
+                'size' => 'required',
+                'quantity' => 'required',
             ]
         );
         if(!$validator->fails() ){
-            return $attrRepository->addNewAttr($request->product_id,$request->name, $request->value);
+            return $quantityRepository->addNewQuantity($request->product_id,$request->size, $request->quantity);
         }
         return response()
             ->json($validator->errors())
             ->setStatusCode(400, 'Bad Request');
-
     }
 
     /**
