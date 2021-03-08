@@ -1,5 +1,5 @@
 @extends('layouts.admin')
 
 @section('content')
-    <p>add product</p>
+    <admin-add-product-component></admin-add-product-component>
 @endsection
