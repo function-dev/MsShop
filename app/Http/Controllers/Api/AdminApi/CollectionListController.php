@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\AdminApi;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Repositories\CollectionRepository;
 
 class CollectionListController extends Controller
 {
@@ -33,9 +34,9 @@ class CollectionListController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, CollectionRepository $collectionRepository)
     {
-        //
+        return $collectionRepository->addNewCollection($request->name);
     }
 
     /**

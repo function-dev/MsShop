@@ -20,4 +20,10 @@ class CollectionRepository extends CoreRepository
     public function getAllLine(){
         return $this->startConditions()->all();
     }
+    public function addNewCollection($name){
+        $this->startNewModel()->create([
+            'name' => $name,
+        ])->save();
+        return $this->startConditions()->orderby('id', 'desc')->first();
+    }
 }
