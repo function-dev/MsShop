@@ -12,4 +12,8 @@ class collection_list extends Model
     {
         return $this->hasMany('App\products', 'collection_id');
     }
+    public function orders_product()
+    {
+        return $this->hasMany('App\orders_product', 'collection_id');
+    }
 }

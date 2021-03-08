@@ -14,6 +14,12 @@ class products extends Model
     {
         return $this->hasMany('App\quantity', 'product_id');
     }
+
+    public function orders_product()
+    {
+        return $this->hasMany('App\orders_product', 'product_id');
+    }
+
     public function collectionList()
     {
         return $this->belongsTo('App\collection_list');

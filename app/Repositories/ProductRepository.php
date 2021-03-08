@@ -48,4 +48,15 @@ class ProductRepository extends CoreRepository
 
         return $return;
     }
+
+    public function addNewProduct($collection_id, $name, $desc, $img, $price){
+        $this->startConditions()->create([
+            'collection_id' => $collection_id,
+            'name' => $name,
+            'desc' => $desc,
+            'img' => $img,
+            'price' => $price,
+        ]);
+        $this->startConditions()->save();
+    }
 }

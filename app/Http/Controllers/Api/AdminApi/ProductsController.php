@@ -39,9 +39,9 @@ class ProductsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, ProductRepository $productRepository)
     {
-        //
+        $productRepository->addNewProduct($request->collection_id,$request->name,$request->desc,$request->img,$request->cprice );
     }
 
     /**
