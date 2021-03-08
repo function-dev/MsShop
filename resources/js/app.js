@@ -37,6 +37,7 @@ Vue.component('admin-product-component', require('./components/admin/ProductComp
 Vue.component('admin-orders-component', require('./components/admin/OrdersComponent.vue').default);
 Vue.component('admin-collection-component', require('./components/admin/CollectionComponent.vue').default);
 Vue.component('admin-add-product-component', require('./components/admin/AddProductComponent.vue').default);
+Vue.component('admin-add-collection-component', require('./components/admin/AddCollectionComponent.vue').default);
 
 
 Vue.directive('click-outside', {

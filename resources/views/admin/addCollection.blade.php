@@ -1,5 +1,5 @@
 @extends('layouts.admin')
 
 @section('content')
-    <p>add collection</p>
+    <admin-add-collection-component></admin-add-collection-component>
 @endsection

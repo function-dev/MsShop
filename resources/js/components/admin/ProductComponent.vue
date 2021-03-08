@@ -22,9 +22,8 @@
                 <td>{{ product.name }}</td>
                 <td>{{ getCollectionName(product.collection_id) }}</td>
                 <td>
-                    <a href="#" class="products-upd">Редактировать</a>
-                    <br>
-                    <a href="#" class="products-del">Удалить</a>
+                    <p class="products-upd">Редактировать</p>
+                    <p class="products-del" @click="delProduct(product.id)">Удалить</p>
                 </td>
             </tr>
         </table>
@@ -55,15 +54,15 @@ export default {
 
     methods: {
         getAllProducts(){
-            return axios.get(this.hostname + '/api/products').then((data)=>this.allProducts = data.data);
+            return axios.get(this.hostname + '/api/products').then((data)=>this.allProducts = data.data)
         },
 
         getSearchProducts(){
-            return axios.get(this.hostname + '/api/products').then((data)=>this.searchProduct = data.data);
+            return axios.get(this.hostname + '/api/products').then((data)=>this.searchProduct = data.data)
         },
 
         getCollectionList(){
-            return axios.get(this.hostname + '/api/collectionList').then((data)=>this.collectionList = data.data);
+            return axios.get(this.hostname + '/api/collectionList').then((data)=>this.collectionList = data.data)
         },
 
         getCollectionName(id){
@@ -77,7 +76,13 @@ export default {
         },
 
         doSearch() {
-            return axios.post(this.hostname + '/api/ApiSearch', {name: this.search}).then((data)=>this.searchProduct = data.data);
+            return axios.post(this.hostname + '/api/ApiSearch', {name: this.search}).then((data)=>this.searchProduct = data.data)
+        },
+
+        delProduct(id){
+            axios.delete(this.hostname + '/api/ApiProducts/' + id)
+
+            document.location = this.hostname + '/admin/catalog'
         }
     },
 

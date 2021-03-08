@@ -229,6 +229,22 @@ h3 {
   width: 100%;
 }
 
+.products-del {
+  cursor: pointer;
+}
+
+.products-del:hover {
+  opacity: 0.5;
+}
+
+.products-upd {
+  cursor: pointer;
+}
+
+.products-upd:hover {
+  opacity: 0.5;
+}
+
 .table {
   width: 100%;
   margin-top: 32px;
@@ -431,5 +447,9 @@ textarea {
 
 .attr-action {
   margin: 32px 0;
+}
+
+.add-collection .btn-black {
+  margin-top: 32px;
 }
 

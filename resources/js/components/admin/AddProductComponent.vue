@@ -194,6 +194,8 @@ export default {
             this.quantity.forEach((e) => {
                 axios.post(this.hostname + '/api/ApiQuantity', {product_id: id, size: e.size, quantity: e.quantity})
             })
+
+            document.location = this.hostname + '/admin/catalog'
         }
     },
     async beforeMount() {
