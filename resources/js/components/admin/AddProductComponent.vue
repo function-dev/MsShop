@@ -128,7 +128,7 @@ export default {
 
     methods: {
         addProduct(){
-            axios.post(this.hostname + '/api/ApiProducts', {collection_id: this.collectionId, name: this.name, desc: this.desc, img: this.img, price: parseInt(this.price)}).then((data)=>this.productId = data.data);
+            axios.post(this.hostname + '/api/ApiProducts', {collection_id: this.collectionId, name: this.name, desc: this.desc, img: this.img, price: parseInt(this.price)}).then((data)=>this.productId = data.data.id);
             this.step = 2
         },
 
