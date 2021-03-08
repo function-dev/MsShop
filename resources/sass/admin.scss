@@ -344,6 +344,7 @@ th, td{
     user-select: none;
     margin: 0 8px;
     background: $white;
+    cursor: pointer;
 }
 
 .products__nav-title{
@@ -358,4 +359,64 @@ th, td{
 .active{
     background: $blue!important;
     color: $white!important;
+}
+
+.product-form{
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(2, calc(50% - 8px));
+    grid-row-gap: 32px;
+    grid-column-gap: 16px;
+
+    .form-product-btn{
+        grid-column: 2/3;
+        grid-row: 4/5;
+        width: 100%;
+        text-align: center;
+    }
+
+    .form-group:nth-child(3){
+        grid-row: 2/4;
+        grid-column: 1/2;
+    }
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.form-label{
+    margin-bottom: 4px;
+    font-size: 14px;
+    font-weight: 700;
+    color: $black;
+}
+
+.form-input{
+    width: 100%;
+    min-height: 30px;
+    outline: none;
+}
+
+textarea{
+    resize: none;
+    height: 100%;
+}
+
+.attr-form{
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.attr-group{
+    margin: 16px 0;
+}
+
+.attr-action{
+    margin: 32px 0;
 }
