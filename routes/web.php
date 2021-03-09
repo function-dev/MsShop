@@ -25,4 +25,5 @@ Route::prefix('admin')->group(function () {
     Route::get('/catalog/add', 'Admin\AdminController@addProduct')->name('admin.add');
     Route::get('/collection', 'Admin\AdminController@collection')->name('admin.collection');
     Route::get('/collection/add', 'Admin\AdminController@addCollection')->name('admin.addCollection');
+    Route::get('/collection/edit/{id}', 'Admin\AdminController@editCollection')->name('admin.editCollection');
 });

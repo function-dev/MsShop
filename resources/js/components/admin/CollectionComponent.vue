@@ -14,9 +14,8 @@
                 <td>{{ collection.id }}</td>
                 <td>{{ collection.name }}</td>
                 <td>
-                    <a href="#" class="collection-upd">Редактировать</a>
-                    <br>
-                    <a href="#" class="collection-del">Удалить</a>
+                    <p class="products-upd" @click="editCollection(collection.id)">Редактировать</p>
+                    <p class="products-del" @click="delCollection(collection.id)">Удалить</p>
                 </td>
             </tr>
         </table>
@@ -42,6 +41,16 @@ export default {
         getCollectionList(){
             return axios.get(this.hostname + '/api/collectionList').then((data)=>this.collectionList = data.data);
         },
+
+        delCollection(id){
+            axios.delete(this.hostname + '/api/ApiCollectionList/' + id)
+
+            document.location = this.hostname + '/admin/collection'
+        },
+
+        editCollection(id){
+            document.location = this.hostname + '/admin/collection/edit/' + id
+        }
     },
 
     async beforeMount() {

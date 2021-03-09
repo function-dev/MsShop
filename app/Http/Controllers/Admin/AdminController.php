@@ -27,4 +27,8 @@ class AdminController extends Controller
 
         return view('admin/addCollection');
     }
+    public function editCollection($id){
+
+        return view('admin/editCollection', ['id' => $id]);
+    }
 }
