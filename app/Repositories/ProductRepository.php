@@ -39,6 +39,23 @@ class ProductRepository extends CoreRepository
           return $allProducts;
 
     }
+
+    public function getAllInfoById($id){
+        $allInfo = [];
+        $allProducts = $this->startConditions()->where('id',$id);
+
+        foreach ($allProducts as $product)
+        {
+
+            array_push($allInfo, $product );
+            array_push($allInfo, $product->attrs );
+            array_push($allInfo, $product->quantities );
+
+        }
+
+        return $allProducts;
+    }
+
     public function getSearch($string){
         if (empty($string)){
             return $this->startConditions()->all();
@@ -73,4 +90,5 @@ class ProductRepository extends CoreRepository
     public function dellProduct($id){
         $this->startConditions()->where('id', $id)->delete();
     }
+
 }
