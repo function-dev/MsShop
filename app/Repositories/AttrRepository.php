@@ -20,4 +20,12 @@ class AttrRepository extends CoreRepository
         ])->save();
         return $this->startConditions()->orderby('id', 'desc')->first();
     }
+
+    public function updateAttr($id, $name, $value){
+        $this->startConditions()->where('id', $id)->update([
+            'name' => $name,
+            'value'=>$value
+        ])->save();
+        return $id;
+    }
 }

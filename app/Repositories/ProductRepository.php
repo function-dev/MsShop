@@ -42,7 +42,7 @@ class ProductRepository extends CoreRepository
 
     public function getAllInfoById($id){
         $allInfo = [];
-        $allProducts = $this->startConditions()->where('id',$id);
+        $allProducts = $this->startConditions()->where('id',$id)->get();
 
         foreach ($allProducts as $product)
         {
@@ -77,6 +77,8 @@ class ProductRepository extends CoreRepository
         ])->save();
         return $this->startConditions()->orderby('id', 'desc')->first();
     }
+
+
     public function updateProduct($id, $collection_id,$name, $desc, $img, $price){
         $this->startConditions()->where('id', $id)->update([
             'collection_id' => $collection_id,
@@ -87,8 +89,12 @@ class ProductRepository extends CoreRepository
         ])->save();
         return $id;
     }
+
+
     public function dellProduct($id){
         $this->startConditions()->where('id', $id)->delete();
     }
+
+
 
 }
