@@ -31,4 +31,8 @@ class AdminController extends Controller
 
         return view('admin/editCollection', ['id' => $id]);
     }
+    public function editProduct($id){
+
+        return view('admin/editProduct', ['id' => $id]);
+    }
 }
