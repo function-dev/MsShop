@@ -88,9 +88,9 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, ProductRepository $productRepository)
     {
-        //
+        return $productRepository->updateProduct($id, $request->collection_id, $request->name, $request->desc, $request->img, $request->price);
     }
 
     /**
