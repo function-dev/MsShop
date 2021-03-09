@@ -42,7 +42,7 @@ class ProductRepository extends CoreRepository
 
     public function getAllInfoById($id){
         $allInfo = [];
-        $allProducts = $this->startConditions()->where('id',$id);
+        $allProducts = $this->startConditions()->where('id',$id)->get();
 
         foreach ($allProducts as $product)
         {
