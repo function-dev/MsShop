@@ -26,4 +26,7 @@ class CollectionRepository extends CoreRepository
         ])->save();
         return $this->startConditions()->orderby('id', 'desc')->first();
     }
+    public function dellCollection($id){
+        $this->startConditions()->where('id', $id)->delete();
+    }
 }
