@@ -29,4 +29,9 @@ class CollectionRepository extends CoreRepository
     public function dellCollection($id){
         $this->startConditions()->where('id', $id)->delete();
     }
+    public function updateCollection($id, $name){
+        $this->startConditions()->where('id', $id)->update([
+            'name'=>$name
+        ])->save();
+    }
 }
