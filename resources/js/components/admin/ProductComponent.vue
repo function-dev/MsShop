@@ -22,7 +22,7 @@
                 <td>{{ product.name }}</td>
                 <td>{{ getCollectionName(product.collection_id) }}</td>
                 <td>
-                    <p class="products-upd">Редактировать</p>
+                    <p class="products-upd" @click="editProduct(product.id)">Редактировать</p>
                     <p class="products-del" @click="delProduct(product.id)">Удалить</p>
                 </td>
             </tr>
@@ -83,6 +83,10 @@ export default {
             axios.delete(this.hostname + '/api/ApiProducts/' + id)
 
             document.location = this.hostname + '/admin/catalog'
+        },
+
+        editProduct(id){
+            document.location = this.hostname + '/admin/catalog/edit/' + id
         }
     },
 

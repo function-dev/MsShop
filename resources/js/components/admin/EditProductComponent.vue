@@ -135,21 +135,21 @@ export default {
         pushAttr(){
             let arr = {name: '', value: 0}
 
-            this.attr.push(arr)
+            this.product[0].attrs.push(arr)
         },
 
         removeAttr(){
-            this.attr.splice(-1, 1)
+            this.product[0].attrs.splice(-1, 1)
         },
 
         pushQuant(){
             let arr = {size: '', quantity: 1}
 
-            this.quantity.push(arr)
+            this.product[0].quantity.push(arr)
         },
 
         removeQuant(){
-            this.quantity.splice(-1, 1)
+            this.product[0].quantity.splice(-1, 1)
         },
 
         getCollectionList(){
@@ -178,23 +178,25 @@ export default {
                 img: this.product[0].img,
                 price: this.product[0].price,
             });
+
+            this.saveAttr(id)
         },
 
-        // saveAttr(id){
-        //     this.attr.forEach((e) => {
-        //         axios.post(this.hostname + '/api/ApiAttr', {product_id: id, name: e.name, value: e.value})
-        //     })
-        //
-        //     this.saveQuantity(id)
-        // },
-        //
-        // saveQuantity(id){
-        //     this.quantity.forEach((e) => {
-        //         axios.post(this.hostname + '/api/ApiQuantity', {product_id: id, size: e.size, quantity: e.quantity})
-        //     })
-        //
-        //     document.location = this.hostname + '/admin/catalog'
-        // }
+        saveAttr(id){
+            this.product[0].attrs.forEach((e) => {
+                axios.put(this.hostname + '/api/ApiAttr/' + id, {name: e.name, value: e.value})
+            })
+
+            this.saveQuantity(id)
+        },
+
+        saveQuantity(id){
+            this.product[0].quantity.forEach((e) => {
+                axios.put(this.hostname + '/api/ApiQuantity/' + id, {size: e.size, quantity: e.quantity})
+            })
+
+            document.location = this.hostname + '/admin/catalog'
+        }
     },
     async beforeMount() {
         await this.getCollectionList()
