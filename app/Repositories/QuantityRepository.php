@@ -21,10 +21,9 @@ class QuantityRepository extends CoreRepository
         return $this->startConditions()->orderby('id', 'desc')->first();
     }
     public function updateQuantity($id, $size, $quantity){
-        $this->startConditions()->where('id', $id)->update([
+        $this->startConditions()->where('product_id', $id)->update([
             'size' => $size,
             'quantity' => $quantity,
-        ])->save();
-        return $id;
+        ]);
     }
 }

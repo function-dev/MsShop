@@ -184,6 +184,7 @@ export default {
 
         saveAttr(id){
             this.product[0].attrs.forEach((e) => {
+                console.log(e.name)
                 axios.put(this.hostname + '/api/ApiAttr/' + id, {name: e.name, value: e.value})
             })
 
@@ -191,11 +192,12 @@ export default {
         },
 
         saveQuantity(id){
-            this.product[0].quantity.forEach((e) => {
+            this.product[0].quantities.forEach((e) => {
+                console.log(e.size)
                 axios.put(this.hostname + '/api/ApiQuantity/' + id, {size: e.size, quantity: e.quantity})
             })
 
-            document.location = this.hostname + '/admin/catalog'
+            // document.location = this.hostname + '/admin/catalog'
         }
     },
     async beforeMount() {

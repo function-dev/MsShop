@@ -32,6 +32,6 @@ class CollectionRepository extends CoreRepository
     public function updateCollection($id, $name){
         $this->startConditions()->where('id', $id)->update([
             'name'=>$name
-        ])->save();
+        ]);
     }
 }

@@ -22,10 +22,9 @@ class AttrRepository extends CoreRepository
     }
 
     public function updateAttr($id, $name, $value){
-        $this->startConditions()->where('id', $id)->update([
+        $this->startConditions()->where('product_id', $id)->update([
             'name' => $name,
             'value'=>$value
-        ])->save();
-        return $id;
+        ]);
     }
 }

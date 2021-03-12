@@ -86,8 +86,7 @@ class ProductRepository extends CoreRepository
             'desc' => $desc,
             'img' => $img,
             'price' => $price
-        ])->save();
-        return $id;
+        ]);
     }
 
 
