@@ -80,9 +80,9 @@ class QuantityController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, QuantityRepository $quantityRepository)
+    public function update(Request $request, $product_id, QuantityRepository $quantityRepository)
     {
-        return $quantityRepository->updateQuantity($id, $request->size, $request->quantity);
+        return $quantityRepository->updateQuantity($product_id, $request->arr);
     }
 
     /**

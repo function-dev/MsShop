@@ -20,10 +20,14 @@ class QuantityRepository extends CoreRepository
         ])->save();
         return $this->startConditions()->orderby('id', 'desc')->first();
     }
-    public function updateQuantity($id, $size, $quantity){
-        $this->startConditions()->where('product_id', $id)->update([
-            'size' => $size,
-            'quantity' => $quantity,
-        ]);
+    public function updateQuantity($product_id, $data){
+        foreach ($data as $item){
+            if ($item['product_id'] == $product_id){
+                $this->startConditions()->where('id', $item['id'])->update([
+                    'size' => $item['size'],
+                    'quantity'=>$item['quantity']
+                ]);
+            }
+        }
     }
 }

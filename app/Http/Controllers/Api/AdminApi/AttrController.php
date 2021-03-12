@@ -81,9 +81,9 @@ class AttrController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, AttrRepository $attrRepository)
+    public function update(Request $request, $product_id, AttrRepository $attrRepository)
     {
-        return $attrRepository->updateAttr($id, $request->name, $request->value);
+        return $attrRepository->updateAttr($product_id, $request->arr);
     }
 
     /**
