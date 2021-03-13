@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
     <div class="container">
         <div class="banner-min block">
             <h2 class="banner-title">MultiSport Shop</h2>

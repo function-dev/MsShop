@@ -35,8 +35,14 @@
                 <textarea class="form-input" name="desc" id="desc" v-model="desc"></textarea>
             </div>
             <div class="form-group">
-                <label class="form-label" for="img">Изображение</label>
-                <input class="form-input" type="text" name="img" id="img" v-model="img">
+<!--                <label class="form-label" for="img">Изображение</label>-->
+<!--                <input class="form-input" type="text" name="img" id="img" v-model="img">-->
+                {{$props.productimage}}
+                <form :action="$props.route" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="_token" :value="$props.token">
+                    <input type="file" name="image">
+                    <button type="submit">Загрузить фото</button>
+                </form>
             </div>
             <div class="form-group">
                 <label class="form-label" for="price">Цена</label>
@@ -137,6 +143,11 @@ export default {
             hostname: location.protocol + '//' + location.hostname + ':8000',
             productId: null,
         }
+    },
+    props: {
+        token: { type: String, required: true },
+        route: { type: String, required: true },
+        productimage: { type: String, required: true },
     },
 
     methods: {
