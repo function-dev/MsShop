@@ -28,4 +28,3 @@ Route::prefix('admin')->group(function () {
     Route::get('/collection/edit/{id}', 'Admin\AdminController@editCollection')->name('admin.editCollection');
     Route::get('/catalog/edit/{id}', 'Admin\AdminController@editProduct')->name('admin.editProduct');
 });
-Route::post('addPhoto', 'AddPhotoController@add')->name('photo.add');

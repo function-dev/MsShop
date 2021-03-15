@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->foreign('collection_id')->references('id')->on('collection_list')->onDelete('cascade');
             $table->string('name');
             $table->text('desc');
-            $table->string('img');
+            $table->longText('img');
             $table->integer('price');
             $table->timestamps();
         });
