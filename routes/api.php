@@ -29,6 +29,8 @@ Route::apiResource('ApiProducts', 'Api\AdminApi\ProductsController');
 Route::apiResource('ApiCollectionList', 'Api\AdminApi\CollectionListController');
 Route::apiResource('ApiAttr', 'Api\AdminApi\AttrController');
 Route::apiResource('ApiQuantity', 'Api\AdminApi\QuantityController');
+Route::apiResource('ApiOrder', 'Api\AdminApi\OrderController');
+Route::apiResource('ApiOrdersProduct', 'Api\AdminApi\OrdersProductController');
 
 Route::post('ApiSearch', 'Api\AdminApi\ProductsController@search');
 

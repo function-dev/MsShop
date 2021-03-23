@@ -4,22 +4,26 @@
 namespace App;
 
 
+use Illuminate\Support\Facades\Storage;
+
 class Base64_converter
 {
-
-    public function base64_to_png($string){
+    public function base64_to_png($string, $diskName){
         $image = explode(',', $string);
         $imageName = (string)mt_rand() . '.png';
-        return array(base64_decode($image[1]), $imageName);
+        Storage::disk($diskName)->put($imageName, base64_decode($image[1]));
+        return $imageName;
     }
-    public function base64_to_jpg($string){
+    public function base64_to_jpg($string, $diskName){
         $image = explode(',', $string);
         $imageName = (string)mt_rand() . '.jpg';
-        return array(base64_decode($image[1]), $imageName);
+        Storage::disk($diskName)->put($imageName, base64_decode($image[1]));
+        return $imageName;
     }
-    public function base64_to_jpeg($string){
+    public function base64_to_jpeg($string, $diskName){
         $image = explode(',', $string);
         $imageName = (string)mt_rand() . '.jpeg';
-        return array(base64_decode($image[1]), $imageName);
+        Storage::disk($diskName)->put($imageName, base64_decode($image[1]));
+        return $imageName;
     }
 }

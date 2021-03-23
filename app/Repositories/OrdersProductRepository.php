@@ -4,7 +4,7 @@ namespace App\Repositories;
 use App\collection_list as Model;
 use Illuminate\Database\Eloquent\Collection;
 
-class CollectionRepository extends CoreRepository
+class OrdersProductRepository extends CoreRepository
 {
     protected function getModelClass()
     {
@@ -21,21 +21,20 @@ class CollectionRepository extends CoreRepository
         return $this->startConditions()->all();
     }
 
-    public function addNewCollection($name){
+    public function addNewOrderProduct($order_id, $product_id, $quantity, $price){
         $this->startNewModel()->create([
-            'name' => $name,
+            'order_id' => $order_id,
+            'product_id' => $product_id,
+            'quantity' => $quantity,
+            'price' => $price,
         ])->save();
         return $this->startConditions()->orderby('id', 'desc')->first();
     }
 
-    public function dellCollection($id){
+    public function dellOrderProduct($id){
         $this->startConditions()->where('id', $id)->delete();
     }
 
-    public function updateCollection($id, $name){
-        $this->startConditions()->where('id', $id)->update([
-            'name'=>$name
-        ]);
-    }
+
 
 }

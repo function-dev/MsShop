@@ -5,6 +5,7 @@ use App\products as Model;
 use http\Env\Response;
 use Illuminate\Database\Eloquent\Collection;
 use App\base64_converter;
+use Illuminate\Support\Facades\Storage;
 
 class ProductRepository extends CoreRepository
 {
@@ -67,28 +68,26 @@ class ProductRepository extends CoreRepository
         return $return;
     }
 
-    public function addNewProduct(Base64_converter $base64_converter, $collection_id, $name, $desc, $img, $price){
+    public function addNewProduct($collection_id, $name, $desc, $img, $price){
 
-
+        $a = new Base64_converter();
         $format = explode(',', $img);
 
         if ($format[0] == 'data:image/png;base64'){
-            $img = $base64_converter->base64_to_png($img);
+            $img = $a->base64_to_png($img, 'product');
         }elseif ($format[0] == 'data:image/jpg;base64'){
-            $img = $base64_converter->base64_to_jpg($img);
+            $img = $a->base64_to_jpg($img, 'product');
         }elseif($format[0] == 'data:image/jpeg;base64'){
-            $img = $base64_converter->base64_to_jpeg($img);
+            $img = $a->base64_to_jpeg($img, 'product');
         }
 
         $this->startNewModel()->create([
             'collection_id' => $collection_id,
             'name' => $name,
             'desc' => $desc,
-            'img' => $img[1],
+            'img' => $img,
             'price' => $price,
         ])->save();
-
-        Storage::disk('product')->put($img[1], $img[0]);
 
         return $this->startConditions()->orderby('id', 'desc')->first();
     }
