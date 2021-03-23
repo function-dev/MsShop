@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use App\base64_converter;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +31,4 @@ Route::prefix('admin')->group(function () {
     Route::get('/collection/edit/{id}', 'Admin\AdminController@editCollection')->name('admin.editCollection');
     Route::get('/catalog/edit/{id}', 'Admin\AdminController@editProduct')->name('admin.editProduct');
 });
-Route::post('addPhoto', 'AddPhotoController@add')->name('photo.add');
+
