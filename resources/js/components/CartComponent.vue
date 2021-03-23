@@ -9,7 +9,7 @@
         <div class="cart" v-if="cart.length != 0">
             <div class="cart__item" v-for="item in cart">
                 <div class="cart__item-info">
-                    <img :src="item.img" alt="product img" class="cart__item-img">
+                    <img :src="'storage/' + item.img" alt="product img" class="cart__item-img">
                     <p class="cart__item-title">{{ item.title }}</p>
                     <div class="cart__item-size">
                         <span class="products__size-value">{{ item.size }}</span>

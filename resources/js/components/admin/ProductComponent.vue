@@ -18,7 +18,7 @@
             </tr>
             <tr class="table-row" v-for="product in searchProduct">
                 <td>{{ product.id }}</td>
-                <td><img :src="'../' + product.img" :alt="product.name" class="product-img"></td>
+                <td><img :src="'../storage/' + product.img" :alt="product.name" class="product-img"></td>
                 <td>{{ product.name }}</td>
                 <td>{{ getCollectionName(product.collection_id) }}</td>
                 <td>

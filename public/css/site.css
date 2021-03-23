@@ -131,7 +131,7 @@
 /* Dropdown Toggle States */
 
 .vs--searchable .vs__dropdown-toggle {
-  cursor: text;
+  cursor: pointer;
 }
 
 .vs--unsearchable .vs__dropdown-toggle {
@@ -226,7 +226,7 @@
 }
 
 .vs__dropdown-option--disabled:hover {
-  cursor: inherit;
+  cursor: pointer;
 }
 
 /* Selected Tags */
@@ -844,7 +844,7 @@ h3 {
 }
 
 .catalog__list-checkbox:checked ~ .catalog__list-indicator {
-  content: url(/images/check.svg?ca22aa48e264d69dcc8251145001ff7c);
+  content: url(/images/check.svg?3223cd9e1adc9ab8caee743aa53926d2);
   display: block;
   width: 22px;
   height: 22px;

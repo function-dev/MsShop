@@ -52,7 +52,7 @@
                                 <button class="btn-black" :class="{disabled: sizeSelect.product != product.id}" @click="addCart(product, sizeSelect)">Купить</button>
                             </div>
                         </div>
-                        <img :src="product.img" class="products-body-img">
+                        <img :src="'storage/' + product.img" class="products-body-img">
                     </div>
                 </div>
             </div>
