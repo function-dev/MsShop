@@ -31,6 +31,7 @@ Vue.component('catalog-component', require('./components/CatalogComponent.vue').
 Vue.component('footer-component', require('./components/FooterComponent.vue').default);
 Vue.component('table-size-component', require('./components/TableSizeComponent.vue').default);
 Vue.component('cart-component', require('./components/CartComponent.vue').default);
+Vue.component('order-component', require('./components/OrderComponent.vue').default);
 
 
 Vue.component('admin-product-component', require('./components/admin/ProductComponent.vue').default);

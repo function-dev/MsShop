@@ -195,7 +195,7 @@ export default {
 
             axios.put(this.hostname + '/api/ApiQuantity/' + id, {arr: arr})
 
-            // document.location = this.hostname + '/admin/catalog'
+            document.location = this.hostname + '/admin/catalog'
         }
     },
     async beforeMount() {

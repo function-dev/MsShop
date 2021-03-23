@@ -27,9 +27,14 @@
             <h2 class="empty-title">Ваша корзина пуста!</h2>
             <p class="empty-text">Добавьте товары и они появятся здесь</p>
         </div>
+        <transition name="slidedown">
+            <order-component v-if="order === 1"></order-component>
+        </transition>
+
         <div class="order"  v-if="cart.length != 0">
             <h3 class="order-text">Сумма заказа: {{ $props.allPrice }} ₽</h3>
-            <button class="btn-black">Оформить</button>
+            <button class="btn-black" @click="order = 1" v-if="order === 0">Оформить</button>
+            <button class="btn-black" v-if="order === 1">Оформить</button>
         </div>
     </div>
 </template>
@@ -46,13 +51,47 @@ export default {
 
     data() {
         return {
-            delProduct(item){
-                this.$emit('del-product', item)
-            }
+            order: 0
         }
     },
     methods: {
-
+        delProduct(item){
+            this.$emit('del-product', item)
+        }
     }
 }
 </script>
+
+<style>
+.slidedown-enter-active {
+    -moz-transition-duration: 0.3s;
+    -webkit-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -moz-transition-timing-function: ease-in;
+    -webkit-transition-timing-function: ease-in;
+    -o-transition-timing-function: ease-in;
+    transition-timing-function: ease-in;
+}
+
+.slidedown-leave-active {
+    -moz-transition-duration: 0.3s;
+    -webkit-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -moz-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    -webkit-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    -o-transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
+.slidedown-enter-to, .slide-leave {
+    max-height: 1000px;
+    overflow: hidden;
+}
+
+.slidedown-enter, .slide-leave-to {
+    overflow: hidden;
+    max-height: 0;
+}
+</style>

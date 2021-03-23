@@ -35,14 +35,8 @@
                 <textarea class="form-input" name="desc" id="desc" v-model="desc"></textarea>
             </div>
             <div class="form-group">
-<!--                <label class="form-label" for="img">Изображение</label>-->
-<!--                <input class="form-input" type="text" name="img" id="img" v-model="img">-->
-                {{$props.productimage}}
-                <form :action="$props.route" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="_token" :value="$props.token">
-                    <input type="file" name="image">
-                    <button type="submit">Загрузить фото</button>
-                </form>
+                <label class="form-label" for="file">Изображение</label>
+                <input class="form-input" type="file" ref="file" id="file" @change="handleFileUpload">
             </div>
             <div class="form-group">
                 <label class="form-label" for="price">Цена</label>
@@ -142,12 +136,11 @@ export default {
             collectionList:[],
             hostname: location.protocol + '//' + location.hostname + ':8000',
             productId: null,
+            file: '',
         }
     },
     props: {
-        token: { type: String, required: true },
         route: { type: String, required: true },
-        productimage: { type: String, required: true },
     },
 
     methods: {
@@ -207,6 +200,32 @@ export default {
             })
 
             document.location = this.hostname + '/admin/catalog'
+        },
+
+        handleFileUpload(){
+            this.file = this.$refs.file.files[0]
+
+            this.submitFile()
+        },
+
+        submitFile(){
+            let formData = new FormData()
+
+            formData.append('file', JSON.stringify(this.file))
+
+            axios.post( this.$props.route,
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+            ).then(function(){
+                console.log('SUCCESS!!')
+            })
+                .catch(function(){
+                    console.log('FAILURE!!')
+                })
         }
     },
     async beforeMount() {

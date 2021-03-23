@@ -2,7 +2,7 @@
     <div>
         <div class="container">
             <header class="header">
-                <h1 class="header-title">MsShop</h1>
+                <h1 class="header-title">MSShop</h1>
                 <ul class="header__nav">
                     <li class="header__nav-item">
                         <a href="#catalog" class="header__nav-link">Каталог</a>

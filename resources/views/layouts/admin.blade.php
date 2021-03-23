@@ -26,6 +26,9 @@
             <a href="{{ route('admin.collection') }}" class="nav-link">Коллекции</a>
         </li>
         <li class="nav-item">
+            <a href="#" class="nav-link">Таблица размеров</a>
+        </li>
+        <li class="nav-item">
             <a href="#" class="nav-link">Выйти</a>
         </li>
     </ul>

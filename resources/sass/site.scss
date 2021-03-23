@@ -845,6 +845,79 @@ h3{
 
 // /cart
 
+// order
+
+#order{
+    margin-top: 58px;
+    padding-bottom: 33px;
+    border-bottom: 1px dashed $gray;
+}
+
+.order-form{
+    display: grid;
+    grid-template-columns: repeat(3, calc(100% / 3 - 9px));
+    grid-column-gap: 13px;
+    grid-row-gap: 40px;
+}
+
+.order__group{
+    display: flex;
+    flex-direction: column;
+
+    &:nth-child(7){
+        grid-column: 1/4;
+    }
+
+    &:nth-child(8){
+        grid-column: 1/4;
+    }
+}
+
+.order__group-label{
+    color: $black;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.order__group-input{
+    border: 1px solid $black;
+    outline: none;
+    font-size: 16px;
+    color: $black;
+    padding: 4px 8px;
+    resize: none;
+}
+
+textarea.order__group-input{
+    height: 137px;
+}
+
+.order-comment{
+    margin-top: 32px;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+@media (max-width: 768px) {
+    .order-form{
+        grid-template-columns: 100%;
+        grid-column-gap: 13px;
+    }
+
+    .order__group{
+        &:nth-child(7){
+            grid-column: 1/2;
+        }
+
+        &:nth-child(8){
+            grid-column: 1/2;
+        }
+    }
+}
+
+// /order
+
 // information
 
 .info{
