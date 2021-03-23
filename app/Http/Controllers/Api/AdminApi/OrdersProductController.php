@@ -45,7 +45,7 @@ class OrdersProductController extends Controller
             ]
         );
         if(!$validator->fails() ){
-            return $ordersProductRepository->addNewOrder($request->order_id, $request->product_id, $request->quantity, $request->price);
+            return $ordersProductRepository->addNewOrderProduct($request->order_id, $request->product_id, $request->quantity, $request->price);
         }
 
         return response()

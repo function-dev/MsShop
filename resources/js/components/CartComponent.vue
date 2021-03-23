@@ -28,13 +28,12 @@
             <p class="empty-text">Добавьте товары и они появятся здесь</p>
         </div>
         <transition name="slidedown">
-            <order-component v-if="order === 1"></order-component>
+            <order-component v-if="order === 1" :cart="cart" :allPrice="$props.allPrice"></order-component>
         </transition>
 
-        <div class="order"  v-if="cart.length != 0">
+        <div class="order"  v-if="cart.length !== 0 && order !== 1" >
             <h3 class="order-text">Сумма заказа: {{ $props.allPrice }} ₽</h3>
-            <button class="btn-black" @click="order = 1" v-if="order === 0">Оформить</button>
-            <button class="btn-black" v-if="order === 1">Оформить</button>
+            <button class="btn-black" @click="order = 1">Оформить</button>
         </div>
     </div>
 </template>

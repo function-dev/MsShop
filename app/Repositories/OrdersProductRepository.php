@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Repositories;
-use App\collection_list as Model;
+use App\orders_product as Model;
 use Illuminate\Database\Eloquent\Collection;
 
 class OrdersProductRepository extends CoreRepository

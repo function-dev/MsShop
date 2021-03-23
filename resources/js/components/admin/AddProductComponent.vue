@@ -219,18 +219,6 @@ export default {
             reader.readAsDataURL(file);
         },
         uploadFile(){
-            // let fd = new FormData();
-            // fd.append("file", this.image);
-            //
-            // axios.post(this.hostname + '/addPhoto',{ _token:`${this.token}`,fd,
-            //     headers: {
-            //     'Content-Type': 'multipart/form-data',
-            //         // '_token':`${this.token}`,
-            //     },
-            // }).then(function (response) {
-            //     if (response.data.ok) {
-            //     }
-            // }.bind(this));
             axios.post(this.hostname + '/testPhoto', {
                 image: this.image
             })
