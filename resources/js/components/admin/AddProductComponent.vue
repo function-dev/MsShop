@@ -35,18 +35,8 @@
                 <textarea class="form-input" name="desc" id="desc" v-model="desc"></textarea>
             </div>
             <div class="form-group">
-<!--                <label class="form-label" for="img">Изображение</label>-->
-<!--                <input class="form-input" type="text" name="img" id="img" v-model="img">-->
-                {{$props.productimage}}
-<!--                <form :action="$props.route" method="POST" enctype="multipart/form-data">-->
-<!--                    <input type="hidden" name="_token" :value="$props.token">-->
-<!--                    <input type="file" name="image">-->
-<!--                    <button type="submit">Загрузить фото</button>-->
-<!--                </form>-->
-
                 <input type="file" @change="onFileChange">
                 <img :src="image">
-                <p @click="uploadFile">Загрузить изображение</p>
             </div>
             <div class="form-group">
                 <label class="form-label" for="price">Цена</label>
@@ -128,7 +118,7 @@ export default {
             collectionId: 1,
             name: '',
             desc: '',
-            img: '',
+            image: '',
             price: 0,
             step: 1,
             attr:[
@@ -146,7 +136,6 @@ export default {
             collectionList:[],
             hostname: location.protocol + '//' + location.hostname + ':8000',
             productId: null,
-            image: '',
         }
     },
     props: {
@@ -195,7 +184,7 @@ export default {
         },
 
         saveProduct(){
-            axios.post(this.hostname + '/api/ApiProducts', {collection_id: this.collectionId, name: this.name, desc: this.desc, img: this.img, price: parseInt(this.price)}).then((data)=>this.saveAttr(data.data.id));
+            axios.post(this.hostname + '/api/ApiProducts', {collection_id: this.collectionId, name: this.name, desc: this.desc, img: this.image, price: parseInt(this.price)}).then((data)=>this.saveAttr(data.data.id));
         },
 
         saveAttr(id){
