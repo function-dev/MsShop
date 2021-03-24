@@ -190,12 +190,17 @@ h3{
 
         .nav-link{
             font-weight: 700;
+
         }
     }
 }
 
 .nav-link{
     color: $white;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
     transition: color .3s ease;
 
     &:hover{

@@ -5,7 +5,7 @@
             <div class="orders__item" v-for="order in orders">
                 <div class="orders__item-body">
                     <h3 class="orders__item-title">Заказ №{{ order.id }}</h3>
-                    <p class="orders__item-date"><span class="bold">Дата заказа: </span>{{ order.date }}</p>
+                    <p class="orders__item-date"><span class="bold">Дата заказа: </span>{{ order.created_at }}</p>
                     <p class="orders__item-name"><span class="bold">ФИО: </span>{{ order.surname }} {{ order.name }} {{ order.patronymic }}</p>
                     <p class="orders__item-tel"><span class="bold">Телефон: </span>{{ order.tel }}</p>
                     <p class="orders__item-mail"><span class="bold">Почта: </span>{{ order.mail }}</p>
@@ -23,12 +23,12 @@
                             <th>Коллекция</th>
                             <th>Всего</th>
                         </tr>
-                        <tr v-for="product in order.products">
+                        <tr v-for="product in products">
                             <td>{{ product.product_id }}</td>
                             <td>{{ product.quantity }}x</td>
                             <td>{{ product.price }} ₽</td>
-                            <td>{{ product.title }}</td>
-                            <td>{{ getCollectionName(product.collection_id) }}</td>
+                            <td>{{ getProductName(product.product_id) }}</td>
+                            <td>{{ getCollectionName(getProductCollection(product.product_id)) }}</td>
                             <td>{{ getProductPrice(product.quantity, product.price) }} ₽</td>
                         </tr>
                         <tr>
@@ -52,32 +52,12 @@ export default {
 
     data(){
         return{
-            orders: [
-                {
-                    id: 1,
-                    date: '06.03.2021',
-                    surname: 'Иванов',
-                    name: 'Иван',
-                    patronymic: 'Иванович',
-                    tel: '+79991234567',
-                    mail: 'mail@mail.ru',
-                    address: 'Россия, г. Санкт-Петербург, ул. Пушкина, д. Колотушкина',
-                    index: '123456',
-                    comment: 'Тут типа такой комментарий крутой, вот да, а ещё тут буквы чтобы проверить насколько много букав можно писать и все будет видно хорошо.',
-                    products: [
-                        {
-                            product_id: 1,
-                            quantity: 2,
-                            price: 1200,
-                            title: 'Футболка',
-                            collection_id: 1,
-                        }
-                    ]
-                }
-            ],
+            orders: [],
+            products: [],
             showProduct: undefined,
             hostname: location.protocol + '//' + location.hostname + ':8000',
             collectionList:[],
+            allProducts: [],
         }
     },
 
@@ -88,6 +68,8 @@ export default {
             } else {
                 this.showProduct = undefined
             }
+
+            this.getProducts(id)
         },
 
         getCollectionList(){
@@ -112,20 +94,54 @@ export default {
             return fullPrice
         },
 
-        getFullPrice(id){
-            let order = this.orders.filter(order => order.id === id)
+        getFullPrice(){
             let fullPrice = 0
 
-            order[0].products.forEach((e) => {
+            this.products.forEach((e) => {
                 fullPrice += e.price * e.quantity
             })
 
             return fullPrice
+        },
+
+        getOrder(){
+            axios.get(this.hostname + '/api/ApiOrder').then((data)=> this.orders = data.data)
+        },
+
+        getProducts(id){
+            axios.get(this.hostname + '/api/ApiOrdersProduct/' + id).then((data)=>this.products = data.data)
+        },
+
+        getAllProducts(){
+            return axios.get(this.hostname + '/api/products').then((data)=>this.allProducts = data.data);
+        },
+
+        getProductName(id){
+            let name
+            this.allProducts.forEach((e)=>{
+                if (e.id == id){
+                    name = e.name
+                }
+            })
+            return name
+        },
+
+        getProductCollection (id){
+            let name
+            this.allProducts.forEach((e)=>{
+                if (e.id == id){
+                    name = e.collection_id
+                }
+            })
+            return name
+
         }
     },
 
     async beforeMount() {
         await this.getCollectionList()
+        await this.getAllProducts()
+        await this.getOrder()
     },
 }
 </script>
