@@ -13,9 +13,9 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(OrderRepository $orderRepository)
     {
-        //
+        return $orderRepository->getAllLine();
     }
 
     /**
@@ -61,7 +61,7 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**

@@ -16,6 +16,10 @@ class OrdersProductRepository extends CoreRepository
         return $this->startConditions()->find($id);
     }
 
+    public function getOrderByOrderId($orderId){
+        return $this->startConditions()->where('order_id', $orderId)->get();
+    }
+
 
     public function getAllLine(){
         return $this->startConditions()->all();
