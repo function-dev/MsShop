@@ -28,7 +28,7 @@
             <p class="empty-text">Добавьте товары и они появятся здесь</p>
         </div>
         <transition name="slidedown">
-            <order-component v-if="order === 1" :cart="cart" :allPrice="$props.allPrice"></order-component>
+            <order-component v-if="cart.length !== 0 && order === 1" :cart="cart" :allPrice="$props.allPrice"></order-component>
         </transition>
 
         <div class="order"  v-if="cart.length !== 0 && order !== 1" >
