@@ -5,7 +5,7 @@
             <div class="orders__item" v-for="order in orders">
                 <div class="orders__item-body">
                     <h3 class="orders__item-title">Заказ №{{ order.id }}</h3>
-                    <p class="orders__item-date"><span class="bold">Дата заказа: </span>{{ order.created_at }}</p>
+                    <p class="orders__item-date"><span class="bold">Дата заказа: </span>{{ formatDate(order.created_at) }}</p>
                     <p class="orders__item-name"><span class="bold">ФИО: </span>{{ order.surname }} {{ order.name }} {{ order.patronymic }}</p>
                     <p class="orders__item-tel"><span class="bold">Телефон: </span>{{ order.tel }}</p>
                     <p class="orders__item-mail"><span class="bold">Почта: </span>{{ order.mail }}</p>
@@ -136,7 +136,15 @@ export default {
                 }
             })
             return name
+        },
 
+        formatDate(date){
+            date = date.replace('Z', ' ')
+            date = date.replace('T', ' ')
+
+            date = date.slice(0, -8)
+
+            return date
         }
     },
 

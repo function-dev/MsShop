@@ -26,9 +26,6 @@
             <a href="{{ route('admin.collection') }}" class="nav-link">Коллекции</a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link">Таблица размеров</a>
-        </li>
-        <li class="nav-item">
             <form action="{{route('logout')}}" method="post">
                 @csrf
                 <button type="submit" class="nav-link">Выйти</button>

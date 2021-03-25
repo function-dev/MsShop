@@ -42,14 +42,15 @@
                                 {{product.desc}}
                             </p>
                             <div class="products__size">
-                                <div v-for="size in product.quantities" :class="{active: sizeSelect.size == size.size && sizeSelect.product == product.id}" class="products__size-item" @click="switchSize(product.id, size.size, size.id, size.quantity)">
+                                <div v-for="size in product.quantities" :class="{active: sizeSelect.size === size.size && sizeSelect.product === product.id}" class="products__size-item" @click="switchSize(product.id, size.size, size.id, size.quantity)">
                                     <span class="products__size-value">{{size.size}}</span>
                                 </div>
                             </div>
                             <div class="products__info">
-                                <p class="products__info-quantity" v-if="quant != 0 && sizeSelect.product == product.id">В наличии: {{ quant }} шт.</p>
+                                <p class="products__info-quantity" v-if="quant > 0 && sizeSelect.product === product.id">В наличии: {{ quant }} шт.</p>
+                                <p class="products__info-quantity" v-if="quant < 1 && sizeSelect.product === product.id">Нет в наличии</p>
                                 <h3 class="products__info-price">{{ product.price }} ₽</h3>
-                                <button class="btn-black" :class="{disabled: sizeSelect.product != product.id}" @click="addCart(product, sizeSelect)">Купить</button>
+                                <button class="btn-black" :class="{disabled: sizeSelect.product !== product.id | quant === 0}" @click="addCart(product, sizeSelect)">Купить</button>
                             </div>
                         </div>
                         <img :src="'storage/' + product.img" class="products-body-img">
@@ -192,7 +193,7 @@ export default {
             let i = 0
             let a = 0
 
-            if (size.size == -1 || size.product != product.id){
+            if (size.size === -1 || size.product !== product.id || this.quant < 1){
                 return
             }
 

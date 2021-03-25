@@ -36,7 +36,7 @@
             </div>
             <div class="form-group">
                 <input type="file" @change="onFileChange">
-                <img :src="image">
+                <img class="form-img" :src="image">
             </div>
             <div class="form-group">
                 <label class="form-label" for="price">Цена</label>

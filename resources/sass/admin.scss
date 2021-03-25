@@ -201,6 +201,7 @@ h3{
     outline: none;
     background: none;
     cursor: pointer;
+    padding: 0;
     transition: color .3s ease;
 
     &:hover{
@@ -446,4 +447,8 @@ textarea{
     .btn-black{
         margin-top: 32px;
     }
+}
+
+.form-img{
+    max-height: 150px;
 }

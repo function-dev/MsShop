@@ -131,7 +131,7 @@
 /* Dropdown Toggle States */
 
 .vs--searchable .vs__dropdown-toggle {
-  cursor: text;
+  cursor: pointer;
 }
 
 .vs--unsearchable .vs__dropdown-toggle {
@@ -226,7 +226,7 @@
 }
 
 .vs__dropdown-option--disabled:hover {
-  cursor: inherit;
+  cursor: pointer;
 }
 
 /* Selected Tags */
@@ -844,7 +844,7 @@ h3 {
 }
 
 .catalog__list-checkbox:checked ~ .catalog__list-indicator {
-  content: url(/images/check.svg?ca22aa48e264d69dcc8251145001ff7c);
+  content: url(/images/check.svg?3223cd9e1adc9ab8caee743aa53926d2);
   display: block;
   width: 22px;
   height: 22px;
@@ -1244,6 +1244,49 @@ textarea.order__group-input {
   margin-top: 32px;
   font-weight: 700;
   font-size: 18px;
+}
+
+.order-error {
+  color: #f64242;
+}
+
+.popup-thanks {
+  top: 0;
+  left: 0;
+  z-index: 100000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.popup-body {
+  width: 300px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px;
+  background: #FFFFFF;
+  align-items: center;
+  border-radius: 8px;
+}
+
+@media (max-width: 991px) {
+  .order {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+  }
+
+  .order-error {
+    text-align: center;
+  }
 }
 
 @media (max-width: 768px) {

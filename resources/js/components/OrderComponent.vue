@@ -39,7 +39,17 @@
         </div>
         <div class="order">
             <h3 class="order-text">Сумма заказа: {{ $props.allPrice }} ₽</h3>
+            <h3 class="order-error" v-if="errorCheck !== null">Не заполнены обязательные поля</h3>
             <button class="btn-black" @click="setOrder">Заказать</button>
+        </div>
+
+
+        <div class="popup-thanks" v-if="thanks === 1">
+            <div class="popup-body">
+                <h3 class="popup-title">Спасибо за Ваш заказ!</h3>
+                <p class="popup-text">Номер вашего заказа: {{ orderId }}</p>
+                <button class="btn-black" @click="refreshPage">Закрыть</button>
+            </div>
         </div>
     </div>
 </template>
@@ -61,6 +71,8 @@ export default {
             comment: '',
             orderId: null,
             size: '',
+            errorCheck: null,
+            thanks: 0,
         }
     },
 
@@ -71,16 +83,19 @@ export default {
 
     methods: {
         setOrder(){
-            axios.post(this.hostname + '/api/ApiOrder', {
-                surname: this.surname,
-                name: this.name,
-                patronymic: this.patronymic,
-                tel: this.tel,
-                mail: this.mail,
-                address: this.address,
-                index: this.index,
-                comment: this.comment
-            }).then((data)=>this.setOrderProduct(data.data.id))
+            axios
+                .post(this.hostname + '/api/ApiOrder', {
+                    surname: this.surname,
+                    name: this.name,
+                    patronymic: this.patronymic,
+                    tel: this.tel,
+                    mail: this.mail,
+                    address: this.address,
+                    index: this.index,
+                    comment: this.comment
+                })
+                .then((data)=>this.setOrderProduct(data.data.id))
+                .catch((error) => this.errorCheck = error)
         },
 
         setOrderProduct(id){
@@ -93,7 +108,17 @@ export default {
                     size: e.size
                 })
             })
+
+            this.orderId = id
+
+            localStorage.clear();
+
+            this.thanks = 1
         },
+
+        refreshPage(){
+            document.location = '/'
+        }
     },
 }
 </script>
