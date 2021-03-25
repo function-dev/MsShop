@@ -7,6 +7,11 @@
 
     <link rel="stylesheet" href="{{ asset('css/site.css') }}">
 
+    <script src="https://3dsec.sberbank.ru/payment/docsite/assets/js/ipay.js"></script>
+    <script>
+        var ipay = new IPAY({api_token: 'v9u59qpenj1rni0b42okf60u0g'});
+    </script>
+
     <title>MultiSport Shop</title>
 </head>
 <body>

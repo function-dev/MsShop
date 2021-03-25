@@ -40,7 +40,7 @@
         <div class="order">
             <h3 class="order-text">Сумма заказа: {{ $props.allPrice }} ₽</h3>
             <h3 class="order-error" v-if="errorCheck !== null">Не заполнены обязательные поля</h3>
-            <button class="btn-black" @click="setOrder">Заказать</button>
+            <button class="btn-black" @click="pay">Заказать</button>
         </div>
 
 
@@ -61,12 +61,12 @@ export default {
     data() {
         return {
             hostname: location.protocol + '//' + location.hostname + ':8000',
-            name: '',
+            name: null,
             surname: '',
             patronymic: '',
-            tel: '',
-            mail: '',
-            address: '',
+            tel: null,
+            mail: null,
+            address: null,
             index: '',
             comment: '',
             orderId: null,
@@ -82,6 +82,22 @@ export default {
     ],
 
     methods: {
+        pay(){
+            if (this.name === null | this.tel === null | this.mail === null | this.address === null){
+                this.errorCheck = 'error'
+                return
+            }
+
+            ipayCheckout({
+                    amount: this.$props.allPrice,
+                    currency:'RUB',
+                    description: 'Покупка товаров'},
+                function(order) { setOrder() },
+                function(order) { showFailurefulPurchase(order) }
+            )
+        },
+
+
         setOrder(){
             axios
                 .post(this.hostname + '/api/ApiOrder', {
