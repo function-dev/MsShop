@@ -35,8 +35,8 @@
                 <textarea class="form-input" name="desc" id="desc" v-model="product[0].desc"></textarea>
             </div>
             <div class="form-group">
-                <label class="form-label" for="img">Изображение</label>
-                <input class="form-input" type="text" name="img" id="img" v-model="product[0].img">
+                <input type="file" @change="onFileChange">
+                <img :src="image">
             </div>
             <div class="form-group">
                 <label class="form-label" for="price">Цена</label>
@@ -120,6 +120,7 @@ export default {
             hostname: location.protocol + '//' + location.hostname + ':8000',
             productId: null,
             step: 1,
+            image: '',
         }
     },
 
@@ -175,7 +176,7 @@ export default {
                 collection_id: this.product[0].collection_id,
                 name: this.product[0].name,
                 desc: this.product[0].desc,
-                img: this.product[0].img,
+                img: this.image,
                 price: this.product[0].price,
             });
 
@@ -196,7 +197,23 @@ export default {
             axios.put(this.hostname + '/api/ApiQuantity/' + id, {arr: arr})
 
             document.location = this.hostname + '/admin/catalog'
-        }
+        },
+        onFileChange(e) {
+            let files = e.target.files || e.dataTransfer.files;
+            if (!files.length)
+                return;
+            this.createImage(files[0]);
+        },
+        createImage(file) {
+            let image = new Image();
+            let reader = new FileReader();
+            let vm = this;
+
+            reader.onload = (e) => {
+                vm.image = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        },
     },
     async beforeMount() {
         await this.getCollectionList()

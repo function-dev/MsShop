@@ -94,6 +94,17 @@ class ProductRepository extends CoreRepository
 
 
     public function updateProduct($id, $collection_id,$name, $desc, $img, $price){
+        $a = new Base64_converter();
+        $format = explode(',', $img);
+
+        if ($format[0] == 'data:image/png;base64'){
+            $img = $a->base64_to_png($img, 'product');
+        }elseif ($format[0] == 'data:image/jpg;base64'){
+            $img = $a->base64_to_jpg($img, 'product');
+        }elseif($format[0] == 'data:image/jpeg;base64'){
+            $img = $a->base64_to_jpeg($img, 'product');
+        }
+
         $this->startConditions()->where('id', $id)->update([
             'collection_id' => $collection_id,
             'name' => $name,
