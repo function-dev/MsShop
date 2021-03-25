@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\OrderRepository;
 
+
 class OrderController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -45,6 +47,7 @@ class OrderController extends Controller
             ]
         );
         if(!$validator->fails() ){
+
             return $orderRepository->addNewOrder($request->surname, $request->name, $request->patronymic, $request->tel, $request->mail, $request->address, $request->index, $request->comment);
         }
 

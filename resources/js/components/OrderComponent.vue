@@ -60,6 +60,7 @@ export default {
             index: '',
             comment: '',
             orderId: null,
+            size: '',
         }
     },
 
@@ -88,7 +89,8 @@ export default {
                     order_id: id,
                     product_id: e.id,
                     quantity: e.quantity,
-                    price: e.price
+                    price: e.price,
+                    size: e.size
                 })
             })
         },

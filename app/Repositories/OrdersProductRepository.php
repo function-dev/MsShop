@@ -25,12 +25,13 @@ class OrdersProductRepository extends CoreRepository
         return $this->startConditions()->all();
     }
 
-    public function addNewOrderProduct($order_id, $product_id, $quantity, $price){
+    public function addNewOrderProduct($order_id, $product_id, $quantity, $price, $size){
         $this->startNewModel()->create([
             'order_id' => $order_id,
             'product_id' => $product_id,
             'quantity' => $quantity,
             'price' => $price,
+            'size' => $size,
         ])->save();
         return $this->startConditions()->orderby('id', 'desc')->first();
     }

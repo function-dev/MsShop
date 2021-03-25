@@ -20,6 +20,7 @@
                             <th>Кол-во</th>
                             <th>Цена за шт.</th>
                             <th>Название</th>
+                            <th>Размер</th>
                             <th>Коллекция</th>
                             <th>Всего</th>
                         </tr>
@@ -27,6 +28,7 @@
                             <td>{{ product.product_id }}</td>
                             <td>{{ product.quantity }}x</td>
                             <td>{{ product.price }} ₽</td>
+                            <td>{{ product.size }}</td>
                             <td>{{ getProductName(product.product_id) }}</td>
                             <td>{{ getCollectionName(getProductCollection(product.product_id)) }}</td>
                             <td>{{ getProductPrice(product.quantity, product.price) }} ₽</td>

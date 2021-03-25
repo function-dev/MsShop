@@ -8,6 +8,8 @@ use App\Repositories\CollectionRepository;
 
 class CollectionListController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *

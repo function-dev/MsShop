@@ -20,6 +20,22 @@ class QuantityRepository extends CoreRepository
         ])->save();
         return $this->startConditions()->orderby('id', 'desc')->first();
     }
+//, $changeableColumnName, $value
+    public function lineChangesByTooColumns($sortColumnName, $sortColumnValue, $sortColumnName2, $sortColumnValue2, $changeableColumnName, $value){
+        $a = 0;
+        $item = $this->startConditions()
+            ->where($sortColumnName, $sortColumnValue)
+            ->where($sortColumnName2, $sortColumnValue2)
+            ->get();
+        foreach ($item as $i){
+            $a = $i->$changeableColumnName - $value;
+            $i->update([
+                $changeableColumnName => $a
+            ]);
+        }
+
+    }
+
     public function updateQuantity($product_id, $data){
         foreach ($data as $item){
             if ($item['product_id'] == $product_id){

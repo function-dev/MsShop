@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Api\AdminApi;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Repositories\OrdersProductRepository;
+use App\Repositories\QuantityRepository;
 
 class OrdersProductController extends Controller
 {
+
+
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +37,7 @@ class OrdersProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, OrdersProductRepository $ordersProductRepository)
+    public function store(Request $request, OrdersProductRepository $ordersProductRepository, QuantityRepository $quantityRepository)
     {
         $validator = validator($request->all(),
             [
@@ -44,8 +47,10 @@ class OrdersProductController extends Controller
                 'price' => 'required',
             ]
         );
+
         if(!$validator->fails() ){
-            return $ordersProductRepository->addNewOrderProduct($request->order_id, $request->product_id, $request->quantity, $request->price);
+            $quantityRepository->lineChangesByTooColumns('product_id', $request->product_id, 'size', $request->size, 'quantity', $request->quantity);
+            return $ordersProductRepository->addNewOrderProduct($request->order_id, $request->product_id, $request->quantity, $request->price, $request->size);
         }
 
         return response()
