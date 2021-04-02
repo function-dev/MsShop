@@ -2007,7 +2007,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CartComponent",
   props: ['cart', 'allPrice', 'allQuantity'],
@@ -2042,6 +2041,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -2227,7 +2227,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var i = 0;
       var a = 0;
 
-      if (size.size == -1 || size.product != product.id) {
+      if (size.size === -1 || size.product !== product.id || this.quant < 1) {
         return;
       }
 
@@ -2498,8 +2498,79 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "OrderComponent.vue"
+  name: "OrderComponent.vue",
+  data: function data() {
+    return {
+      hostname: location.protocol + '//' + location.hostname + ':8000',
+      name: '',
+      surname: '',
+      patronymic: '',
+      tel: '',
+      mail: '',
+      address: '',
+      index: '',
+      comment: '',
+      orderId: null,
+      size: '',
+      errorCheck: null,
+      thanks: 0
+    };
+  },
+  props: ['cart', 'allPrice'],
+  methods: {
+    setOrder: function setOrder() {
+      var _this = this;
+
+      axios.post(this.hostname + '/api/ApiOrder', {
+        surname: this.surname,
+        name: this.name,
+        patronymic: this.patronymic,
+        tel: this.tel,
+        mail: this.mail,
+        address: this.address,
+        index: this.index,
+        comment: this.comment
+      }).then(function (data) {
+        return _this.setOrderProduct(data.data.id);
+      })["catch"](function (error) {
+        return _this.errorCheck = error;
+      });
+    },
+    setOrderProduct: function setOrderProduct(id) {
+      var _this2 = this;
+
+      this.$props.cart.forEach(function (e) {
+        axios.post(_this2.hostname + '/api/ApiOrdersProduct', {
+          order_id: id,
+          product_id: e.id,
+          quantity: e.quantity,
+          price: e.price,
+          size: e.size
+        });
+      });
+      this.orderId = id;
+      localStorage.clear();
+      this.thanks = 1;
+    },
+    refreshPage: function refreshPage() {
+      document.location = '/';
+    }
+  }
 });
 
 /***/ }),
@@ -2774,7 +2845,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       collectionId: 1,
       name: '',
       desc: '',
-      img: '',
+      image: '',
       price: 0,
       step: 1,
       attr: [{
@@ -2787,12 +2858,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }],
       collectionList: [],
       hostname: location.protocol + '//' + location.hostname + ':8000',
-      productId: null,
-      file: ''
+      productId: null
     };
   },
   props: {
+    token: {
+      type: String,
+      required: true
+    },
     route: {
+      type: String,
+      required: true
+    },
+    productimage: {
       type: String,
       required: true
     }
@@ -2844,7 +2922,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         collection_id: this.collectionId,
         name: this.name,
         desc: this.desc,
-        img: this.img,
+        img: this.image,
         price: parseInt(this.price)
       }).then(function (data) {
         return _this2.saveAttr(data.data.id);
@@ -2874,21 +2952,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
       document.location = this.hostname + '/admin/catalog';
     },
-    handleFileUpload: function handleFileUpload() {
-      this.file = this.$refs.file.files[0];
-      this.submitFile();
+    onFileChange: function onFileChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.createImage(files[0]);
     },
-    submitFile: function submitFile() {
-      var formData = new FormData();
-      formData.append('file', JSON.stringify(this.file));
-      axios.post(this.$props.route, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }).then(function () {
-        console.log('SUCCESS!!');
-      })["catch"](function () {
-        console.log('FAILURE!!');
+    createImage: function createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = function (e) {
+        vm.image = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+    },
+    uploadFile: function uploadFile() {
+      axios.post(this.hostname + '/testPhoto', {
+        image: this.image
       });
     }
   },
@@ -3239,7 +3321,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       collectionList: [],
       hostname: location.protocol + '//' + location.hostname + ':8000',
       productId: null,
-      step: 1
+      step: 1,
+      image: ''
     };
   },
   props: {
@@ -3300,7 +3383,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         collection_id: this.product[0].collection_id,
         name: this.product[0].name,
         desc: this.product[0].desc,
-        img: this.product[0].img,
+        img: this.image,
         price: this.product[0].price
       });
       this.saveAttr(id);
@@ -3318,6 +3401,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         arr: arr
       });
       document.location = this.hostname + '/admin/catalog';
+    },
+    onFileChange: function onFileChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) return;
+      this.createImage(files[0]);
+    },
+    createImage: function createImage(file) {
+      var image = new Image();
+      var reader = new FileReader();
+      var vm = this;
+
+      reader.onload = function (e) {
+        vm.image = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
     }
   },
   beforeMount: function beforeMount() {
@@ -3412,32 +3511,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "OrdersComponent",
   data: function data() {
     return {
-      orders: [{
-        id: 1,
-        date: '06.03.2021',
-        surname: 'Иванов',
-        name: 'Иван',
-        patronymic: 'Иванович',
-        tel: '+79991234567',
-        mail: 'mail@mail.ru',
-        address: 'Россия, г. Санкт-Петербург, ул. Пушкина, д. Колотушкина',
-        index: '123456',
-        comment: 'Тут типа такой комментарий крутой, вот да, а ещё тут буквы чтобы проверить насколько много букав можно писать и все будет видно хорошо.',
-        products: [{
-          product_id: 1,
-          quantity: 2,
-          price: 1200,
-          title: 'Футболка',
-          collection_id: 1
-        }]
-      }],
+      orders: [],
+      products: [],
       showProduct: undefined,
       hostname: location.protocol + '//' + location.hostname + ':8000',
-      collectionList: []
+      collectionList: [],
+      allProducts: []
     };
   },
   methods: {
@@ -3447,6 +3532,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       } else {
         this.showProduct = undefined;
       }
+
+      this.getProducts(id);
     },
     getCollectionList: function getCollectionList() {
       var _this = this;
@@ -3469,19 +3556,61 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       fullPrice = quantity * price;
       return fullPrice;
     },
-    getFullPrice: function getFullPrice(id) {
-      var order = this.orders.filter(function (order) {
-        return order.id === id;
-      });
+    getFullPrice: function getFullPrice() {
       var fullPrice = 0;
-      order[0].products.forEach(function (e) {
+      this.products.forEach(function (e) {
         fullPrice += e.price * e.quantity;
       });
       return fullPrice;
+    },
+    getOrder: function getOrder() {
+      var _this2 = this;
+
+      axios.get(this.hostname + '/api/ApiOrder').then(function (data) {
+        return _this2.orders = data.data;
+      });
+    },
+    getProducts: function getProducts(id) {
+      var _this3 = this;
+
+      axios.get(this.hostname + '/api/ApiOrdersProduct/' + id).then(function (data) {
+        return _this3.products = data.data;
+      });
+    },
+    getAllProducts: function getAllProducts() {
+      var _this4 = this;
+
+      return axios.get(this.hostname + '/api/products').then(function (data) {
+        return _this4.allProducts = data.data;
+      });
+    },
+    getProductName: function getProductName(id) {
+      var name;
+      this.allProducts.forEach(function (e) {
+        if (e.id == id) {
+          name = e.name;
+        }
+      });
+      return name;
+    },
+    getProductCollection: function getProductCollection(id) {
+      var name;
+      this.allProducts.forEach(function (e) {
+        if (e.id == id) {
+          name = e.collection_id;
+        }
+      });
+      return name;
+    },
+    formatDate: function formatDate(date) {
+      date = date.replace('Z', ' ');
+      date = date.replace('T', ' ');
+      date = date.slice(0, -8);
+      return date;
     }
   },
   beforeMount: function beforeMount() {
-    var _this2 = this;
+    var _this5 = this;
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -3489,9 +3618,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _this2.getCollectionList();
+              return _this5.getCollectionList();
 
             case 2:
+              _context.next = 4;
+              return _this5.getAllProducts();
+
+            case 4:
+              _context.next = 6;
+              return _this5.getOrder();
+
+            case 6:
             case "end":
               return _context.stop();
           }
@@ -8106,7 +8243,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.slidedown-enter-active {\n    transition-duration: 0.3s;\n    transition-timing-function: ease-in;\n}\n.slidedown-leave-active {\n    transition-duration: 0.3s;\n    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);\n}\n.slidedown-enter-to, .slide-leave {\n    max-height: 1000px;\n    overflow: hidden;\n}\n.slidedown-enter, .slide-leave-to {\n    overflow: hidden;\n    max-height: 0;\n}\n", ""]);
+exports.push([module.i, "\n.slidedown-enter-active {\r\n    transition-duration: 0.3s;\r\n    transition-timing-function: ease-in;\n}\n.slidedown-leave-active {\r\n    transition-duration: 0.3s;\r\n    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);\n}\n.slidedown-enter-to, .slide-leave {\r\n    max-height: 1000px;\r\n    overflow: hidden;\n}\n.slidedown-enter, .slide-leave-to {\r\n    overflow: hidden;\r\n    max-height: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -8125,7 +8262,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.slide-enter-active, .slide-leave-active {\n    transition: opacity .1s;\n}\n.slide-enter, .slide-leave-to {\n    opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.slide-enter-active, .slide-leave-active {\r\n    transition: opacity .1s;\n}\n.slide-enter, .slide-leave-to {\r\n    opacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -8144,7 +8281,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.slide-enter-active, .slide-leave-active {\n    transition: opacity .1s;\n}\n.slide-enter, .slide-leave-to /* .fade-leave-active до версии 2.1.8 */ {\n    opacity: 0;\n}\n", ""]);
+exports.push([module.i, "\n.slide-enter-active, .slide-leave-active {\r\n    transition: opacity .1s;\n}\n.slide-enter, .slide-leave-to /* .fade-leave-active до версии 2.1.8 */ {\r\n    opacity: 0;\n}\r\n", ""]);
 
 // exports
 
@@ -40827,7 +40964,7 @@ var render = function() {
                 _c("div", { staticClass: "cart__item-info" }, [
                   _c("img", {
                     staticClass: "cart__item-img",
-                    attrs: { src: item.img, alt: "product img" }
+                    attrs: { src: "storage/" + item.img, alt: "product img" }
                   }),
                   _vm._v(" "),
                   _c("p", { staticClass: "cart__item-title" }, [
@@ -40907,34 +41044,34 @@ var render = function() {
       _c(
         "transition",
         { attrs: { name: "slidedown" } },
-        [_vm.order === 1 ? _c("order-component") : _vm._e()],
+        [
+          _vm.cart.length !== 0 && _vm.order === 1
+            ? _c("order-component", {
+                attrs: { cart: _vm.cart, allPrice: _vm.$props.allPrice }
+              })
+            : _vm._e()
+        ],
         1
       ),
       _vm._v(" "),
-      _vm.cart.length != 0
+      _vm.cart.length !== 0 && _vm.order !== 1
         ? _c("div", { staticClass: "order" }, [
             _c("h3", { staticClass: "order-text" }, [
               _vm._v("Сумма заказа: " + _vm._s(_vm.$props.allPrice) + " ₽")
             ]),
             _vm._v(" "),
-            _vm.order === 0
-              ? _c(
-                  "button",
-                  {
-                    staticClass: "btn-black",
-                    on: {
-                      click: function($event) {
-                        _vm.order = 1
-                      }
-                    }
-                  },
-                  [_vm._v("Оформить")]
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.order === 1
-              ? _c("button", { staticClass: "btn-black" }, [_vm._v("Оформить")])
-              : _vm._e()
+            _c(
+              "button",
+              {
+                staticClass: "btn-black",
+                on: {
+                  click: function($event) {
+                    _vm.order = 1
+                  }
+                }
+              },
+              [_vm._v("Оформить")]
+            )
           ])
         : _vm._e()
     ],
@@ -41132,8 +41269,8 @@ var render = function() {
                             staticClass: "products__size-item",
                             class: {
                               active:
-                                _vm.sizeSelect.size == size.size &&
-                                _vm.sizeSelect.product == product.id
+                                _vm.sizeSelect.size === size.size &&
+                                _vm.sizeSelect.product === product.id
                             },
                             on: {
                               click: function($event) {
@@ -41159,9 +41296,15 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "products__info" }, [
-                      _vm.quant != 0 && _vm.sizeSelect.product == product.id
+                      _vm.quant > 0 && _vm.sizeSelect.product === product.id
                         ? _c("p", { staticClass: "products__info-quantity" }, [
                             _vm._v("В наличии: " + _vm._s(_vm.quant) + " шт.")
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.quant < 1 && _vm.sizeSelect.product === product.id
+                        ? _c("p", { staticClass: "products__info-quantity" }, [
+                            _vm._v("Нет в наличии")
                           ])
                         : _vm._e(),
                       _vm._v(" "),
@@ -41174,7 +41317,9 @@ var render = function() {
                         {
                           staticClass: "btn-black",
                           class: {
-                            disabled: _vm.sizeSelect.product != product.id
+                            disabled:
+                              (_vm.sizeSelect.product !== product.id) |
+                              (_vm.quant === 0)
                           },
                           on: {
                             click: function($event) {
@@ -41189,7 +41334,7 @@ var render = function() {
                   _vm._v(" "),
                   _c("img", {
                     staticClass: "products-body-img",
-                    attrs: { src: product.img }
+                    attrs: { src: "storage/" + product.img }
                   })
                 ])
               ])
@@ -41400,131 +41545,293 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { attrs: { id: "order" } }, [
-        _c("div", { staticClass: "order-form" }, [
-          _c("div", { staticClass: "order__group" }, [
-            _c(
-              "label",
-              { staticClass: "order__group-label", attrs: { for: "name" } },
-              [_vm._v("Имя*")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "order__group-input",
-              attrs: { type: "text", id: "name", placeholder: "Имя" }
-            })
-          ]),
+  return _c("div", [
+    _c("div", { attrs: { id: "order" } }, [
+      _c("div", { staticClass: "order-form" }, [
+        _c("div", { staticClass: "order__group" }, [
+          _c(
+            "label",
+            { staticClass: "order__group-label", attrs: { for: "name" } },
+            [_vm._v("Имя*")]
+          ),
           _vm._v(" "),
-          _c("div", { staticClass: "order__group" }, [
-            _c(
-              "label",
-              { staticClass: "order__group-label", attrs: { for: "surname" } },
-              [_vm._v("Фамилия")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "order__group-input",
-              attrs: { type: "text", id: "surname", placeholder: "Фамилия" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "order__group" }, [
-            _c(
-              "label",
+          _c("input", {
+            directives: [
               {
-                staticClass: "order__group-label",
-                attrs: { for: "patronymic" }
-              },
-              [_vm._v("Отчество")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "order__group-input",
-              attrs: { type: "text", id: "patronymic", placeholder: "Отчество" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "order__group" }, [
-            _c(
-              "label",
-              { staticClass: "order__group-label", attrs: { for: "phone" } },
-              [_vm._v("Номер телефона*")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "order__group-input",
-              attrs: { type: "tel", id: "phone", placeholder: "Номер телефона" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "order__group" }, [
-            _c(
-              "label",
-              { staticClass: "order__group-label", attrs: { for: "email" } },
-              [_vm._v("Электронная почта*")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "order__group-input",
-              attrs: { type: "email", id: "email", placeholder: "E-mail" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "order__group" }, [
-            _c(
-              "label",
-              { staticClass: "order__group-label", attrs: { for: "index" } },
-              [_vm._v("Почтовый индекс")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "order__group-input",
-              attrs: { type: "text", id: "index", placeholder: "Индекс" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "order__group" }, [
-            _c(
-              "label",
-              { staticClass: "order__group-label", attrs: { for: "address" } },
-              [_vm._v("Место проживания*")]
-            ),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "order__group-input",
-              attrs: { type: "text", id: "address", placeholder: "Адрес" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "order__group" }, [
-            _c(
-              "label",
-              { staticClass: "order__group-label", attrs: { for: "comment" } },
-              [_vm._v("Комментарий")]
-            ),
-            _vm._v(" "),
-            _c("textarea", {
-              staticClass: "order__group-input",
-              attrs: { type: "text", id: "comment", placeholder: "Комментарий" }
-            })
-          ])
+                name: "model",
+                rawName: "v-model",
+                value: _vm.name,
+                expression: "name"
+              }
+            ],
+            staticClass: "order__group-input",
+            attrs: { type: "text", id: "name", placeholder: "Имя" },
+            domProps: { value: _vm.name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.name = $event.target.value
+              }
+            }
+          })
         ]),
         _vm._v(" "),
-        _c("p", { staticClass: "order-comment" }, [
-          _vm._v("* - Обязательные поля ввода")
+        _c("div", { staticClass: "order__group" }, [
+          _c(
+            "label",
+            { staticClass: "order__group-label", attrs: { for: "surname" } },
+            [_vm._v("Фамилия")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.surname,
+                expression: "surname"
+              }
+            ],
+            staticClass: "order__group-input",
+            attrs: { type: "text", id: "surname", placeholder: "Фамилия" },
+            domProps: { value: _vm.surname },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.surname = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "order__group" }, [
+          _c(
+            "label",
+            { staticClass: "order__group-label", attrs: { for: "patronymic" } },
+            [_vm._v("Отчество")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.patronymic,
+                expression: "patronymic"
+              }
+            ],
+            staticClass: "order__group-input",
+            attrs: { type: "text", id: "patronymic", placeholder: "Отчество" },
+            domProps: { value: _vm.patronymic },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.patronymic = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "order__group" }, [
+          _c(
+            "label",
+            { staticClass: "order__group-label", attrs: { for: "phone" } },
+            [_vm._v("Номер телефона*")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.tel,
+                expression: "tel"
+              }
+            ],
+            staticClass: "order__group-input",
+            attrs: { type: "tel", id: "phone", placeholder: "Номер телефона" },
+            domProps: { value: _vm.tel },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.tel = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "order__group" }, [
+          _c(
+            "label",
+            { staticClass: "order__group-label", attrs: { for: "email" } },
+            [_vm._v("Электронная почта*")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.mail,
+                expression: "mail"
+              }
+            ],
+            staticClass: "order__group-input",
+            attrs: { type: "email", id: "email", placeholder: "E-mail" },
+            domProps: { value: _vm.mail },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.mail = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "order__group" }, [
+          _c(
+            "label",
+            { staticClass: "order__group-label", attrs: { for: "index" } },
+            [_vm._v("Почтовый индекс")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.index,
+                expression: "index"
+              }
+            ],
+            staticClass: "order__group-input",
+            attrs: { type: "text", id: "index", placeholder: "Индекс" },
+            domProps: { value: _vm.index },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.index = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "order__group" }, [
+          _c(
+            "label",
+            { staticClass: "order__group-label", attrs: { for: "address" } },
+            [_vm._v("Место проживания*")]
+          ),
+          _vm._v(" "),
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.address,
+                expression: "address"
+              }
+            ],
+            staticClass: "order__group-input",
+            attrs: { type: "text", id: "address", placeholder: "Адрес" },
+            domProps: { value: _vm.address },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.address = $event.target.value
+              }
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "order__group" }, [
+          _c(
+            "label",
+            { staticClass: "order__group-label", attrs: { for: "comment" } },
+            [_vm._v("Комментарий")]
+          ),
+          _vm._v(" "),
+          _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.comment,
+                expression: "comment"
+              }
+            ],
+            staticClass: "order__group-input",
+            attrs: { type: "text", id: "comment", placeholder: "Комментарий" },
+            domProps: { value: _vm.comment },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.comment = $event.target.value
+              }
+            }
+          })
         ])
+      ]),
+      _vm._v(" "),
+      _c("p", { staticClass: "order-comment" }, [
+        _vm._v("* - Обязательные поля ввода")
       ])
-    ])
-  }
-]
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "order" }, [
+      _c("h3", { staticClass: "order-text" }, [
+        _vm._v("Сумма заказа: " + _vm._s(_vm.$props.allPrice) + " ₽")
+      ]),
+      _vm._v(" "),
+      _vm.errorCheck !== null
+        ? _c("h3", { staticClass: "order-error" }, [
+            _vm._v("Не заполнены обязательные поля")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn-black", on: { click: _vm.setOrder } }, [
+        _vm._v("Заказать")
+      ])
+    ]),
+    _vm._v(" "),
+    _vm.thanks === 1
+      ? _c("div", { staticClass: "popup-thanks" }, [
+          _c("div", { staticClass: "popup-body" }, [
+            _c("h3", { staticClass: "popup-title" }, [
+              _vm._v("Спасибо за Ваш заказ!")
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "popup-text" }, [
+              _vm._v("Номер вашего заказа: " + _vm._s(_vm.orderId))
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              { staticClass: "btn-black", on: { click: _vm.refreshPage } },
+              [_vm._v("Закрыть")]
+            )
+          ])
+        ])
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -41957,16 +42264,12 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
-            _c("label", { staticClass: "form-label", attrs: { for: "file" } }, [
-              _vm._v("Изображение")
-            ]),
-            _vm._v(" "),
             _c("input", {
-              ref: "file",
-              staticClass: "form-input",
-              attrs: { type: "file", id: "file" },
-              on: { change: _vm.handleFileUpload }
-            })
+              attrs: { type: "file" },
+              on: { change: _vm.onFileChange }
+            }),
+            _vm._v(" "),
+            _c("img", { staticClass: "form-img", attrs: { src: _vm.image } })
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
@@ -42652,31 +42955,12 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
-            _c("label", { staticClass: "form-label", attrs: { for: "img" } }, [
-              _vm._v("Изображение")
-            ]),
-            _vm._v(" "),
             _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.product[0].img,
-                  expression: "product[0].img"
-                }
-              ],
-              staticClass: "form-input",
-              attrs: { type: "text", name: "img", id: "img" },
-              domProps: { value: _vm.product[0].img },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.product[0], "img", $event.target.value)
-                }
-              }
-            })
+              attrs: { type: "file" },
+              on: { change: _vm.onFileChange }
+            }),
+            _vm._v(" "),
+            _c("img", { attrs: { src: _vm.image } })
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group" }, [
@@ -43043,7 +43327,7 @@ var render = function() {
             _vm._v(" "),
             _c("p", { staticClass: "orders__item-date" }, [
               _c("span", { staticClass: "bold" }, [_vm._v("Дата заказа: ")]),
-              _vm._v(_vm._s(order.date))
+              _vm._v(_vm._s(_vm.formatDate(order.created_at)))
             ]),
             _vm._v(" "),
             _c("p", { staticClass: "orders__item-name" }, [
@@ -43099,7 +43383,7 @@ var render = function() {
                   [
                     _vm._m(0, true),
                     _vm._v(" "),
-                    _vm._l(order.products, function(product) {
+                    _vm._l(_vm.products, function(product) {
                       return _c("tr", [
                         _c("td", [_vm._v(_vm._s(product.product_id))]),
                         _vm._v(" "),
@@ -43107,11 +43391,19 @@ var render = function() {
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(product.price) + " ₽")]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(product.title))]),
+                        _c("td", [_vm._v(_vm._s(product.size))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(_vm._s(_vm.getProductName(product.product_id)))
+                        ]),
                         _vm._v(" "),
                         _c("td", [
                           _vm._v(
-                            _vm._s(_vm.getCollectionName(product.collection_id))
+                            _vm._s(
+                              _vm.getCollectionName(
+                                _vm.getProductCollection(product.product_id)
+                              )
+                            )
                           )
                         ]),
                         _vm._v(" "),
@@ -43167,6 +43459,8 @@ var staticRenderFns = [
       _c("th", [_vm._v("Цена за шт.")]),
       _vm._v(" "),
       _c("th", [_vm._v("Название")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Размер")]),
       _vm._v(" "),
       _c("th", [_vm._v("Коллекция")]),
       _vm._v(" "),
@@ -43257,7 +43551,10 @@ var render = function() {
                 _c("td", [
                   _c("img", {
                     staticClass: "product-img",
-                    attrs: { src: "../" + product.img, alt: product.name }
+                    attrs: {
+                      src: "../storage/" + product.img,
+                      alt: product.name
+                    }
                   })
                 ]),
                 _vm._v(" "),
@@ -56700,9 +56997,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! F:\MsShop2\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! F:\MsShop2\resources\sass\site.scss */"./resources/sass/site.scss");
-module.exports = __webpack_require__(/*! F:\MsShop2\resources\sass\admin.scss */"./resources/sass/admin.scss");
+__webpack_require__(/*! D:\OpenServer\domains\msshop\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! D:\OpenServer\domains\msshop\resources\sass\site.scss */"./resources/sass/site.scss");
+module.exports = __webpack_require__(/*! D:\OpenServer\domains\msshop\resources\sass\admin.scss */"./resources/sass/admin.scss");
 
 
 /***/ })
