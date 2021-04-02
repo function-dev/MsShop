@@ -57,7 +57,7 @@ export default {
             orders: [],
             products: [],
             showProduct: undefined,
-            hostname: location.protocol + '//' + location.hostname + ':8000',
+            hostname: location.protocol + '//' + location.hostname,
             collectionList:[],
             allProducts: [],
         }

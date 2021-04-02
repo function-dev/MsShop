@@ -28,7 +28,7 @@ export default {
 
     data() {
         return {
-            hostname: location.protocol + '//' + location.hostname + ':8000',
+            hostname: location.protocol + '//' + location.hostname,
             collectionList:[],
         }
     },

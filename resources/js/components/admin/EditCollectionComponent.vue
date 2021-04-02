@@ -20,7 +20,7 @@ export default {
     data(){
         return{
             name: null,
-            hostname: location.protocol + '//' + location.hostname + ':8000',
+            hostname: location.protocol + '//' + location.hostname,
         }
     },
 

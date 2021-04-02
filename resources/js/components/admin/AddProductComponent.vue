@@ -134,7 +134,7 @@ export default {
                 },
             ],
             collectionList:[],
-            hostname: location.protocol + '//' + location.hostname + ':8000',
+            hostname: location.protocol + '//' + location.hostname,
             productId: null,
         }
     },

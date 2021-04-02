@@ -75,7 +75,7 @@ export default {
             outside: 0,
             catalogArr: [],
             collectionList:[],
-            hostname: location.protocol + '//' + location.hostname + ':8000',
+            hostname: location.protocol + '//' + location.hostname,
             sizeSelect: {
                 product: -1,
                 size: -1,

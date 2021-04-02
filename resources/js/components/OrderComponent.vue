@@ -60,7 +60,7 @@ export default {
 
     data() {
         return {
-            hostname: location.protocol + '//' + location.hostname + ':8000',
+            hostname: location.protocol + '//' + location.hostname,
             name: null,
             surname: '',
             patronymic: '',
@@ -92,13 +92,13 @@ export default {
                     amount: this.$props.allPrice,
                     currency:'RUB',
                     description: 'Покупка товаров'},
-                function(order) { setOrder() },
+                function(order) { showSuccessfulPurchase(order) },
                 function(order) { showFailurefulPurchase(order) }
             )
         },
 
 
-        setOrder(){
+        showSuccessfulPurchase(){
             axios
                 .post(this.hostname + '/api/ApiOrder', {
                     surname: this.surname,
